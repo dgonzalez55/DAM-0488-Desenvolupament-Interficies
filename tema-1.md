@@ -154,7 +154,7 @@ En aquest curs adoptarem una arquitectura basada en 3 capes:
 
 Aquesta separació ens permet entendre patrons de disseny com **MVC, MVP i MVVM**, però **sense requerir implementar-los formalment en aquest tema**.&#x20;
 
-<figure><img src=".gitbook/assets/MVPvsMVVM.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/MVPvsMVVM.jpg" alt=""><figcaption></figcaption></figure>
 
 Durant el projecte <mark style="color:violet;">**BotEscola Desktop**</mark> adoptarem una organització basada en el principis del [**MVP (Model-Vista-Presentador)**](https://es.wikipedia.org/wiki/Modelo%E2%80%93vista%E2%80%93presentador)**.**
 
