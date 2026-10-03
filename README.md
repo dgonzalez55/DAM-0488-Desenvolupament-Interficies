@@ -1,4 +1,0 @@
-# Autoria
-
-David González Roldán
-
