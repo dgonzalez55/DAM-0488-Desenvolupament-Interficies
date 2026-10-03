@@ -154,7 +154,7 @@ En aquest curs adoptarem una arquitectura basada en 3 capes:
 
 Aquesta separació ens permet entendre patrons de disseny com **MVC, MVP i MVVM**, però **sense requerir implementar-los formalment en aquest tema**.&#x20;
 
-<figure><img src=".gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/MVPvsMVVM.png" alt=""><figcaption></figcaption></figure>
 
 Durant el projecte <mark style="color:violet;">**BotEscola Desktop**</mark> adoptarem una organització basada en el principis del [**MVP (Model-Vista-Presentador)**](https://es.wikipedia.org/wiki/Modelo%E2%80%93vista%E2%80%93presentador)**.**
 
@@ -242,15 +242,15 @@ Treballarem especialment les 7 primeres:
 9. **Flexibilitat i Eficiència d'ús:** Interfície adaptada a usuaris bàsics i a avançats.
 10. **Ajuda i Documentació**: la interfície cal que proporcioni ajuda i suport pels diferents tipus d'usuaris.
 
-<div><figure><img src=".gitbook/assets/image (1).png" alt="" width="266"><figcaption><p><strong>1.Visibilitat de l'estat del sistema</strong></p></figcaption></figure> <figure><img src=".gitbook/assets/image (2).png" alt="" width="284"><figcaption><p><strong>2.Correspondència amb el món real</strong></p></figcaption></figure></div>
+<div><figure><img src=".gitbook/assets/nielsen1.png" alt="" width="266"><figcaption><p><strong>1.Visibilitat de l'estat del sistema</strong></p></figcaption></figure> <figure><img src=".gitbook/assets/nielsen2.png" alt="" width="284"><figcaption><p><strong>2.Correspondència amb el món real</strong></p></figcaption></figure></div>
 
-<div><figure><img src=".gitbook/assets/image (3).png" alt="" width="375"><figcaption><p><strong>3.Control i llibertat de l'usuari</strong></p></figcaption></figure> <figure><img src=".gitbook/assets/image (4).png" alt="" width="348"><figcaption><p><strong>4</strong>.<strong>Consistència i estàndards</strong></p></figcaption></figure></div>
+<div><figure><img src=".gitbook/assets/nielsen3.png" alt="" width="375"><figcaption><p><strong>3.Control i llibertat de l'usuari</strong></p></figcaption></figure> <figure><img src=".gitbook/assets/nielsen4.png" alt="" width="348"><figcaption><p><strong>4</strong>.<strong>Consistència i estàndards</strong></p></figcaption></figure></div>
 
-<div><figure><img src=".gitbook/assets/image (5).png" alt="" width="242"><figcaption><p><strong>5.Prevenció d'errors</strong></p></figcaption></figure> <figure><img src=".gitbook/assets/image (6).png" alt="" width="335"><figcaption><p><strong>6.Reconeixement enlloc de record</strong></p></figcaption></figure></div>
+<div><figure><img src=".gitbook/assets/nielsen5.png" alt="" width="242"><figcaption><p><strong>5.Prevenció d'errors</strong></p></figcaption></figure> <figure><img src=".gitbook/assets/nielsen6.png" alt="" width="335"><figcaption><p><strong>6.Reconeixement enlloc de record</strong></p></figcaption></figure></div>
 
-<div><figure><img src=".gitbook/assets/image (7).png" alt="" width="297"><figcaption><p><strong>7.Identificació d'errors</strong></p></figcaption></figure> <figure><img src=".gitbook/assets/image (8).png" alt="" width="349"><figcaption><p><strong>8.Disseny estètic i minimalista</strong></p></figcaption></figure></div>
+<div><figure><img src=".gitbook/assets/nielsen7.png" alt="" width="297"><figcaption><p><strong>7.Identificació d'errors</strong></p></figcaption></figure> <figure><img src=".gitbook/assets/nielsen8.png" alt="" width="349"><figcaption><p><strong>8.Disseny estètic i minimalista</strong></p></figcaption></figure></div>
 
-<div><figure><img src=".gitbook/assets/image (9).png" alt="" width="264"><figcaption><p><strong>9.Flexibilitat i Eficiència d'ús</strong></p></figcaption></figure> <figure><img src=".gitbook/assets/image (10).png" alt="" width="356"><figcaption><p><strong>10.Ajuda i Documentació</strong></p></figcaption></figure></div>
+<div><figure><img src=".gitbook/assets/nielsen9.png" alt="" width="264"><figcaption><p><strong>9.Flexibilitat i Eficiència d'ús</strong></p></figcaption></figure> <figure><img src=".gitbook/assets/nielsen10.png" alt="" width="356"><figcaption><p><strong>10.Ajuda i Documentació</strong></p></figcaption></figure></div>
 
 L'**accessibilitat** per altra banda, garanteix que persones amb diferents capacitats (visuals, auditives, motrius o cognitives) puguin emprar l'eina.&#x20;
 
