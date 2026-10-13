@@ -6,9 +6,9 @@
 * **Curs:** 1r CFGS de Desenvolupament d'Aplicacions Multiplataforma (DAM)
 * **Tema:** 2. Arquitectura de Components
 * **Durada presencial:** 12 hores
-* **RA treballats:** RA3 (complet) i RA8 (parcialment: CA 8.1 i 8.7)
-* **Prerequisits:** Qt Designer i bucle d'esdeveniments (Tema 1), **POO bàsica de Python** i ús bàsic de Git. Si aquesta base no és sòlida, completar abans `00_Reforç_POO_Python_per_PySide6.md`; no es pressuposa experiència prèvia creant classes Qt.
-* **Projecte transversal:** **BotEscola Desktop**. Al Tema 1 el llistat de notificacions només mostra text. En aquest tema construïm dos components propis i reutilitzables: un `SelectorPrioritat` (exemple guiat) i una `TargetaNotificacio` (PAC 2) que mostra remitent, assumpte, data i estat de cada notificació. Els components es proven amb proves unitàries automàtiques, es documenten, s'empaqueten i s'integren a la finestra principal de BotEscola.
+* **RA treballats:** RA3
+* **Prerequisits:** Ús bàsic de Qt Widgets Designer i compensió del bucle d'esdeveniments (Tema 1), **POO bàsica a Python** i ús bàsic de Git. Si aquesta base no és sòlida, caldrà treballar els materials de reforç; no es pressuposa experiència prèvia creant classes Qt.
+* **Projecte transversal:** <mark style="color:violet;">**BotEscola Desktop**</mark>. En aquest tema construïm dos components propis i reutilitzables: un `SelectorPrioritat` (exemple guiat) i una `TargetaNotificacio` (PAC 2) que mostrarà el remitent, assumpte, data i estat de cada notificació. Els components es proven amb proves unitàries automàtiques, es documenten, s'empaqueten i s'integren a la finestra principal de l'aplicatiu BotEscola Desktop.
 
 ### Criteris d'avaluació treballats
 
@@ -33,73 +33,58 @@
 * 3.6 Prova dels components.
 * 3.7 Empaquetat de components.
 
-#### RA8. Avalua el funcionament d'aplicacions dissenyant i executant proves.
-
-* CA 8.1: Estableix una estratègia de proves.
-* CA 8.2: Fa proves d'integració dels diferents elements.
-* CA 8.3: Fa proves de regressió.
-* CA 8.4: Realitza proves de volum i estrès.
-* CA 8.5: Realitza proves de seguretat.
-* CA 8.6: Fa proves d'ús de recursos per part de l'aplicació.
-* CA 8.7: Documenta l'estratègia de proves i els resultats obtinguts.
-
-#### Continguts Orientatius
-
-* 8.1 Objectiu, importància i limitacions del procés de prova. Estratègies.
-* 8.2 Proves d'integració: ascendents i descendents.
-* 8.3 Proves de sistema: configuració, recuperació, entre altres.
-* 8.4 Proves d'ús de recursos.
-* 8.5 Proves de seguretat.
-* 8.6 Proves manuals i automàtiques. Eines de programari per a la realització de proves.
-
-> **Abast del tema:** els CA 8.2 a 8.6 (integració, regressió, volum i estrès, seguretat i ús de recursos) no es treballen en aquest tema, sinó que es veuran durant el Tema 5. Els criteris de disseny visual, usabilitat i accessibilitat (RA4) i l'ús d'editors visuals (RA1) treballats en el Tema 1 es mantenen, però sense convertir-los en pràctica d'avaluació d'aquest tema.
-
 ## 2. Introducció
 
 En el desenvolupament de programari professional, la regla d'or és el principi **DRY** (_Don't Repeat Yourself_). Quan dissenyem aplicacions, és freqüent trobar conjunts d'elements visuals que funcionen com una única entitat lògica. Per exemple, un selector de color (amb els seus botons i un quadre de previsualització) o una targeta d'usuari (amb foto, nom i botó d'editar).
 
 Copiar i enganxar aquests conjunts de controls múltiples vegades és un error arquitectònic greu: si el client demana canviar el disseny, hauràs d'anar pantalla per pantalla aplicant el canvi. La solució és **crear els nostres propis components**.
 
-En aquest tema aprendrem a heretar de les classes base de Qt per construir components complexos. Definirem les seves propietats, crearem els nostres propis senyals (Custom Signals) i ens assegurarem que no es trenquen davant de futurs canvis escrivint **proves unitàries** específiques per a interfícies gràfiques, un pas crític en qualsevol entorn de producció seriós. Finalment, veurem com integrar aquests components creats amb codi dins del nostre estimat editor visual, Qt Designer, gràcies a la "promoció de widgets".
+En aquest tema aprendrem a heretar de les classes base de Qt per construir components complexos. Definirem les seves propietats, crearem els nostres propis senyals (_Custom Signals_) i ens assegurarem que no es trenquen davant de futurs canvis escrivint **proves unitàries** específiques per a interfícies gràfiques, un pas crític en qualsevol entorn de producció seriós. Finalment, veurem com integrar aquests components creats amb codi dins del nostre estimat editor visual, Qt Widgets Designer, gràcies a la "promoció de widgets".
 
-En acabat el tema, continuarem treballant en el projecte transversal **BotEscola Desktop** i crearem un component de targeta de notificació que encapsuli remitent, assumpte, data i estat, amb un botó per marcar com a llegit. Aquest component serà reutilitzable i provat automàticament amb proves unitàries. Amb això no només aconseguirem un codi més net i modular, sinó que també ens acostarem a les pràctiques professionals de desenvolupament d'interfícies gràfiques.
+En acabat el tema, continuarem treballant en el projecte transversal <mark style="color:violet;">**BotEscola Desktop**</mark> i crearem un component de targeta de notificació que encapsuli remitent, assumpte, data i estat, amb un botó per marcar com a llegit. Aquest component serà reutilitzable i provat automàticament amb proves unitàries. Amb això no només aconseguirem un codi més net i modular, sinó que també ens acostarem a les pràctiques professionals de desenvolupament d'interfícies gràfiques.
 
 ## 3. Objectius didàctics
 
 En acabar el tema, l'alumne serà capaç de:
 
-1. Comparar les eines per crear i provar components (subclasse en codi, widget promocionat, plugin de Designer, `QUiLoader`, `pytest-qt`, `unittest` amb `QTest`) i justificar l'elecció en un escenari concret. _(CA 3.1)_
-2. Crear un component visual com a subclasse de `QWidget`, amb layouts interns i sense fitxer `.ui`. _(CA 3.2)_
-3. Definir les propietats i els mètodes públics d'un component amb valors per defecte, validant els valors no admissibles, i desar-ne i restaurar-ne l'estat amb `to_dict()` i `from_dict()`. _(CA 3.3)_
-4. Determinar els esdeveniments a què ha de respondre un component, definir els senyals propis que emet i associar-hi les accions corresponents. _(CA 3.4)_
-5. Escriure i executar proves unitàries amb `pytest` i `pytest-qt` que verifiquin valors inicials, interacció simulada, senyals emesos i entrades no vàlides. _(CA 3.5)_
-6. Documentar un component amb docstrings i amb una fitxa que descrigui la seva interfície pública. _(CA 3.6)_
-7. Organitzar components en un paquet Python i generar-ne una distribució (`wheel`) que es pugui instal·lar en un altre entorn. _(CA 3.7)_
-8. Utilitzar els components en una aplicació, per codi i com a widget promocionat a Qt Designer, regenerant el mòdul amb `pyside6-uic`. _(CA 3.8)_
-9. Definir una estratègia de proves per a un component i documentar-ne els resultats amb la comanda, la sortida, les versions i les incidències. _(CA 8.1 i 8.7)_
+1. Comparar les eines per crear i provar components (subclasse en codi, widget promocionat, plugin de Designer, `QUiLoader`, `pytest-qt`, `unittest` amb `QTest`) i justificar l'elecció en un escenari concret.
+2. Crear un component visual com a subclasse de `QWidget`, amb layouts interns i sense fitxer `.ui`.&#x20;
+3. Definir les propietats i els mètodes públics d'un component amb valors per defecte, validant els valors no admissibles, i desar-ne i restaurar-ne l'estat amb `to_dict()` i `from_dict()`.
+4. Determinar els esdeveniments a què ha de respondre un component, definir els senyals propis que emet i associar-hi les accions corresponents.
+5. Escriure i executar proves unitàries amb `pytest` i `pytest-qt` que verifiquin valors inicials, interacció simulada, senyals emesos i entrades no vàlides.
+6. Documentar un component amb docstrings i amb una fitxa que descrigui la seva interfície pública.
+7. Organitzar components en un paquet Python i generar-ne una distribució (`wheel`) que es pugui instal·lar en un altre entorn.
+8. Utilitzar els components en una aplicació, per codi i com a widget promocionat a Qt Designer, regenerant el mòdul amb `pyside6-uic`.
+9. Definir una estratègia de proves per a un component i documentar-ne els resultats amb la comanda, la sortida, les versions i les incidències.
 
 ## 4. Mapa conceptual
 
 ```mermaid
-graph TD
-    A[QWidget o widget base] -->|herència| B(Component propi)
-    B --> C[Propietats i valors per defecte]
-    B --> D[Mètodes públics]
-    B --> E[Senyals propis]
-    B --> F[Estat: to_dict i from_dict]
-    B --> G[Paquet Python components]
-    G -->|import| H[botescola_app.py - Presentador]
-    G -->|python -m build| I[Distribució wheel]
-    B -->|es prova amb| J[pytest i pytest-qt]
-    J --> K[Estratègia i resultats de proves]
-    L[Qt Designer] -->|widget promocionat| M[Fitxer .ui]
-    M -->|pyside6-uic| N[ui_*.py generat]
-    N -->|import| G
+flowchart TD
+    T2["<b>Tema 2</b><br/>Arquitectura de Components"]
+
+    T2 --> COMP["Component<br/>Estat + comportament encapsulats<br/>Herència (és un QWidget) i composició (té altres widgets)"]
+    T2 --> API["Interfície pública<br/>Propietats validades, senyals, mètodes<br/>Senyal ≠ esdeveniment"]
+    T2 --> INTEG["Integració a Designer<br/>Widget promocionat<br/>.ui → pyside6-uic → import"]
+    T2 --> QUA["Qualitat i distribució<br/>Proves amb pytest-qt<br/>Paquet amb pyproject.toml"]
+
+    COMP --> EX["Components del curs<br/>SelectorPrioritat · TargetaNotificacio<br/>InterruptorEstat · ComptadorPendents"]
+    API --> EX
+    EX --> INTEG
+    EX --> QUA
+
+    INTEG --> PAC["PAC 2<br/>BotEscola amb components reutilitzables"]
+    QUA --> PAC
+
+    classDef central fill:#2563EB,color:#FFFFFF,stroke:#000000,stroke-width:2px
+    classDef final fill:#DDE3EA,color:#1F2933,stroke:#52606D
+    class T2 central
+    class PAC final
 ```
 
 ## 5. Conceptes fonamentals
 
-### 5.0. Pont de POO: què necessitem per entendre un component
+### 5.0. Què necessitem per entendre un component ?
 
 Abans de crear un component propi, hem de poder llegir una classe Python com aquesta:
 
@@ -108,6 +93,9 @@ class SelectorPrioritat(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self._prioritat = "Normal"
+        self._grup = QButtonGroup(self)  # composició: el component té un QButtonGroup
+        self._boto_alta = QPushButton("Alta", self)   # ...i un QPushButton
+        self._grup.addButton(self._boto_alta)
 
     def reiniciar(self):
         self._prioritat = "Normal"
@@ -115,23 +103,19 @@ class SelectorPrioritat(QWidget):
 
 Per entendre-la només necessitem:
 
-| Concepte                   | En aquest tema                                                                                                |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| **Classe**                 | La plantilla del component (`SelectorPrioritat`).                                                             |
-| **Instància**              | Un objecte concret creat amb `SelectorPrioritat()`.                                                           |
-| **`self`**                 | Referència a la instància actual.                                                                             |
-| **Constructor `__init__`** | Inicialitza l'objecte.                                                                                        |
-| **Atribut**                | Dada que conserva l'estat, com `self._prioritat`.                                                             |
-| **Mètode**                 | Operació que pot fer l'objecte, com `reiniciar()`.                                                            |
-| **Herència**               | `SelectorPrioritat(QWidget)` reutilitza el comportament de `QWidget`.                                         |
-| **`super()`**              | Permet inicialitzar la part heretada de `QWidget`.                                                            |
-| **Composició**             | El component conté altres objectes Qt, com `QPushButton` i `QButtonGroup`.                                    |
-| **Atribut de classe**      | Dada compartida per totes les instàncies, com la constant `NIVELLS`.                                          |
-| **`@classmethod`**         | Mètode que rep la classe (`cls`) en lloc de la instància (`self`); s'utilitza a `_validar()` i `from_dict()`. |
-| **Excepcions**             | `raise ValueError(...)` per rebutjar un valor no admès; `isinstance(...)` per comprovar un tipus.             |
-| **`lambda`**               | Funció anònima curta; apareix a l'exercici C.                                                                 |
+| Concepte                   | En aquest tema                                                             |
+| -------------------------- | -------------------------------------------------------------------------- |
+| **Classe**                 | La plantilla del component `SelectorPrioritat`.                            |
+| **Instància**              | Un objecte concret creat amb `SelectorPrioritat()`.                        |
+| **`self`**                 | Referència a la instància actual.                                          |
+| **Constructor `__init__`** | Inicialitza l'objecte.                                                     |
+| **Atribut**                | Dada que conserva l'estat, com `self._prioritat`.                          |
+| **Mètode**                 | Operació que pot fer l'objecte, com `reiniciar()`.                         |
+| **Herència**               | `SelectorPrioritat(QWidget)` reutilitza el comportament de `QWidget`.      |
+| **`super()`**              | Permet inicialitzar la part heretada de `QWidget`.                         |
+| **Composició**             | El component conté altres objectes Qt, com `QPushButton` i `QButtonGroup`. |
 
-> **Regla didàctica:** si una línia de l'exemple guiat pressuposa un concepte de POO que no apareix aquí, consulta el document de reforç abans de memoritzar la sintaxi.
+> **Regla didàctica:** si una línia de l'exemple guiat pressuposa un concepte de POO que no apareix aquí, consulta el document de reforç abans de memoritzar-ne la sintaxi.
 
 ### 5.1. Concepte de component visual
 
@@ -141,11 +125,11 @@ Un component pot ser des d'un simple botó fins a un reproductor de vídeo compl
 
 Segons com es construeix, es distingeixen tres tipus de component:
 
-| Tipus                       | Com es crea                                                | Exemple a BotEscola                                    | Quan és adequat                                      |
-| --------------------------- | ---------------------------------------------------------- | ------------------------------------------------------ | ---------------------------------------------------- |
-| **Widget compost**          | Subclasse de `QWidget` amb un layout i widgets interns     | `SelectorPrioritat`, `TargetaNotificacio`              | Agrupar controls existents amb un comportament propi |
-| **Widget especialitzat**    | Subclasse d'un widget concret (`QLineEdit`, `QPushButton`) | Camp de text que només accepta un número de port vàlid | Modificar el comportament d'un únic control          |
-| **Widget amb pintat propi** | Subclasse que sobreescriu `paintEvent`                     | Indicador gràfic dibuixat a mà (ampliació)             | Aspecte que no es pot construir combinant widgets    |
+| Tipus                         | Com es crea                                                | Exemples que treballarem                               | Quan és adequat                                          |
+| ----------------------------- | ---------------------------------------------------------- | ------------------------------------------------------ | -------------------------------------------------------- |
+| **Widget compost**            | Subclasse de `QWidget` amb un layout i widgets interns     | `SelectorPrioritat`, `TargetaNotificacio`              | Agrupar controls existents amb un comportament propi     |
+| **Widget especialitzat**      | Subclasse d'un widget concret (`QLineEdit`, `QPushButton`) | Camp de text que només accepta un número de port vàlid | Modificar el comportament d'un únic control              |
+| **Widget amb dibuixat propi** | Subclasse que sobreescriu `paintEvent`                     | Indicador gràfic dibuixat a mà (ampliació)             | Aspecte visual que no es pot construir combinant widgets |
 
 En aquest tema treballarem sobretot amb **widgets compostos**.
 
@@ -153,7 +137,7 @@ En aquest tema treballarem sobretot amb **widgets compostos**.
 
 La **interfície pública** d'un component és el conjunt d'elements que l'exterior pot utilitzar: el constructor, les propietats, els mètodes i els senyals. Tot el que no forma part d'aquesta interfície (per exemple, els botons interns) es considera privat i, per convenció en Python, el nom comença per `_`.
 
-En parlar de propietats convé distingir tres significats, perquè en Qt convivim amb tots tres:
+En parlar de propietats convé distingir-ne tres significats, perquè a Qt convivim amb tots tres:
 
 | Concepte                | Què és                                                                                                          | Exemple                             |
 | ----------------------- | --------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
@@ -167,7 +151,7 @@ Un component ha de tenir sempre un **estat inicial vàlid**, encara que qui l'ut
 
 ### 5.3. Esdeveniments i senyals propis
 
-En Qt hi ha dos mecanismes que sovint es confonen:
+A Qt hi ha dos mecanismes que sovint es confonen:
 
 |                        | Senyal (`Signal`)                                           | Esdeveniment (`QEvent`)                                                                                               |
 | ---------------------- | ----------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
@@ -255,19 +239,19 @@ Escollir l'eina de desenvolupament concreta depèn de qui utilitzarà el compone
 
 Un component ha de garantir que sempre funciona igual. En comptes de provar-ho manualment prement botons a mà cada vegada que fem un canvi de codi, escriurem **proves unitàries** automatitzades.
 
-Per a BotEscola utilitzarem **`pytest`** (el framework de proves molt utilitzat en Python) i **`pytest-qt`** (un connector que ens permet instanciar finestres sense bloquejar el sistema i disposa de l'eina `qtbot` per simular que un ratolí fa clic virtualment sobre el nostre component). També empaquetarem els components amb **`setuptools`** i els distribuirem com a **paquet Python**. La decisió obeeix a la necessitat de mantenir un flux coherent amb el Tema 1, sense haver d'instal·lar res a Designer i amb la possibilitat d'automatitzar les proves.
+Per a BotEscola utilitzarem **`pytest`** (un framework de proves molt utilitzat a Python) i **`pytest-qt`** (un connector que ens permet instanciar finestres sense bloquejar el sistema i disposa de l'eina `qtbot` per simular que un ratolí fa clic virtualment sobre el nostre component). També empaquetarem els components amb **`setuptools`** i els distribuirem com a **paquet Python**. La decisió obeeix a la necessitat de mantenir un flux coherent amb el Tema 1, sense haver d'instal·lar res a Designer i amb la possibilitat d'automatitzar les proves.
 
 ### 5.7. Widgets promocionats
 
 Un component escrit en Python no apareix a la paleta de Qt Designer. Per situar-lo en un formulari s'utilitza la **promoció de widgets**:
 
 1. A la finestra/formulari que estem dissenyant dins de Qt s'afegeix un `Widget` (de tipus `QWidget`) al lloc on ha d'anar el component, fent de _placeholder_.
-2. Amb el botó dret, _Promote to…_ (Promocionar a…; Designer mostra els textos en anglès), s'indica el nom de la classe i el **mòdul Python** on es troba.
+2. Amb el botó dret, _Promocionar a…_, s'indica el nom de la classe i el **mòdul Python** on es troba.
 3. `pyside6-uic` afegeix al fitxer generat l'`import` del component i el crearà enlloc del widget base.
 
 La promoció és una instrucció perquè el codi generat instanciï la classe pròpia en lloc del widget base. És diferent de carregar un `.ui` dinàmicament amb `QUiLoader`, on el widget personalitzat s'ha de registrar amb el loader. Tres conseqüències pràctiques:
 
-* En una promoció utilitzada amb `pyside6-uic`, el camp _Header file_ (fitxer de capçalera) s'utilitza per indicar el mòdul que ha de generar-se a l'`import`. En el nostre exemple escriurem `components.selector`; no hi posarem ni el nom de la classe ni una ruta amb `/`. Designer pot mostrar-hi un `.h` al final (herència del món C++); `pyside6-uic` el tracta com a sufix i no el copia a l'`import`. **Comprova sempre la línia d'`import` real del fitxer `ui_*.py` generat**, perquè és la verificació definitiva.
+* En una promoció utilitzada amb `pyside6-uic`, el camp _Fichero de Cabecera_ s'utilitza per indicar el mòdul que ha de generar-se a l'`import`. En el nostre exemple escriurem `components.selector`; no hi posarem ni el nom de la classe ni una ruta amb `/`.  **Per evitar errors, comprova sempre la línia d'`import` real del fitxer `ui_*.py` generat**, perquè és la verificació definitiva.
 * El codi generat crea el component passant-hi el pare com a **primer argument posicional** (`SelectorPrioritat(self.centralwidget)`). Per això `parent=None` ha de ser el primer paràmetre del constructor i la resta han de tenir valors per defecte.
 * Al Editor de Propietats de Qt Widgets Designer només es veuen les propietats del widget base. Les propietats i els senyals propis s'utilitzen des del codi Python.
 
@@ -275,7 +259,7 @@ La promoció és una instrucció perquè el codi generat instanciï la classe pr
 
 Una **prova unitària** verifica una peça petita de codi de manera aïllada i automàtica. Té tres parts (esquema _Arrange–Act–Assert_): es prepara l'escenari (per exemple, es crea el component), s'executa una acció (un clic simulat) i es comprova el resultat amb un `assert`.
 
-`pytest` és l'eina que descobreix i executa les proves. Busca fitxers `test_*.py` i funcions `test_*`. `pytest-qt` hi afegeix el fixture **`qtbot`**, que:
+`pytest` és l'eina que configura i executa les proves. Busca fitxers `test_*.py` i funcions `test_*`. `pytest-qt` hi afegeix el _fixture_ **`qtbot`**, que:
 
 * Proporciona la `QApplication` necessària sense haver d'iniciar el bucle amb `app.exec()`;
 * Permet simular ratolí i teclat (`mouseClick`, `keyClick`);
@@ -291,7 +275,7 @@ Una **estratègia de proves** és el pla que decideix què es prova, com, amb qu
 
 ### 6.1. Estructura del projecte
 
-Partim del projecte BotEscola del Tema 1 i hi afegim els paquets `components/` i `tests/`, la documentació dels components i els fitxers de configuració:
+Partim del projecte <mark style="color:violet;">**BotEscola Desktop**</mark> del Tema 1 i hi afegim els paquets `components/` i `tests/`, la documentació dels components i els fitxers de configuració:
 
 ```
 botescola/
@@ -299,22 +283,27 @@ botescola/
 │   └── botescola.ui
 ├── generated/
 │   └── ui_botescola.py
+├── styles/
+│   └── botescola.qss
+│   └── alt_contrast.qss      <-- Ampliació PAC1
 ├── components/               <-- RA3: components reutilitzables (paquet)
 │   ├── __init__.py
 │   ├── selector.py
 │   ├── targeta.py
 │   ├── interruptor.py        <-- exercici D
 │   └── comptador.py          <-- exercici E
-├── tests/                    <-- RA8: proves unitàries
+├── tests/                    <-- proves unitàries
 │   ├── test_selector.py
 │   ├── test_targeta.py
 │   ├── test_interruptor.py
 │   └── test_comptador.py
 ├── docs/
-│   └── components.md         <-- documentació dels components (CA 3.6)
+│   └── components.md         <-- documentació dels components
 ├── botescola_app.py
 ├── pyproject.toml
 ├── pytest.ini
+├── contrast.py
+├── taula_contrast.md
 └── README.md
 ```
 
@@ -328,10 +317,10 @@ Amb l'entorn virtual del Tema 1 activat, instal·la les eines de prova i d'empaq
 python -m pip install pytest pytest-qt build
 ```
 
-* `pytest` i `pytest-qt`: execució de les proves i fixture `qtbot`.
+* `pytest` i `pytest-qt`: execució de les proves i _fixture_ `qtbot`.
 * `build`: generació de la distribució del paquet a partir de `pyproject.toml`.
 
-Comprova les versions amb les quals treballes, perquè s'han de registrar a l'informe de proves (CA 8.7):
+Comprova les versions amb les quals treballes, perquè s'han de registrar a l'informe de proves:
 
 ```bash
 python -c "import sys, PySide6; print(sys.version.split()[0], PySide6.__version__)"
@@ -398,7 +387,7 @@ Abans d'escriure codi, decidim què veu l'exterior del component:
 | Senyal      | `prioritat_canviada(str)`                            | `Signal(str)`                | S'emet **només si el valor canvia**                                     |
 | Mètodes     | `to_dict()` / `from_dict(dades)`                     | —                            | Desa i restaura l'estat                                                 |
 
-I la taula d'esdeveniments del component (CA 3.4):
+I la taula d'esdeveniments del component:
 
 | Esdeveniment                                      | Acció interna                           | Senyal de sortida                                    |
 | ------------------------------------------------- | --------------------------------------- | ---------------------------------------------------- |
