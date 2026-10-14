@@ -529,16 +529,16 @@ sys.exit(app.exec())
 
 Prem els botons i observa la consola. Aquesta és una prova **manual**; al Pas 5 la convertirem en prova automàtica.
 
-### Pas 4. Utilitzar-lo a Qt Designer (widget promocionat)
+### Pas 4. Utilitzar-lo a Qt Widgets Designer (widget promocionat)
 
 1. Executa `pyside6-designer` i crea un formulari de tipus **Widget**.
-2. Afegeix un `QLabel` amb el text `Prioritat:` i, al costat, un `QWidget` (categoria _Containers_) amb `objectName` `selector_prioritat`.
-3. Fes clic dret sobre aquest `QWidget` → **Promote to…** i omple:
-   * **Base class name:** `QWidget`
-   * **Promoted class name:** `SelectorPrioritat`
-   * **Header file:** `components.selector`
-   * Deixa desmarcada l'opció _Global include_.
-4. Prem **Add** i després **Promote**.
+2. Afegeix un <mark style="color:red;">`QLabel`</mark> amb el text `Prioritat:` i, al costat, un <mark style="color:red;">`QWidget`</mark> (categoria _Containers_) amb <mark style="color:blue;">`objectName`</mark> `selector_prioritat`.
+3. Fes clic dret sobre aquest <mark style="color:red;">`QWidget`</mark> → **Promocionar a…** i omple:
+   * **Nombre de la clase base:** <mark style="color:red;">`QWidget`</mark>
+   * **Nombre de la clase promocionada:** `SelectorPrioritat`
+   * **Archivo de cabecera:** `components.selector`
+   * Deixa desmarcada l'opció _Archivo de cabecera global_.
+4. Prem **Añadir** i després **Promocionar**.
 5. Aplica un layout horitzontal al formulari i desa'l com `ui/prova_selector.ui`.
 6. Genera el mòdul Python:
 
@@ -554,7 +554,7 @@ from components.selector import SelectorPrioritat
 self.selector_prioritat = SelectorPrioritat(Form)
 ```
 
-La primera és l'importació derivada del camp _Header file_; la segona crea el component passant-hi el pare com a **primer argument**. Per això `parent` és el primer paràmetre del constructor.
+La primera és l'importació derivada del camp _Archivo de cabecera_; la segona crea el component passant-hi el pare com a **primer argument**. Per això `parent` és el primer paràmetre del constructor.
 
 8. Utilitza el component des d'`app.py`:
 
@@ -660,7 +660,7 @@ Executa `python -m pytest -v`. Han d'aparèixer cinc proves amb `PASSED`.
 
 ### Pas 6. Documentar el component
 
-La documentació té dos nivells (CA 3.6):
+La documentació aplica a dos nivells:
 
 1. **Docstrings** dins del codi, com les que has vist al Pas 2: què fa la classe, quins senyals emet i, a cada mètode, els arguments i les excepcions.
 2. **Fitxa del component** a `docs/components.md`, pensada per a qui l'utilitzi sense llegir-ne el codi:
@@ -695,7 +695,7 @@ La documentació té dos nivells (CA 3.6):
 
 ## 8. Anàlisi tècnica
 
-Un cop funciona, cal ser capaç d'explicar-ho i modificar-ho.
+Un cop el component funciona, cal ser capaç d'explicar-ho i modificar-ho.
 
 **Estructura de la classe**
 
@@ -713,7 +713,7 @@ Un cop funciona, cal ser capaç d'explicar-ho i modificar-ho.
 
 * `prioritat_canviada = Signal(str)` es declara **a la classe**: Qt necessita el senyal com a atribut de classe per associar-lo a cada instància. Declarat dins de `__init__` (`self.x = Signal(str)`) no funciona.
 * `QButtonGroup` amb `setExclusive(True)` garanteix que només hi ha un botó marcat. Abans d'utilitzar-lo, cal programar-ho manualment i és fàcil deixar dos botons marcats.
-* `idClicked` envia l'identificador del botó premut; el component el tradueix a un nivell. Alternativa: connectar cada botó amb una funció `lambda`. En aquest cas cal escriure `lambda _checked=False, n=nivell: ...`; sense el paràmetre `n=nivell`, en un bucle totes les `lambda` retindrien l'últim valor de `nivell` (vegeu l'exercici C).
+* `idClicked` envia l'identificador del botó premut; el component el tradueix a un nivell.&#x20;
 
 **Comunicació amb l'exterior**
 
@@ -763,7 +763,7 @@ Cada un dels tres casos següents falla. Per a cadascun, indica el símptoma, la
 from BarraCerca import BarraCerca
 ```
 
-Quin camp del diàleg _Promote to…_ està mal omplert i quin valor exacte hi ha d'escriure?
+Quin camp del diàleg _Promocionar a…_ està mal omplert i quin valor exacte hi ha d'escriure?
 
 **Cas 2.** Un component defineix el senyal així i falla en connectar-lo:
 
@@ -787,7 +787,7 @@ for nivell in ("Baixa", "Normal", "Alta"):
     layout.addWidget(boto)
 ```
 
-Explica per què passa i proposa dues correccions: una amb `lambda` i una sense.
+Explica per què passa i proposa dues correccions: una amb una funció `lambda` i una sense.
 
 **Lliurament:** un document breu (Markdown) amb els tres diagnòstics i el codi corregit.
 
@@ -808,7 +808,7 @@ Requisits mínims:
 
 ### Exercici E — Aplicació al projecte
 
-BotEscola ha de mostrar quantes notificacions queden pendents. Crea el component `ComptadorPendents`, una subclasse de `QLabel` (**widget especialitzat**), amb:
+<mark style="color:violet;">**BotEscola Desktop**</mark> ha de mostrar quantes notificacions queden pendents. Crea el component `ComptadorPendents`, una subclasse de `QLabel` (**widget especialitzat**), amb:
 
 * constructor `ComptadorPendents(parent=None, total=0)` (recorda: `parent` va primer);
 * una propietat `total` (enter, valor per defecte 0; llança `ValueError` si és negatiu);
@@ -821,15 +821,15 @@ Escriu-ne les proves amb `@pytest.mark.parametrize` per als casos 0, 1 i 5, i un
 
 ### Exercici F — Anàlisi de tecnologies
 
-L'equip de BotEscola vol reutilitzar el mateix `SelectorPrioritat` en dues aplicacions diferents de l'escola, mantingudes per persones diferents. Compara, en un text de 8 a 12 línies, tres opcions: (1) copiar el fitxer `selector.py` a cada projecte, (2) distribuir-lo com a paquet instal·lable i utilitzar-lo com a widget promocionat, i (3) crear un plugin per a Qt Designer. Recomana una opció i justifica-la en termes de manteniment, versionat, instal·lació i prova.
+L'equip de <mark style="color:violet;">**BotEscola Desktop**</mark> vol reutilitzar el mateix `SelectorPrioritat` en dues aplicacions diferents de l'escola, mantingudes per persones diferents. Compara, en un text de 8 a 12 línies, tres opcions: (1) copiar el fitxer `selector.py` a cada projecte, (2) distribuir-lo com a paquet instal·lable i utilitzar-lo com a widget promocionat, i (3) crear un plugin per a Qt Designer. Recomana una opció i justifica-la en termes de manteniment, versionat, instal·lació i prova.
 
 ## 10. Errors habituals
 
 | Símptoma                                                                                 | Causa probable                                                                                                                               | Solució                                                                                                         | Prevenció                                                                       |
 | ---------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
 | `AttributeError` en fer `connect` sobre un senyal propi (l'objecte és de tipus `Signal`) | El senyal s'ha declarat dins de `__init__` amb `self.`                                                                                       | Mou la declaració a nivell de classe, a sota del nom de la classe                                               | Declara tots els senyals just després de la definició de la classe              |
-| `ModuleNotFoundError: No module named 'BarraCerca'` en executar l'aplicació              | Al diàleg _Promote to…_, _Header file_ conté el nom de la classe                                                                             | Escriu la ruta del mòdul amb punts: `components.barra_cerca`, i regenera amb `pyside6-uic`                      | Llegeix la línia d'`import` que apareix al fitxer `ui_*.py` generat             |
-| `SyntaxError` en importar `ui_*.py`                                                      | _Header file_ s'ha escrit amb barres (`components/selector`)                                                                                 | Substitueix les barres per punts: `components.selector`                                                         | Comprova l'`import` generat                                                     |
+| `ModuleNotFoundError: No module named 'BarraCerca'` en executar l'aplicació              | Al diàleg _Promocionar a…_, _Archivo de Cabecera_ conté el nom de la classe                                                                  | Escriu la ruta del mòdul amb punts: `components.barra_cerca`, i regenera amb `pyside6-uic`                      | Llegeix la línia d'`import` que apareix al fitxer `ui_*.py` generat             |
+| `SyntaxError` en importar `ui_*.py`                                                      | _Archivo de Cabecera_ s'ha escrit amb barres (`components/selector`)                                                                         | Substitueix les barres per punts: `components.selector`                                                         | Comprova l'`import` generat                                                     |
 | `ModuleNotFoundError: No module named 'components'` en executar `pytest`                 | L'arrel del projecte no està a la ruta d'importació                                                                                          | Afegeix `pythonpath = .` a `pytest.ini` o executa `python -m pytest` des de l'arrel                             | Inclou `pytest.ini` al repositori                                               |
 | El fitxer de proves no s'executa o `pytest` no en troba cap                              | El fitxer o les funcions no segueixen la nomenclatura (`test_*.py` o `*_test.py`; funcions `test_*`), o no estan dins de `testpaths`         | Reanomena fitxers i funcions                                                                                    | Executa `python -m pytest --collect-only` per veure què descobreix              |
 | El component es mostra amb mida zero o amb controls superposats                          | Els controls interns no estan dins d'un layout                                                                                               | Crea un layout amb `QHBoxLayout(self)` (o el que correspongui) i afegeix-hi els controls                        | No posicionis controls sense layout; comprova el component sol amb `prova_*.py` |
@@ -837,7 +837,7 @@ L'equip de BotEscola vol reutilitzar el mateix `SelectorPrioritat` en dues aplic
 | La prova falla amb `TimeoutError` de `waitSignal`                                        | L'acció que provoca el senyal és fora del bloc `with`, o el senyal no s'emet                                                                 | Posa `mouseClick` dins del `with`; comprova que l'acció fa realment el canvi                                    | Escriu primer el cas fallit (prova de sensibilitat)                             |
 | Totes les `lambda` d'un bucle utilitzen l'últim valor                                    | Les `lambda` capturen la variable, no el valor (_late binding_)                                                                              | Fixa el valor: `lambda _c=False, n=nivell: ...`, o usa `functools.partial`, o `QButtonGroup` amb identificadors | No connectis `lambda` dins d'un bucle sense fixar el valor                      |
 | `python -m build` falla amb `Multiple top-level packages discovered`                     | `setuptools` troba `ui/`, `generated/`, `tests/`... i no sap quins empaquetar                                                                | Afegeix a `pyproject.toml`: `[tool.setuptools.packages.find]` amb `include = ["components*"]`                   | Defineix explícitament què s'empaqueta                                          |
-| `QWidget: Must construct a QApplication before a QWidget` en una prova                   | El widget es crea fora d'una prova, o sense `qtbot`                                                                                          | Crea els components dins de les proves i demana la fixture `qtbot`                                              | No instanciïs widgets a nivell de mòdul                                         |
+| `QWidget: Must construct a QApplication before a QWidget` en una prova                   | El widget es crea fora d'una prova, o sense `qtbot`                                                                                          | Crea els components dins de les proves i demana la _fixture_ `qtbot`                                            | No instanciïs widgets a nivell de mòdul                                         |
 | L'element seleccionat de la llista no es veu quan conté una targeta                      | El fons del widget de la targeta (per exemple, per la regla `QWidget { background-color }` del Tema 1) pot tapar el ressaltat de la selecció | Dona al component un fons transparent des del `.qss` i comprova la selecció amb ratolí i amb teclat             | Prova la selecció i el focus visibles abans de donar la integració per acabada  |
 
 ## 11. Bones pràctiques
