@@ -83,7 +83,7 @@ En acabar el tema, l'alumne serà capaç de:
 9. Crear una barra de menús, una barra d'eines i un menú contextual a partir d'accions compartides, seguint les convencions dels menús d'escriptori, i distribuir-hi les ordres de l'aplicació amb un criteri coherent.
 10. Definir l'aspecte visual d'una interfície (paleta, tipografia i icones) tenint en compte la llegibilitat, verificar-ne el contrast amb la ràtio de [WCAG 2.2](https://www.w3.org/TR/WCAG22/) i aplicar-lo mitjançant un full d'estil QSS centralitzat.
 
-> **Per tot aquell alumnat que tingui nocions de Python però no de POO:** abans del primer laboratori es recomana completar els materials de reforç associats (aprox. 3 h). Per aquest primer tema encara no cal dominar  la POO a Python però necessitem entendre i conèixer els conceptes de **classe, instància, constructor, atribut, mètode, herència, `self`,  `super()` i composició**. Per al Tema 2 s'hi afegeixen **propietats, atributs i mètodes de classe, excepcions i funcions `lambda`**, que el mateix material de reforç ja cobreix.
+> **Per tot aquell alumnat que tingui nocions de Python però no de POO:** abans del primer laboratori es recomana completar els materials de reforç associats (aprox. 3 h). Per aquest primer tema encara no cal dominar la POO a Python però necessitem entendre i conèixer els conceptes de **classe, instància, constructor, atribut, mètode, herència, `self`, `super()` i composició**. Per al Tema 2 s'hi afegeixen **propietats, atributs i mètodes de classe, excepcions i funcions `lambda`**, que el mateix material de reforç ja cobreix.
 
 ## 4. Mapa conceptual
 
@@ -152,7 +152,7 @@ En aquest curs adoptarem una arquitectura basada en 3 capes:
 * **Vista:** widgets, layouts, textos, propietats visuals i estructura definida amb Qt Widgets Designer.
 * **Lògica:** codi de resposta a esdeveniments, validacions de l'entrada i actualització de la vista.
 
-Aquesta separació ens permet entendre patrons de disseny com **MVC, MVP i MVVM**, però **sense requerir implementar-los formalment en aquest tema**.&#x20;
+Aquesta separació ens permet entendre patrons de disseny com **MVC, MVP i MVVM**, però **sense requerir implementar-los formalment en aquest tema**.
 
 <figure><img src=".gitbook/assets/MVPvsMVVM.jpg" alt=""><figcaption></figcaption></figure>
 
@@ -252,7 +252,7 @@ Treballarem especialment les 7 primeres:
 
 <div><figure><img src=".gitbook/assets/nielsen9.png" alt="" width="264"><figcaption><p><strong>9.Flexibilitat i Eficiència d'ús</strong></p></figcaption></figure> <figure><img src=".gitbook/assets/nielsen10.png" alt="" width="356"><figcaption><p><strong>10.Ajuda i Documentació</strong></p></figcaption></figure></div>
 
-L'**accessibilitat** per altra banda, garanteix que persones amb diferents capacitats (visuals, auditives, motrius o cognitives) puguin emprar l'eina.&#x20;
+L'**accessibilitat** per altra banda, garanteix que persones amb diferents capacitats (visuals, auditives, motrius o cognitives) puguin emprar l'eina.
 
 [**WCAG 2.2**](https://www.w3.org/TR/WCAG22/) **és un estàndard sobre accessibilitat desenvolupat principalment per al contingut web**; W3C disposa del [**WCAG2ICT**](https://www.w3.org/WAI/standards-guidelines/wcag/non-web-ict/) (Nota de grup de treball, actualitzada el 2024 i el 2025 en coordinació amb l'EN 301 549) per orientar l'aplicació dels criteris WCAG 2.0, 2.1 i 2.2 a programari i altres solucions no web. Aquesta guia és informativa, no normativa, i no és una especificació pròpia de Qt.
 
@@ -276,7 +276,7 @@ En aquest tema verificarem, com a mínim:
 
 ### 5.9. Estructura de l'aplicació: accions, menús i barres d'eines
 
-Una aplicació d'escriptori no ofereix les ordres només amb botons dins de la finestra. Les organitza en una **estructura d'ordres** que l'usuari ja coneix d'altres programes: una barra de menús, una barra d'eines amb les ordres més freqüents, menús contextuals i dreceres de teclat.&#x20;
+Una aplicació d'escriptori no ofereix les ordres només amb botons dins de la finestra. Les organitza en una **estructura d'ordres** que l'usuari ja coneix d'altres programes: una barra de menús, una barra d'eines amb les ordres més freqüents, menús contextuals i dreceres de teclat.
 
 #### 5.9.1. Anatomia de la Finestra Principal
 
@@ -389,7 +389,7 @@ graph TD
     G --> H
 ```
 
-Per evitar duplicar codi, **les accions són l'única font de comportament**: el botó `Aprovar notificació` no té un _handler_ propi, sinó que activa l'acció (`btn_aprovar.clicked.connect(act_aprovar.trigger)`). Aquesta connexió la podem fer a través de l'**Editor de señales/slots** de Qt Widgets Designer. Així el menú, la barra d'eines, el menú contextual, la drecera i el botó fan exactament el mateix.&#x20;
+Per evitar duplicar codi, **les accions són l'única font de comportament**: el botó `Aprovar notificació` no té un _handler_ propi, sinó que activa l'acció (`btn_aprovar.clicked.connect(act_aprovar.trigger)`). Aquesta connexió la podem fer a través de l'**Editor de señales/slots** de Qt Widgets Designer. Així el menú, la barra d'eines, el menú contextual, la drecera i el botó fan exactament el mateix.
 
 #### 5.9.6. Dreceres de teclat i mnemònics
 
@@ -476,7 +476,7 @@ Els llindars de referència són els de [**WCAG 2.2**](https://www.w3.org/TR/WCA
 | Components de la interfície (vores de camps i botons, indicador de focus) respecte del fons adjacent |       3:1 | 1.4.11 Contrast no textual                                               |
 | Text d'un control inhabilitat                                                                        | No exigit | Excepció de 1.4.3; ha de ser igualment distingible del control habilitat |
 
-> **Àmbit d'aplicació:** WCAG és un estàndard **web**. No és automàticament l'estàndard de les aplicacions d'escriptori. L'utilitzem perquè fixa valors numèrics verificables i perquè l'estàndard europeu [**EN 301  549**](https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf) (accessibilitat de productes i serveis TIC) aplica criteris equivalents també al programari que no és web. Les guies de plataformes d'escriptori (Windows, macOS, GNOME, KDE) recomanen contrast suficient, però no en fixen llindars numèrics.
+> **Àmbit d'aplicació:** WCAG és un estàndard **web**. No és automàticament l'estàndard de les aplicacions d'escriptori. L'utilitzem perquè fixa valors numèrics verificables i perquè l'estàndard europeu [**EN 301 549**](https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf) (accessibilitat de productes i serveis TIC) aplica criteris equivalents també al programari que no és web. Les guies de plataformes d'escriptori (Windows, macOS, GNOME, KDE) recomanen contrast suficient, però no en fixen llindars numèrics.
 
 Exemples calculats amb `contrast.py`:
 
@@ -493,7 +493,7 @@ L'indicador de focus ha de contrastar amb **tots** els colors que toca, no nomé
 
 #### 5.10.2. El color com a informació
 
-El color no pot ser l'única manera de transmetre un estat. Una part apreciable de la població té algun tipus de daltonisme (al voltant del 8 % dels homes, segons les estimacions habituals), i el color també falla amb pantalles poc calibrades, il·luminació forta o impressió en blanc i negre.&#x20;
+El color no pot ser l'única manera de transmetre un estat. Una part apreciable de la població té algun tipus de daltonisme (al voltant del 8 % dels homes, segons les estimacions habituals), i el color també falla amb pantalles poc calibrades, il·luminació forta o impressió en blanc i negre.
 
 Criteris recomanats:
 
@@ -507,7 +507,7 @@ Criteris recomanats:
 * **Utilitza la font del sistema.** Qt la pren de la plataforma: és llegible, cobreix tots els caràcters de la llengua i respecta la configuració de l'usuari. Fixar una font pròpia només s'ha de fer per una raó de disseny justificada.
 * **Limita les famílies i les mides.** Una família de font és suficient. Estableix una jerarquia amb **mida i pes** (negreta per a títols de secció) i no més de tres nivells.
 * **Mida mínima.** El text funcional no ha de quedar per sota de la mida per defecte de la plataforma. Com a referència mínima verificable, no utilitzis text per sota de **9 pt**.
-* **Amplada de línia.** En texts llargs (com el detall d'una notificació), 50-75 caràcters per línia faciliten la lectura.&#x20;
+* **Amplada de línia.** En texts llargs (com el detall d'una notificació), 50-75 caràcters per línia faciliten la lectura.
 * **Alineació i estil.** Alinea el text a l'esquerra en textos llargs. Evita el text justificat, els textos llargs en majúscules o en cursiva, i el subratllat de text que no sigui un enllaç.
 * **Text redimensionable.** L'usuari pot augmentar l'escala del sistema o la mida de la font. Els layouts han de suportar que el text creixi sense superposar-se ni tallar informació.
 
@@ -565,7 +565,7 @@ Una regla més específica (per exemple, `QLabel#lbl_resultat`) preval sobre una
 
 1. **Defineix sempre `color` i `background-color` junts** a la mateixa regla. Si només fixes el color del text, el fons continua venint del sistema: amb tema fosc, el text pot quedar il·legible.
 2. **No eliminis l'indicador de focus.** Regles com `border: none` o `outline: none` en un control amb `:focus` fan invisible la navegació amb teclat.
-3. **No utilitzis `font-size` ni `font-family` al QSS** si vols canviar la mida amb `QFont` des del codi: la regla QSS té prioritat sobre el `QFont`.&#x20;
+3. **No utilitzis `font-size` ni `font-family` al QSS** si vols canviar la mida amb `QFont` des del codi: la regla QSS té prioritat sobre el `QFont`.
 4. **Els errors de QSS són silenciosos.** Una regla mal escrita simplement no s'aplica. Qt escriu un avís (_Could not parse stylesheet_) a la consola: llegeix-la.
 5. **No t'oblidis de mantenir la mida dels controls en canviar d'estat.** Si el focus augmenta el gruix de la vora (`1px` → `3px`), el control canvia de mida. Fixa el gruix i canvia només el color (`border-color`).
 6. **Carrega el fitxer amb una ruta relativa al mòdul**, no a la carpeta des d'on s'executa el programa.
@@ -1214,26 +1214,26 @@ Afegeix un menú `Ajuda` a `app_menus.py` amb l'ordre `Dreceres de teclat…`. H
 
 ## 11. Bones pràctiques
 
-* Respecta el `.ui` com a font del disseny i no editis manualment el fitxer generat.
-* Respecta la separació de responsabilitats: Qt Widgets Designer defineix la Vista; el codi Python fa de Presentador (lògica de presentació).
-* Utilitza noms interns consistents: `btn_`, `txt_`, `lbl_`, `lst_`, `chk_` segons la convenció del projecte.
-* No utilitzis coordenades de pantalla absolutes per resoldre una finestra que ha de redimensionar-se.
-* No facis servir el color com a únic indicador d'estat (Criteri d'accessibilitat i visibilitat).
-* Dona missatges orientats a l'acció: què ha passat i què pot fer l'usuari.
-* Mostra el focus en un punt previsible després d'una acció, especialment en formularis i diàlegs.
-* Prova la interfície amb teclat, finestra petita, text llarg i dades buides.
-* No consideris que un tooltip substitueix un `accessibleName`, una etiqueta o un text d'estat.
-* Defineix cada ordre com una única `QAction` i reutilitza-la al menú, a la barra d'eines, al menú contextual i als botons (prefix `act_`).
-* Fes que tota ordre sigui accessible des d'un menú; la resta de llocs són accelerants.
-* Utilitza la mateixa forma verbal a totes les ordres i posa punts suspensius només quan l'ordre demana més informació o confirmació.
-* Fes una taula de mnemònics i dreceres abans d'assignar-los: han de ser únics dins de cada àmbit.
-* Inhabilita les ordres que no són aplicables en lloc d'amagar-les, i centralitza aquest estat en una sola funció.
-* Confirma les accions destructives amb botons de verb explícit i deixa com a opció per defecte la més segura.
-* Defineix l'aspecte en un únic fitxer `.qss`; no escriguis estils dins de Qt Widgets Designer ni widget per widget.
-* Fixa sempre `color` i `background-color` junts, i no eliminis mai l'indicador de focus.
-* Documenta la paleta i les ràtios de contrast, i torna a comprovar-les cada cop que canviïs un color.
-* Utilitza la font del sistema i no baixis de 9 pt en text funcional.
-* Prova els menús i les dreceres amb el teclat, i la finestra en escala de grisos.
+* **Respecta el `.ui` com a font del disseny i** **no editis manualment el fitxer generat**.
+* **Respecta la separació de responsabilitats**: Qt Widgets Designer defineix la Vista; el codi Python fa de Presentador (lògica de presentació).
+* **Utilitza noms interns consistents**: `btn_`, `txt_`, `lbl_`, `lst_`, `chk_` segons la convenció del projecte.
+* **No utilitzis coordenades de pantalla absolutes** per resoldre una finestra que ha de redimensionar-se.
+* **No facis servir el color com a únic indicador d'estat** (Criteri d'accessibilitat i visibilitat).
+* **Dona missatges orientats a l'acció**: què ha passat i què pot fer l'usuari.
+* **Mostra el focus en un punt previsible després d'una acció**, especialment en formularis i diàlegs.
+* **Prova la interfície amb teclat, finestra petita, text llarg i dades buides**.
+* **No consideris que un tooltip substitueix un `accessibleName`, una etiqueta o un text d'estat**.
+* **Defineix cada ordre com una única `QAction`** i reutilitza-la al menú, a la barra d'eines, al menú contextual i als botons (prefix `act_`).
+* **Fes que tota ordre sigui accessible des d'un menú**; la resta de llocs són accelerants.
+* **Utilitza la mateixa forma verbal a totes les ordres** i posa punts suspensius només quan l'ordre demana més informació o confirmació.
+* **Fes una taula de mnemònics i dreceres abans d'assignar-los**: han de ser únics dins de cada àmbit.
+* **Inhabilita les ordres que no són aplicables en lloc d'amagar-les**, i centralitza aquest estat en una sola funció.
+* **Confirma les accions destructives amb botons de verb explícit i deixa com a opció per defecte la més segura**.
+* **Defineix l'aspecte en un únic fitxer `.qss`**; no escriguis estils dins de Qt Widgets Designer ni widget per widget.
+* **Fixa sempre `color` i `background-color` junts**, i no eliminis mai l'indicador de focus.
+* **Documenta la paleta i les ràtios de contrast**, i torna a comprovar-les cada cop que canviïs un color.
+* **Utilitza la font del sistema** i no baixis de 9 pt en text funcional.
+* **Prova els menús i les dreceres amb el teclat, i la finestra en escala de grisos**.
 
 ## 12. PAC1: Prototip de BotEscola Desktop
 
@@ -1499,4 +1499,3 @@ La pantalla del projecte <mark style="color:violet;">**BotEscola Desktop**</mark
 * **Usabilitat:** grau en què una interfície permet assolir objectius de manera efectiva, eficient i satisfactòria.
 * **Widget:** component visual o de control de la interfície.
 * **Wireframe:** esquema de baixa fidelitat que representa la disposició i la jerarquia de la informació.
-
