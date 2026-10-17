@@ -855,11 +855,11 @@ L'equip de <mark style="color:violet;">**BotEscola Desktop**</mark> vol reutilit
 * **No editis mai el codi generat.** Els components es promocionen i s'integren; el fitxer `ui_*.py` es regenera.
 * **Versiona el paquet.** Cada canvi de la interfície pública implica actualitzar la versió a `pyproject.toml` i el `__version__` del paquet.
 
-## 12. PAC 2: Component `TargetaNotificacio` i integració a BotEscola
+## 12. PAC 2: Component `TargetaNotificacio` i integració a BotEscola Desktop
 
 ### Context
 
-Al panell esquerre de BotEscola (Tema 1), cada notificació es mostrava com un text a `QListWidget`. La direcció vol veure, de cada notificació, qui l'envia, quin és l'assumpte, quan s'ha rebut i si ja s'ha llegit, i poder marcar-la com a llegida directament des de la llista. A més, cada notificació tindrà una prioritat editable.
+Al panell esquerre de <mark style="color:violet;">**BotEscola Desktop**</mark> (Tema 1), cada notificació es mostrava com un text a `QListWidget`. La direcció vol veure, de cada notificació, qui l'envia, quin és l'assumpte, quan s'ha rebut i si ja s'ha llegit, i poder marcar-la com a llegida directament des de la llista. A més, cada notificació tindrà una prioritat editable.
 
 Aquests elements es repeteixen a cada fila, per això s'encapsulen en un component.
 
@@ -867,28 +867,28 @@ Aquests elements es repeteixen a cada fila, per això s'encapsulen en un compone
 
 **Component `TargetaNotificacio` (`components/targeta.py`)**
 
-1. Hereta de `QWidget` i es construeix **només amb codi** (sense fitxer `.ui`), amb layouts interns.
-2. Constructor: `TargetaNotificacio(parent=None, id_notificacio=0, remitent="", assumpte="", data="", llegida=False)`.
-3. Mostra remitent, assumpte, data i un text d'estat (`Nova` o `Llegida`). L'assumpte ha de poder ocupar més d'una línia si és llarg (`setWordWrap(True)`). Els controls interns tenen `objectName` `lbl_remitent`, `lbl_assumpte`, `lbl_data` i `lbl_estat`: les proves els localitzen amb `findChild`.
-4. Conté un botó `Marcar com a llegida` (`objectName` `btn_llegit`) que, en prémer-lo:
+1. Hereta de <mark style="color:red;">`QWidget`</mark> i es construeix **només amb codi** (sense fitxer `.ui`), amb layouts interns.
+2. Constructor: <mark style="color:red;">`TargetaNotificacio`</mark>`(parent=None, id_notificacio=0, remitent="", assumpte="", data="", llegida=False)`.
+3. Mostra remitent, assumpte, data i un text d'estat (`Nova` o `Llegida`). L'assumpte ha de poder ocupar més d'una línia si és llarg (<mark style="color:blue;">`setWordWrap(True)`</mark>). Els controls interns tenen <mark style="color:blue;">`objectName`</mark> `lbl_remitent`, `lbl_assumpte`, `lbl_data` i `lbl_estat`: les proves els localitzen amb <mark style="color:orange;">`findChild`</mark>.
+4. Conté un botó `Marcar com a llegida` (<mark style="color:blue;">`objectName`</mark> `btn_llegit`) que, en prémer-lo:
    * passa la targeta a l'estat llegida (el text d'estat canvia i el botó es desactiva);
-   * emet **una sola vegada** el senyal `llegit_clicat(int)` amb l'identificador de la notificació.
+   * emet **una sola vegada** el senyal <mark style="color:blue;">`llegit_clicat(int)`</mark> amb l'identificador de la notificació.
 5. Exposa, com a propietats **de només lectura**, almenys `llegida`, `id_notificacio`, `remitent`, `assumpte` i `data`.
-6. `to_dict()` retorna un diccionari amb aquestes cinc dades, i `from_dict(dades, parent=None)` crea una targeta a partir d'aquest.
+6. <mark style="color:orange;">`to_dict()`</mark> retorna un diccionari amb aquestes cinc dades, i <mark style="color:orange;">`from_dict(dades, parent=None)`</mark> crea una targeta a partir d'aquest.
 7. Si `remitent` o `assumpte` no són text (`str`), el constructor llança `TypeError`.
 
 > **Decisió de disseny:** el senyal transporta l'**identificador** de la notificació i no l'assumpte, perquè dues notificacions poden tenir el mateix assumpte i el Presentador ha de saber quina s'ha marcat.
 
-**Component `SelectorPrioritat` a la finestra principal**
+**Component&#x20;**<mark style="color:red;">**`SelectorPrioritat`**</mark> **a la finestra principal**
 
-8. Afegeix al panell de detall de `ui/botescola.ui` un `SelectorPrioritat` com a **widget promocionat**, amb `objectName` `selector_prioritat`, i regenera `generated/ui_botescola.py`.
+8. Afegeix al panell de detall de `ui/botescola.ui` un <mark style="color:red;">`SelectorPrioritat`</mark> com a **widget promocionat**, amb <mark style="color:blue;">`objectName`</mark> `selector_prioritat`, i regenera `generated/ui_botescola.py`.
 9. En seleccionar una notificació, el selector mostra la seva prioritat. En canviar-la, es desa a l'estructura de dades i s'actualitza el missatge d'estat.
 
 **Integració a `botescola_app.py`**
 
-10. La llista mostra cada notificació amb una `TargetaNotificacio` (per exemple amb `QListWidgetItem`, `setSizeHint` i `setItemWidget`). En seleccionar-ne una, continua apareixent el detall.
+10. La llista mostra cada notificació amb una `TargetaNotificacio` (per exemple amb <mark style="color:red;">`QListWidgetItem`</mark>, <mark style="color:blue;">`setSizeHint`</mark> i <mark style="color:blue;">`setItemWidget`</mark>). En seleccionar-ne una, continua apareixent el detall.
 11. En marcar una targeta com a llegida, el Presentador actualitza les seves dades i mostra un missatge d'estat que inclou el remitent.
-12. **Component de l'exercici E:** `ComptadorPendents` mostra el nombre de notificacions no llegides i s'actualitza en marcar-ne una com a llegida.
+12. **Component de l'exercici E:** <mark style="color:red;">`ComptadorPendents`</mark> mostra el nombre de notificacions no llegides i s'actualitza en marcar-ne una com a llegida.
 
 ### Requisits no funcionals
 
@@ -896,25 +896,25 @@ Aquests elements es repeteixen a cada fila, per això s'encapsulen en un compone
 * Tots els mètodes i classes públiques tenen docstring.
 * Els components es poden provar sense mostrar la finestra principal.
 * L'estat d'una targeta (nova o llegida) es pot identificar sense dependre només del color.
-* La targeta no defineix estils propis (`setStyleSheet`): utilitza el full d'estil `estils/botescola.qss` del Tema 1, ampliat si cal amb un selector per al component.
+* La targeta no defineix estils propis (<mark style="color:orange;">`setStyleSheet`</mark>): utilitza el full d'estil `estils/botescola.qss` del Tema 1, ampliat si cal amb un selector per al component.
 * La navegació amb teclat continua funcionant: el botó de cada targeta es pot activar amb `Tab` i barra espaiadora.
 * L'element seleccionat de la llista continua sent **visible** quan conté una targeta: comprova que el fons de la targeta no tapa el ressaltat de la selecció i, si cal, afegeix una regla per al component a `estils/botescola.qss`.
 
 ### Restriccions
 
 * Cap coordenada absoluta.
-* `TargetaNotificacio` no pot dependre de cap fitxer `.ui`.
+* <mark style="color:red;">`TargetaNotificacio`</mark> no pot dependre de cap fitxer `.ui`.
 * No s'edita `ui_botescola.py` manualment.
-* No hi ha persistència en base de dades: les dades continuen sent de prova (Tema 4).
+* No hi ha persistència en base de dades: les dades continuen sent de prova.
 * Els components no tenen cap referència directa al Presentador: només emeten senyals.
 
 ### Tasques
 
-1. Escriu la **taula d'interfície pública** i la **taula d'esdeveniments** de `TargetaNotificacio` (com al Pas 1 de l'exemple guiat) abans de programar.
+1. Escriu la **taula d'interfície pública** i la **taula d'esdeveniments** de <mark style="color:red;">`TargetaNotificacio`</mark> (com al Pas 1 de l'exemple guiat) abans de programar.
 2. Programa `components/targeta.py` i actualitza `components/__init__.py`.
 3. Escriu `tests/test_targeta.py` amb els casos de l'apartat 13.
-4. Promociona `SelectorPrioritat` a `ui/botescola.ui`, regenera el mòdul i integra'l al Presentador.
-5. Integra `TargetaNotificacio` i `ComptadorPendents` a la llista de BotEscola.
+4. Promociona <mark style="color:red;">`SelectorPrioritat`</mark> a `ui/botescola.ui`, regenera el mòdul i integra'l al Presentador.
+5. Integra <mark style="color:red;">`TargetaNotificacio`</mark> i <mark style="color:red;">`ComptadorPendents`</mark> a la llista de BotEscola.
 6. Documenta els components a `docs/components.md`.
 7. Genera la distribució amb `python -m build` i comprova la instal·lació en un entorn nou.
 8. Executa la bateria de proves, completa la taula de resultats i redacta l'informe de proves (vegeu 13.3).
@@ -922,11 +922,11 @@ Aquests elements es repeteixen a cada fila, per això s'encapsulen en un compone
 ### Criteris d'acceptació
 
 * [ ] `python -m pytest -v` s'executa sense errors i totes les proves passen.
-* [ ] `TargetaNotificacio` i `SelectorPrioritat` no depenen de cap fitxer `.ui` ni de l'aplicació.
+* [ ] <mark style="color:red;">`TargetaNotificacio`</mark> i <mark style="color:red;">`SelectorPrioritat`</mark> no depenen de cap fitxer `.ui` ni de l'aplicació.
 * [ ] Els senyals emeten exactament les dades indicades i només quan correspon.
 * [ ] Els valors per defecte són vàlids i les entrades incorrectes són rebutjades.
-* [ ] `SelectorPrioritat` es promociona a Designer i el fitxer generat conté l'`import` de `components.selector`.
-* [ ] La llista de BotEscola mostra les targetes i el detall segueix responent a la selecció.
+* [ ] <mark style="color:red;">`SelectorPrioritat`</mark> es promociona a Designer i el fitxer generat conté l'`import` de `components.selector`.
+* [ ] La llista de <mark style="color:violet;">BotEscola Desktop</mark> mostra les targetes i el detall segueix responent a la selecció.
 * [ ] Marcar una targeta com a llegida actualitza el comptador i el missatge d'estat.
 * [ ] L'element seleccionat de la llista es distingeix visualment, també quan conté una targeta.
 * [ ] La distribució `.whl` es genera i es pot instal·lar en un entorn virtual net.
@@ -938,19 +938,18 @@ Aquests elements es repeteixen a cada fila, per això s'encapsulen en un compone
 * Fitxer `.whl` generat a `dist/` (o captura de `python -m build` amb èxit).
 * Captura de la sortida de `python -m pytest -v`.
 * Informe de proves (13.3).
-* Captura de BotEscola amb les targetes i el selector.
+* Captura de <mark style="color:violet;">BotEscola Desktop</mark> amb les targetes i el selector.
 
 ### Rúbrica de la PAC
 
-| Criteri observable                   | Insuficient                                                      | Suficient                                               | Bo                                                             |
-| ------------------------------------ | ---------------------------------------------------------------- | ------------------------------------------------------- | -------------------------------------------------------------- |
-| Component (CA 3.2, 3.3)              | El component depèn de fitxers externs o no té valors per defecte | Funciona amb valors per defecte i layouts               | A més, valida entrades i té constructor amb `parent` primer    |
-| Senyals (CA 3.4)                     | Crida directament mètodes de la finestra                         | Emet el senyal amb les dades correctes                  | A més, no emet si no hi ha canvi i ho prova                    |
-| Proves (CA 3.5)                      | Menys de 4 proves o no verifiquen res                            | Cobreixen valors inicials, senyal i entrada invàlida    | A més, comproven l'anada i tornada de l'estat                  |
-| Documentació (CA 3.6)                | Sense docstrings                                                 | Docstrings i fitxa amb interfície pública               | A més, exemple d'ús i referència a les proves                  |
-| Empaquetat (CA 3.7)                  | Sense paquet o `.whl`                                            | Paquet amb `.whl` generat                               | A més, instal·lat i verificat en un entorn nou                 |
-| Integració (CA 3.8)                  | Només per codi o només amb Designer                              | Un component per codi i l'altre promocionat, funcionant | A més, sense codi generat editat i amb regeneració documentada |
-| Estratègia i resultats (CA 8.1, 8.7) | Només la sortida de `pytest`                                     | Estratègia breu i resultats amb versions                | A més, incidències i decisions justificades                    |
+| Criteri observable | Insuficient                                                      | Suficient                                               | Bo                                                             |
+| ------------------ | ---------------------------------------------------------------- | ------------------------------------------------------- | -------------------------------------------------------------- |
+| Component          | El component depèn de fitxers externs o no té valors per defecte | Funciona amb valors per defecte i layouts               | A més, valida entrades i té constructor amb `parent` primer    |
+| Senyals            | Crida directament mètodes de la finestra                         | Emet el senyal amb les dades correctes                  | A més, no emet si no hi ha canvi i ho prova                    |
+| Proves             | Menys de 4 proves o no verifiquen res                            | Cobreixen valors inicials, senyal i entrada invàlida    | A més, comproven l'anada i tornada de l'estat                  |
+| Documentació       | Sense docstrings                                                 | Docstrings i fitxa amb interfície pública               | A més, exemple d'ús i referència a les proves                  |
+| Empaquetat         | Sense paquet o `.whl`                                            | Paquet amb `.whl` generat                               | A més, instal·lat i verificat en un entorn nou                 |
+| Integració         | Només per codi o només amb Designer                              | Un component per codi i l'altre promocionat, funcionant | A més, sense codi generat editat i amb regeneració documentada |
 
 ## 13. Proves
 
@@ -975,14 +974,14 @@ Aquestes proves **no** són automàtiques i es registren a l'informe:
 
 | Cas                  | Procediment                                    | Resultat esperat                                                                               |
 | -------------------- | ---------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| Visualització        | Executa BotEscola                              | La llista mostra una targeta per notificació                                                   |
+| Visualització        | Executa BotEscola Desktop                      | La llista mostra una targeta per notificació                                                   |
 | Selecció             | Selecciona una targeta                         | El detall correspon a la notificació i l'element seleccionat es distingeix visualment          |
 | Prioritat            | Canvia la prioritat amb el ratolí i amb teclat | El missatge d'estat indica el canvi i el selector mostra el nou valor                          |
 | Marcar com a llegida | Prem el botó d'una targeta                     | La targeta canvia a `Llegida`; el comptador disminueix; el missatge d'estat inclou el remitent |
 | Teclat               | Recorre la finestra amb `Tab`                  | El focus arriba als botons de les targetes i del selector                                      |
 | Redimensió           | Redueix i amplia la finestra                   | Les targetes no se superposen                                                                  |
 
-### 13.3. Estratègia i informe de proves (CA 8.1 i 8.7)
+### 13.3. Estratègia i informe de proves
 
 L'**estratègia de proves** és un document breu (una pàgina) que inclou:
 
@@ -1007,7 +1006,7 @@ Si una prova falla, el component no es considera lliurable fins que es corregeix
 
 ## 14. Autoavaluació
 
-1. Què és un widget promocionat i quin camp de _Promote to..._ determina l'`import` del fitxer generat?
+1. Què és un widget promocionat i quin camp de _Promocionar a..._ determina l'`import` del fitxer generat?
 2.  Donat aquest codi, què passa quan es fa `selector.prioritat = "Alta"` per segona vegada seguida i per què?
 
     ```python
@@ -1039,7 +1038,7 @@ Si una prova falla, el component no es considera lliurable fins que es corregeix
 
 ### Solucions orientatives
 
-1. És un widget genèric (per exemple, un `QWidget`) que a Designer es "promou" a una classe pròpia. El camp _Header file_ indica el mòdul Python de l'`import` (`components.selector`); _Promoted class name_ és el nom de la classe.
+1. És un widget genèric (per exemple, un `QWidget`) que a Designer es "promou" a una classe pròpia. El camp _Archivo de Cabecera_ indica el mòdul Python de l'`import` (`components.selector`); _Nombre de la Clase Promocionada_ és el nom de la classe.
 2. No s'emet cap senyal, perquè el valor ja és el mateix i el _setter_ retorna abans d'emetre. Això evita notificacions redundants.
 3. b) A nivell de classe. Declarat dins de `__init__` no es comporta com un senyal.
 4. Perquè el codi generat per `pyside6-uic` crea el component passant-hi el pare com a primer argument posicional. Si el primer paràmetre és un altre, el component rep el pare com a dada equivocada.
@@ -1066,12 +1065,6 @@ Si una prova falla, el component no es considera lliurable fins que es corregeix
 * Escriure proves que cobreixin valors inicials, senyals, entrades invàlides i anada i tornada de l'estat.
 * Documentar el component, empaquetar-lo i comprovar-ne la instal·lació.
 
-**Què reutilitzarem més endavant**
-
-* Tema 3: els senyals dels components es podran activar per veu o per gest sense canviar el component.
-* Tema 4: les targetes es crearan a partir de dades de la base de dades, amb `from_dict()`.
-* Tema 5: les proves unitàries es completaran amb proves d'integració i regressió; el paquet i l'aplicació s'inclouran a l'instal·lador i al manual.
-
 ## 16. Checklist de competències
 
 * [ ] Descric un component amb la seva interfície pública (constructor, propietats, mètodes i senyals) abans de programar-lo.
@@ -1083,29 +1076,29 @@ Si una prova falla, el component no es considera lliurable fins que es corregeix
 * [ ] Demostro que una prova pot fallar trencant el codi a propòsit.
 * [ ] Documento un component amb docstrings i una fitxa amb la seva interfície pública.
 * [ ] Organitzo els components en un paquet i en genero una distribució instal·lable.
-* [ ] Promocione un component a Qt Designer i identifico l'`import` al fitxer generat.
+* [ ] Promociono un component a Qt Designer i n'identifico l'`import` al fitxer generat.
 * [ ] Redacto una estratègia de proves i un informe amb comandes, versions, resultats i incidències.
 
-## 16.1. Referències tècniques actualitzades
+## 17. Referències tècniques actualitzades
 
 * Qt for Python — fitxers `.ui`, `pyside6-uic` i integració amb Python.\
-  https://doc.qt.io/qtforpython-6/tutorials/basictutorial/uifiles.html
+  [https://doc.qt.io/qtforpython-6/tutorials/basictutorial/uifiles.html](https://doc.qt.io/qtforpython-6/tutorials/basictutorial/uifiles.html)
 * Qt for Python — `Property`.\
-  https://doc.qt.io/qtforpython-6/PySide6/QtCore/Property.html
+  [https://doc.qt.io/qtforpython-6/PySide6/QtCore/Property.html](https://doc.qt.io/qtforpython-6/PySide6/QtCore/Property.html)
 * Qt for Python — `QUiLoader.registerCustomWidget()`.\
-  https://doc.qt.io/qtforpython-6/PySide6/QtUiTools/QUiLoader.html
-* Qt Widgets Designer — widgets promocionats.\
-  https://doc.qt.io/qt-6/designer-using-custom-widgets.html
-* Qt for Python — widgets personalitzats per a Designer.\
-  https://doc.qt.io/qtforpython-6/tools/pyside-designer.html
+  [https://doc.qt.io/qtforpython-6/PySide6/QtUiTools/QUiLoader.html](https://doc.qt.io/qtforpython-6/PySide6/QtUiTools/QUiLoader.html)
+* Qt Widgets Designer — Widgets promocionats.\
+  [https://doc.qt.io/qt-6/designer-using-custom-widgets.html](https://doc.qt.io/qt-6/designer-using-custom-widgets.html)
+* Qt for Python — Widgets personalitzats per a Designer.\
+  [https://doc.qt.io/qtforpython-6/tools/pyside-designer.html](https://doc.qt.io/qtforpython-6/tools/pyside-designer.html)
 * pytest — Parametrizing tests.\
-  https://docs.pytest.org/en/stable/how-to/parametrize.html
+  [https://docs.pytest.org/en/stable/how-to/parametrize.html](https://docs.pytest.org/en/stable/how-to/parametrize.html)
 * pytest-qt — documentació.\
-  https://pytest-qt.readthedocs.io/
+  [https://pytest-qt.readthedocs.io/](https://pytest-qt.readthedocs.io/)
 * Python Packaging User Guide — Writing your `pyproject.toml`.\
-  https://packaging.python.org/en/latest/guides/writing-pyproject-toml/
+  [https://packaging.python.org/en/latest/guides/writing-pyproject-toml/](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/)
 
-## 17. Glossari
+## 18. Glossari
 
 * **Component:** unitat reutilitzable que encapsula estructura visual, estat i comportament, amb una interfície pública.
 * **Distribució:** paquet Python empaquetat i versionat que es pot instal·lar amb `pip`, com un fitxer `.whl`.
@@ -1125,20 +1118,3 @@ Si una prova falla, el component no es considera lliurable fins que es corregeix
 * **Widget promocionat:** widget de Designer que es substitueix, en generar el codi, per una classe pròpia indicada per l'usuari.
 * **Senyal (`Signal`):** mecanisme d'un objecte Qt per avisar que ha passat alguna cosa; es declara a nivell de classe i s'emet amb `emit()`.
 * **Wheel (`.whl`):** format de distribució de paquets Python instal·lable directament amb `pip`.
-
-## 18. Matriu de cobertura curricular
-
-| RA | CA  | Contingut                                                          | Apartat          | Activitat                                                                | Evidència                                                                         | Instrument                          |
-| -- | --- | ------------------------------------------------------------------ | ---------------- | ------------------------------------------------------------------------ | --------------------------------------------------------------------------------- | ----------------------------------- |
-| 3  | 3.1 | 3.5 Eines per al desenvolupament de components visuals             | 5.6              | Exercici F i configuració de l'entorn (6)                                | Comparació justificada i entorn funcional                                         | Rúbrica d'anàlisi                   |
-| 3  | 3.2 | 3.1 Concepte de component; característiques                        | 5.1, 7 i 12      | Exemple guiat, exercici D i PAC 2                                        | `components/selector.py`, `interruptor.py` i `targeta.py`                         | Revisió de codi                     |
-| 3  | 3.3 | 3.2 Propietats, atributs i mètodes; 3.4 Persistència del component | 5.2, 5.4, 7 i 12 | Exercicis B, D i E; `to_dict()` i `from_dict()` a l'exemple i a la PAC 2 | Propietats amb valors per defecte i validació; prova d'anada i tornada de l'estat | Rúbrica de la PAC i revisió de codi |
-| 3  | 3.4 | 3.3 Esdeveniments; associació d'accions a esdeveniments            | 5.3, 7 i 12      | Pas 1 (taula d'esdeveniments), exercici C i PAC 2                        | Taula d'esdeveniments i senyals propis                                            | Prova pràctica i revisió de codi    |
-| 3  | 3.5 | 3.6 Prova dels components                                          | 5.8, 7 i 13      | Pas 5, exercicis A i B, PAC 2                                            | `tests/test_*.py` i sortida de `pytest`                                           | Prova funcional i revisió de codi   |
-| 3  | 3.6 | 3.1 i 3.2 (documentació de la interfície pública del component)    | 7 (Pas 6) i 12   | Docstrings i fitxa del component                                         | `docs/components.md` i docstrings                                                 | Rúbrica de documentació             |
-| 3  | 3.7 | 3.7 Empaquetat de components                                       | 5.5, 6.4 i 12    | Generació i instal·lació del `.whl`                                      | `dist/*.whl` i captura d'instal·lació                                             | Checklist de distribució            |
-| 3  | 3.8 | 3.1, 3.7                                                           | 7 (Pas 4) i 12   | Promoció a Designer i integració a BotEscola                             | `ui_botescola.py` amb `import` i aplicació en execució                            | Prova funcional i demostració       |
-| 8  | 8.1 | 8.1 Objectiu, importància i limitacions; estratègies               | 5.8 i 13.3       | Redacció de l'estratègia de proves                                       | Document d'estratègia                                                             | Rúbrica de l'estratègia             |
-| 8  | 8.7 | 8.6 Proves manuals i automàtiques; eines                           | 13               | Informe de resultats                                                     | Informe amb versions, comandes, sortida i incidències                             | Rúbrica de l'informe                |
-
-> Aquest tema no treballa els CA 8.2 a 8.6 ni cap CA de RA4 (vegeu l'abast al punt 1). Els CA 8.2 a 8.6 s'assignen al Tema 5.
