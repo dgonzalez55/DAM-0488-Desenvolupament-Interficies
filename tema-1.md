@@ -7,12 +7,12 @@
 * **Tema:** 1. Fonaments de UI i Experiència d'Usuari
 * **Durada presencial:** 16 hores
 * **RA treballats:** RA1 i RA4
-* **Prerequisits:** Programació estructurada sobre Python; ús bàsic de la terminal i d'entorns virtuals. No es pressuposa un domini de POO, el Tema 1 introdueix només la terminologia imprescindible i s'acompanya del material de reforç que cobreix els conceptes previs.
+* **Prerequisits:** Programació estructurada sobre Python; ús bàsic de la terminal i d'entorns virtuals; ús bàsic de Git i GitHub per al lliurament. No es pressuposa un domini de POO, el Tema 1 introdueix només la terminologia imprescindible i s'acompanya del material de reforç que cobreix els conceptes previs.
 * **Projecte transversal:** <mark style="color:violet;">**BotEscola Desktop**</mark>, una aplicació d'escriptori per consultar i gestionar notificacions del centre. S'implementarà el primer entregable funcional, concretament es construirà la finestra principal, separant el disseny de la lògica, s'afegirà una interacció bàsica, una estructura d'ordres (menús, barra d'eines i menú contextual) i un aspecte visual amb contrast verificat (paleta, tipografia i icones), i s'establiran els criteris inicials d'usabilitat i accessibilitat.
 
 ### Criteris d'avaluació treballats
 
-#### RA1 Genera interfícies gràfiques d'usuari mitjançant editors visuals utilitzant les funcionalitats de l'editor i adaptant el codi generat.
+#### RA1. Genera interfícies gràfiques d'usuari mitjançant editors visuals utilitzant les funcionalitats de l'editor i adaptant el codi generat.
 
 * CA 1.1: Analitza les eines i llibreries disponibles per a la generació d'interfícies gràfiques.
 * CA 1.2: Crea una interfície gràfica utilitzant les eines d'un editor visual.
@@ -36,7 +36,7 @@
 * 1.9 Classes, propietats, mètodes.
 * 1.10 Esdeveniments; escoltadors.
 
-#### RA4 Dissenya interfícies gràfiques identificant i aplicant criteris d'usabilitat i accessibilitat.
+#### RA4. Dissenya interfícies gràfiques identificant i aplicant criteris d'usabilitat i accessibilitat.
 
 * CA 4.1: Identifica els principals estàndards d'usabilitat i accessibilitat.
 * CA 4.2: Valora la importància de l'ús d'estàndards per crear interfícies.
@@ -58,13 +58,13 @@
 * 4.6 Pautes de disseny dels elements interactius de la interfície d'usuari: botons d'ordre, llistes desplegables, entre d'altres.
 * 4.7 Pautes de disseny de la seqüència de control de l'aplicació.
 
-## 2. Presentació
+## 2. Introducció
 
 Una aplicació gràfica no executa simplement instruccions de principi a fi. Després d'iniciar-se, crea la interfície principal i es queda a l'espera d'esdeveniments: clics, tecles, canvis de focus o seleccions. La resposta de l'aplicació depèn de la connexió entre aquests esdeveniments i la lògica del programa.
 
-En aquest tema treballarem amb [**PySide6**](https://doc.qt.io/qtforpython-6/gettingstarted.html#getting-started), la llibreria de [**Qt**](https://www.qt.io/) per a Python, i amb [**Qt Widgets Designer**](https://doc.qt.io/qt-6/qtdesigner-manual.html), una eina de disseny visual per a la creació d'interfícies gràfiques. El disseny es desarà en un fitxer `.ui` basat en XML, per posteriorment ser transformat a codi Python mitjançant **`pyside6-uic`**. És important distingir aquesta generació de codi d'una compilació tradicional: en aquest cas, l'eina converteix una descripció declarativa (XML) en codi font Python (PY).
+En aquest tema treballarem amb [**PySide6**](https://doc.qt.io/qtforpython-6/gettingstarted.html#getting-started), la llibreria de [**Qt**](https://www.qt.io/) per a Python, i amb [**Qt Widgets Designer**](https://doc.qt.io/qt-6/qtdesigner-manual.html), una eina de disseny visual per a la creació d'interfícies gràfiques. El disseny es desarà en un fitxer `.ui` basat en XML, per posteriorment ser transformat a codi Python mitjançant <mark style="color:violet;">**`pyside6-uic`**</mark>. És important distingir aquesta generació de codi d'una compilació tradicional: en aquest cas, l'eina converteix una descripció declarativa (XML) en codi font Python (PY).
 
-Una aplicació d'escriptori de veritat no és només una finestra amb botons. Organitza les seves ordres en **menús, barres d'eines i menús contextuals** que l'usuari ja coneix d'altres programes, i té un **aspecte visual** pensat perquè la informació es pugui llegir bé: contrast suficient, tipografia clara i estats que no depenen només del color. Per fer-ho, utilitzarem les **accions** de Qt (`QAction`) com a peça central de l'estructura d'ordres i els [**fulls d'estil QSS**](https://doc.qt.io/qt-6/stylesheet.html) (inspirats en CSS) per definir l'aspecte concret en un fitxer separat, tal com el `.ui` separa l'estructura visual i el `.py` la lògica.
+Una aplicació d'escriptori de veritat no és només una finestra amb botons. Organitza les seves ordres en **menús, barres d'eines i menús contextuals** que l'usuari ja coneix d'altres programes, i té un **aspecte visual** pensat perquè la informació es pugui llegir bé: contrast suficient, tipografia clara i estats que no depenen només del color. Per fer-ho, utilitzarem les **accions** de Qt (<mark style="color:red;">**`QAction`**</mark>) com a peça central de l'estructura d'ordres i els [**fulls d'estil QSS**](https://doc.qt.io/qt-6/stylesheet.html) (inspirats en CSS) per definir l'aspecte concret en un fitxer separat, tal com el `.ui` separa l'estructura visual i el `.py` la lògica.
 
 Aquest tema es tancarà amb l'inici del projecte transversal <mark style="color:violet;">**BotEscola Desktop**</mark> consistent en aquesta primera fase en una pantalla principal funcional que inclourà: un llistat de notificacions, una secció de detall i un conjunt d'accions per aprovar o descartar les notificacions. Aquestes accions s'organitzaran en menús, barra d'eines i menú contextual, i la pantalla tindrà un aspecte coherent amb contrast verificat. La pantalla haurà de funcionar amb layouts, respondre al teclat i oferir missatges clars d'acord als principis d'usabilitat i accessibilitat treballats.
 
@@ -77,7 +77,7 @@ En acabar el tema, l'alumne serà capaç de:
 3. Crear una interfície gràfica amb Qt Widgets Designer i aplicar layouts, sense dependre de les coordenades absolutes de pantalla.
 4. Modificar les propietats rellevants dels widgets, incloent-hi `objectName`, text, estat, informació contextual i focus.
 5. Interpretar un fitxer `.ui` i generar-ne el mòdul Python corresponent.
-6. Integrar el codi generat en una classe pròpia, respectant la separació de responsabilitats, i connectar senyals (events) amb slots (handlers).
+6. Integrar el codi generat en una classe pròpia, respectant la separació de responsabilitats, i connectar senyals amb slots (handlers).
 7. Seleccionar controls adequats per a llistes, introducció de dades, accions i presentació de missatges.
 8. Aplicar les principals heurístiques d'usabilitat de [Nielsen](https://www.nngroup.com/articles/ten-usability-heuristics/) i verificar la navegació amb teclat, l'ordre de tabulació i les dreceres de teclat.
 9. Crear una barra de menús, una barra d'eines i un menú contextual a partir d'accions compartides, seguint les convencions dels menús d'escriptori, i distribuir-hi les ordres de l'aplicació amb un criteri coherent.
@@ -118,6 +118,8 @@ flowchart TD
 
 ## 5. Conceptes fonamentals
 
+> **Convenció tipogràfica:** els noms ressaltats en color indiquen el seu tipus: <mark style="color:red;">**classes de Qt**</mark>, <mark style="color:blue;">**propietats i senyals**</mark>, <mark style="color:orange;">**mètodes**</mark> i <mark style="color:violet;">**eines, fitxers i noms del projecte**</mark>.
+
 ### 5.1. L'ecosistema global de les tecnologies GUI
 
 Abans de centrar-nos en Python, és imprescindible conèixer com es desenvolupen les interfícies gràfiques dins la pràctica professional actual. Python és ideal per aprendre i per elaborar eines d'ús intern, però sovint la indústria utilitza altres tecnologies segons quin sigui el producte final desitjat:
@@ -146,31 +148,31 @@ La **llicència** és un criteri de decisió tècnic i legal: amb PySide6 (LGPL)
 
 Un editor visual no imposa, per si sol, un patró d'arquitectura. El que sí facilita és **separar la descripció de la interfície** (`.ui`) del codi que controla el seu comportament.
 
-En aquest curs adoptarem una arquitectura basada en 3 capes:
+En aquest curs adoptarem una arquitectura basada en 3 capes, inspirada en MVP (Model-Vista-Presentador):
 
-* **Dades:** informació de l'aplicació, inicialment en estructures Python senzilles.
+* **Model:** informació de l'aplicació, inicialment en estructures Python senzilles.
 * **Vista:** widgets, layouts, textos, propietats visuals i estructura definida amb Qt Widgets Designer.
-* **Lògica:** codi de resposta a esdeveniments, validacions de l'entrada i actualització de la vista.
+* **Presentador:** codi de resposta a esdeveniments, validacions de l'entrada i actualització de la vista.
 
-Aquesta separació ens permet entendre patrons de disseny com **MVC, MVP i MVVM**, però **sense requerir implementar-los formalment en aquest tema**.
+Aquesta separació és la base de patrons de disseny com **MVC, MVP i MVVM**, però **sense requerir implementar-los formalment en aquest tema**.
 
 <figure><img src=".gitbook/assets/MVPvsMVVM.jpg" alt=""><figcaption></figcaption></figure>
 
-Durant el projecte <mark style="color:violet;">**BotEscola Desktop**</mark> adoptarem una organització basada en el principis del [**MVP (Model-Vista-Presentador)**](https://es.wikipedia.org/wiki/Modelo%E2%80%93vista%E2%80%93presentador)**.**
+Durant el projecte <mark style="color:violet;">**BotEscola Desktop**</mark> adoptarem una organització basada en els principis del [**MVP (Model-Vista-Presentador)**](https://es.wikipedia.org/wiki/Modelo%E2%80%93vista%E2%80%93presentador).
 
 > **Idea clau:** `.ui` descriu _com és_ la interfície; el codi de l'aplicació decideix _què passa_ quan l'usuari interactua amb ella.
 
-### 5.3. De l'execució senqüencial al bucle d'esdeveniments
+### 5.3. De l'execució seqüencial al bucle d'esdeveniments
 
 En un programa clàssic sense interfície gràfica, el flux principal determina l'ordre de les operacions. En una aplicació amb GUI, el programa inicialitza l'aplicació, crea les finestres i entra en un bucle d'esdeveniments. Aquest bucle rep esdeveniments capturats pel sistema i els lliura als objectes corresponents.
 
 <figure><img src=".gitbook/assets/BucleEsdeveniments.jpg" alt="" width="375"><figcaption></figcaption></figure>
 
-En el nostre cas en particular, el bucle no serà un procés que s'estigui consultant contínuament amb un `while` escrit per nosaltres. Serà una funcionalitat proporcionada per Qt i iniciada amb <mark style="color:blue;">**`app.exec()`**</mark>. Això implica que les operacions llargues executades en el fil principal poden arribar a bloquejar la interfície; aquest problema es treballarà més endavant.
+En el nostre cas en particular, el bucle no serà un procés que s'estigui consultant contínuament amb un `while` escrit per nosaltres. Serà una funcionalitat proporcionada per Qt i iniciada amb <mark style="color:orange;">**`app.exec()`**</mark>. Això implica que les operacions llargues executades en el fil principal poden arribar a bloquejar la interfície; aquest problema es treballarà més endavant.
 
 ### 5.4. Senyals, slots i handlers
 
-En Qt, un **senyal** és una notificació emesa per un objecte quan passa alguna cosa rellevant (per exemple, que s'ha fet clic en un botó). No s'ha de confondre amb l'**esdeveniment** de baix nivell (<mark style="color:red;">**`QEvent`**</mark>: un clic de ratolí, una tecla, un canvi de mida) que el bucle d'esdeveniments lliura al widget: és el widget qui, a partir d'esdeveniments, emet senyals com <mark style="color:blue;">**`clicked`**</mark>. El mecanisme equivalent en altres llenguatges s'anomena _event._ Un **slot** és una funció o mètode que pot rebre aquesta notificació. En Python també és habitual parlar de **handler** o de **funció de callback**.
+En Qt, un **senyal** és una notificació emesa per un objecte quan passa alguna cosa rellevant (per exemple, que s'ha fet clic en un botó). No s'ha de confondre amb l'**esdeveniment** de baix nivell (<mark style="color:red;">**`QEvent`**</mark>: un clic de ratolí, una tecla, un canvi de mida) que el bucle d'esdeveniments lliura al widget: és el widget qui, a partir d'esdeveniments, emet senyals com <mark style="color:blue;">**`clicked`**</mark>. En altres llenguatges o entorns, l'equivalent d'un senyal s'anomena sovint _event_; a Qt, en canvi, el terme «esdeveniment» es reserva per a <mark style="color:red;">**`QEvent`**</mark> (vegeu el Tema 2, apartat 5.3). Un **slot** és una funció o mètode que pot rebre aquesta notificació. En Python també és habitual parlar de **handler** o de **funció de callback**.
 
 ```python
 self.ui.btn_comptar.clicked.connect(self.comptar_caracters)
@@ -190,9 +192,11 @@ self.ui.chk_activar.toggled.connect(self.ui.btn_comptar.setEnabled)
 * Una **propietat** descriu o configura l'estat d'un objecte, com <mark style="color:blue;">**`enabled`**</mark>, <mark style="color:blue;">**`toolTip`**</mark> o <mark style="color:blue;">**`windowTitle`**</mark>.
 * Un **mètode** és una operació que l'objecte pot executar, com <mark style="color:orange;">**`clear()`**</mark>, <mark style="color:orange;">**`show()`**</mark> o <mark style="color:orange;">**`setText()`**</mark>.
 
+> **Nota:** aquí «propietat» és una propietat de Qt (la que mostra l'editor de propietats del Designer). Al Tema 2 veurem que en Python també es poden definir propietats pròpies amb `@property`.
+
 Per exemple, la propietat <mark style="color:blue;">**`objectName`**</mark> és un identificador intern útil per localitzar el widget des del codi generat; no és un text que vegi l'usuari.
 
-El text visible i el nom intern compleixen funcions diferents. Un botó pot tenir el text `Aprovar notificació` i l'`objectName` `btn_aprovar`.
+El text visible i el nom intern compleixen funcions diferents. Un botó pot tenir el text `Aprovar notificació` i l'<mark style="color:blue;">`objectName`</mark> `btn_aprovar`.
 
 <figure><img src=".gitbook/assets/Propietats.png" alt="" width="375"><figcaption></figcaption></figure>
 
@@ -203,11 +207,11 @@ El fitxer `.ui` és una descripció XML de la interfície: jerarquia d'objectes,
 Per això:
 
 * es conserva el `.ui` com a font del disseny;
-* es pot regenerar el fitxer `ui_*.py` quan canvia el disseny;
+* es pot regenerar el fitxer <mark style="color:violet;">`ui_*.py`</mark> quan canvia el disseny;
 * no s'ha de modificar mai manualment el fitxer generat;
 * la lògica pròpia de l'aplicació s'escriu en mòduls independents.
 
-Tot i que Qt també permet carregar el `.ui` en temps d'execució amb <mark style="color:red;">**`QUiLoader`**</mark>, en aquest tema utilitzarem la generació de codi perquè permet veure clarament la separació entre descripció (el fitxer `.ui`), codi generat (el fitxer `ui_*.py`) i codi d'aplicació (el fitxer `main.py` o el fitxer de la classe principal).
+Tot i que Qt també permet carregar el `.ui` en temps d'execució amb <mark style="color:red;">**`QUiLoader`**</mark>, en aquest tema utilitzarem la generació de codi perquè permet veure clarament la separació entre descripció (el fitxer `.ui`), codi generat (el fitxer <mark style="color:violet;">`ui_*.py`</mark>) i codi d'aplicació (el fitxer <mark style="color:violet;">`main.py`</mark> o el fitxer de la classe principal).
 
 <figure><img src=".gitbook/assets/FitxersUI.png" alt=""><figcaption></figcaption></figure>
 
@@ -215,11 +219,11 @@ Tot i que Qt també permet carregar el `.ui` en temps d'execució amb <mark styl
 
 Els layouts gestionen la geometria dels widgets i permeten que la interfície s'adapti a diferents mides (sigui responsive). Els més habituals són:
 
-* **`QVBoxLayout`**: distribució vertical.
-* **`QHBoxLayout`**: distribució horitzontal.
-* **`QGridLayout`**: files i columnes regulars.
-* **`QFormLayout`**: parelles etiqueta-camp.
-* **`QSplitter`**: permet que l'usuari redimensioni visualment dos panells.
+* <mark style="color:red;">**`QVBoxLayout`**</mark>: distribució vertical.
+* <mark style="color:red;">**`QHBoxLayout`**</mark>: distribució horitzontal.
+* <mark style="color:red;">**`QGridLayout`**</mark>: files i columnes regulars.
+* <mark style="color:red;">**`QFormLayout`**</mark>: parelles etiqueta-camp.
+* <mark style="color:red;">**`QSplitter`**</mark>: permet que l'usuari redimensioni visualment dos panells.
 
 Els layouts no eliminen la necessitat de definir mides mínimes raonables, polítiques d'expansió o proporcions. Però eviten haver de recalcular coordenades i redueixen el risc de solapaments.
 
@@ -229,30 +233,32 @@ Els layouts no eliminen la necessitat de definir mides mínimes raonables, polí
 
 La **usabilitat** descriu fins a quin punt una interfície permet que les persones assoleixin els seus objectius amb eficàcia, eficiència i satisfacció en un context d'ús determinat. En aquest tema utilitzarem essencialment les [**10 heurístiques de Nielsen**](https://www.nngroup.com/articles/ten-usability-heuristics/) com a eina de validació. No cal memoritzar-les: cal saber detectar els problemes i justificar les possibles millores.
 
-Treballarem especialment les 7 primeres:
+A continuació es detallen les 10 heurístiques:
 
 1. **Visibilitat de l'estat del sistema:** després d'una acció, l'aplicació informa del resultat.
 2. **Correspondència amb el món real:** els termes i ordres són comprensibles per a l'usuari.
 3. **Control i llibertat de l'usuari:** es pot cancel·lar o desfer quan sigui necessari.
 4. **Consistència i estàndards:** ordres, controls i comportaments semblants funcionen de manera semblant.
 5. **Prevenció d'errors:** es redueixen les situacions d'error abans que es produeixin.
-6. **Reconeixement enlloc de record:** les opcions rellevants són visibles o fàcils de descobrir.
+6. **Reconeixement en lloc de record:** les opcions rellevants són visibles o fàcils de descobrir.
 7. **Identificació d'errors:** els missatges d'error estan en llenguatge clar, indiquen quin és el problema i en proposen una solució.
-8. **Disseny estètic i minimalista:** Interfícies netes i simples.
-9. **Flexibilitat i Eficiència d'ús:** Interfície adaptada a usuaris bàsics i a avançats.
-10. **Ajuda i Documentació**: la interfície cal que proporcioni ajuda i suport pels diferents tipus d'usuaris.
+8. **Disseny estètic i minimalista:** interfícies netes i simples.
+9. **Flexibilitat i eficiència d'ús:** interfície adaptada a usuaris bàsics i a avançats.
+10. **Ajuda i documentació:** la interfície cal que proporcioni ajuda i suport pels diferents tipus d'usuaris.
 
-<div><figure><img src=".gitbook/assets/nielsen1.png" alt="" width="266"><figcaption><p><strong>1.Visibilitat de l'estat del sistema</strong></p></figcaption></figure> <figure><img src=".gitbook/assets/nielsen2.png" alt="" width="284"><figcaption><p><strong>2.Correspondència amb el món real</strong></p></figcaption></figure></div>
+> **Nota:** la numeració d'aquesta llista és la que fem servir al curs i no coincideix exactament amb la llista oficial de Nielsen Norman Group, en què la 7 és _Flexibilitat i eficiència d'ús_, la 8 _Disseny estètic i minimalista_, la 9 _Ajudar els usuaris a reconèixer, diagnosticar i recuperar-se dels errors_ i la 10 _Ajuda i documentació_. En un informe, cita sempre el nom de l'heurística i no només el número.
 
-<div><figure><img src=".gitbook/assets/nielsen3.png" alt="" width="375"><figcaption><p><strong>3.Control i llibertat de l'usuari</strong></p></figcaption></figure> <figure><img src=".gitbook/assets/nielsen4.png" alt="" width="348"><figcaption><p><strong>4</strong>.<strong>Consistència i estàndards</strong></p></figcaption></figure></div>
+<div><figure><img src=".gitbook/assets/nielsen1.png" alt="" width="266"><figcaption><p><strong>1. Visibilitat de l'estat del sistema</strong></p></figcaption></figure> <figure><img src=".gitbook/assets/nielsen2.png" alt="" width="284"><figcaption><p><strong>2. Correspondència amb el món real</strong></p></figcaption></figure></div>
 
-<div><figure><img src=".gitbook/assets/nielsen5.png" alt="" width="242"><figcaption><p><strong>5.Prevenció d'errors</strong></p></figcaption></figure> <figure><img src=".gitbook/assets/nielsen6.png" alt="" width="335"><figcaption><p><strong>6.Reconeixement enlloc de record</strong></p></figcaption></figure></div>
+<div><figure><img src=".gitbook/assets/nielsen3.png" alt="" width="375"><figcaption><p><strong>3. Control i llibertat de l'usuari</strong></p></figcaption></figure> <figure><img src=".gitbook/assets/nielsen4.png" alt="" width="348"><figcaption><p><strong>4. Consistència i estàndards</strong></p></figcaption></figure></div>
 
-<div><figure><img src=".gitbook/assets/nielsen7.png" alt="" width="297"><figcaption><p><strong>7.Identificació d'errors</strong></p></figcaption></figure> <figure><img src=".gitbook/assets/nielsen8.png" alt="" width="349"><figcaption><p><strong>8.Disseny estètic i minimalista</strong></p></figcaption></figure></div>
+<div><figure><img src=".gitbook/assets/nielsen5.png" alt="" width="242"><figcaption><p><strong>5. Prevenció d'errors</strong></p></figcaption></figure> <figure><img src=".gitbook/assets/nielsen6.png" alt="" width="335"><figcaption><p><strong>6. Reconeixement en lloc de record</strong></p></figcaption></figure></div>
 
-<div><figure><img src=".gitbook/assets/nielsen9.png" alt="" width="264"><figcaption><p><strong>9.Flexibilitat i Eficiència d'ús</strong></p></figcaption></figure> <figure><img src=".gitbook/assets/nielsen10.png" alt="" width="356"><figcaption><p><strong>10.Ajuda i Documentació</strong></p></figcaption></figure></div>
+<div><figure><img src=".gitbook/assets/nielsen7.png" alt="" width="297"><figcaption><p><strong>7. Identificació d'errors</strong></p></figcaption></figure> <figure><img src=".gitbook/assets/nielsen8.png" alt="" width="349"><figcaption><p><strong>8. Disseny estètic i minimalista</strong></p></figcaption></figure></div>
 
-L'**accessibilitat** per altra banda, garanteix que persones amb diferents capacitats (visuals, auditives, motrius o cognitives) puguin emprar l'eina.
+<div><figure><img src=".gitbook/assets/nielsen9.png" alt="" width="264"><figcaption><p><strong>9. Flexibilitat i eficiència d'ús</strong></p></figcaption></figure> <figure><img src=".gitbook/assets/nielsen10.png" alt="" width="356"><figcaption><p><strong>10. Ajuda i documentació</strong></p></figcaption></figure></div>
+
+L'**accessibilitat**, per altra banda, garanteix que persones amb diferents capacitats (visuals, auditives, motrius o cognitives) puguin emprar l'eina.
 
 [**WCAG 2.2**](https://www.w3.org/TR/WCAG22/) **és un estàndard sobre accessibilitat desenvolupat principalment per al contingut web**; W3C disposa del [**WCAG2ICT**](https://www.w3.org/WAI/standards-guidelines/wcag/non-web-ict/) (Nota de grup de treball, actualitzada el 2024 i el 2025 en coordinació amb l'EN 301 549) per orientar l'aplicació dels criteris WCAG 2.0, 2.1 i 2.2 a programari i altres solucions no web. Aquesta guia és informativa, no normativa, i no és una especificació pròpia de Qt.
 
@@ -266,7 +272,7 @@ En aquest tema verificarem, com a mínim:
 
 * **Teclat:** les funcions principals es poden executar sense dependre exclusivament del ratolí.
 * **Focus:** l'ordre de tabulació és lògic i el focus és perceptible.
-* **Text i semàntica:** els controls tenen noms i etiquetes comprensibles; quan calgui, configurarem <mark style="color:blue;">**`accessibleName`**</mark> i <mark style="color:blue;">**`accessibleDescription`**</mark> per tal de poder alimentar les eines de lectura de pantalla (_**Screen Readers**_)
+* **Text i semàntica:** els controls tenen noms i etiquetes comprensibles; quan calgui, configurarem <mark style="color:blue;">**`accessibleName`**</mark> i <mark style="color:blue;">**`accessibleDescription`**</mark> per tal de poder alimentar les eines de lectura de pantalla (_**Screen Readers**_).
 * **Color:** el color no serà l'únic mitjà per comunicar un estat o un error.
 * **Contrast:** mesurarem el contrast del text i d'indicadors visuals. Com a referència, WCAG 2.2 estableix 4,5:1 per al text normal i 3:1 per a determinats components i indicadors no textuals; per a una aplicació d'escriptori ho tractarem com a **criteri de verificació orientatiu**, aplicant WCAG2ICT i les particularitats de la plataforma.
 * **Missatges:** han de ser breus, específics i orientats a l'acció.
@@ -298,23 +304,25 @@ Una aplicació d'escriptori no ofereix les ordres només amb botons dins de la f
 
 A Qt Widgets Designer, la plantilla _Main Window_ ja inclou la barra de menús i la barra d'estat; la barra d'eines s'hi afegeix amb el botó dret sobre el formulari (_Añadir Barra de Herramientas_).
 
-#### 5.9.2. Un ordre, una acció: `QAction`
+> **Nota:** les etiquetes de Qt Widgets Designer depenen de l'idioma de l'eina. En aquests materials es citen en castellà; si el teu Designer està en un altre idioma, busca l'opció equivalent.
+
+#### 5.9.2. Una ordre, una acció: `QAction`
 
 Una **acció** (<mark style="color:red;">**`QAction`**</mark>) representa una ordre de l'aplicació **independentment del lloc on apareix**. La mateixa acció es pot afegir a un menú, a una barra d'eines i a un menú contextual, i es pot activar amb una drecera. Quan es fa així:
 
 * El text, la icona i la drecera es defineixen **una sola vegada**;
-* <mark style="color:orange;">**`setEnabled(False)`**</mark> inhabilita l'ordre a **tots** els llocs alhora, drecera inclosa;
-* L'acció emet un únic senyal (<mark style="color:blue;">**`triggered`**</mark>) i, per tant, hi ha un únic _<mark style="color:violet;">**handler**</mark>_.
+* <mark style="color:orange;">**`setEnabled(False)`**</mark> inhabilita l'ordre a **tots** els llocs on és present una <mark style="color:red;">`QAction`</mark> alhora, drecera inclosa (els botons independents de la finestra s'han de sincronitzar a part, vegeu 5.9.7);
+* L'acció emet un únic senyal (<mark style="color:blue;">**`triggered`**</mark>) i, per tant, hi ha un únic _handler_.
 
-| Propietat               | Funció                                                   | Exemple                               |
-| ----------------------- | -------------------------------------------------------- | ------------------------------------- |
-| `text`                  | Text visible; el caràcter precedit de `&` és el mnemònic | `&Aprovar notificació`                |
-| `shortcut`              | Drecera de teclat                                        | `Ctrl+Return`                         |
-| `toolTip`               | Ajuda breu en aturar el ratolí                           | `Aprova la notificació seleccionada`  |
-| `statusTip`             | Text que apareix a la barra d'estat en explorar el menú  | `Marca la notificació com a aprovada` |
-| `icon`                  | Icona (a la barra d'eines i, opcionalment, al menú)      | icona estàndard d'aplicar             |
-| `enabled`               | Disponibilitat de l'ordre                                | `False` si no hi ha selecció          |
-| `checkable` / `checked` | Ordre amb estat activat o desactivat                     | `Alt contrast`                        |
+| Propietat                                                    | Funció                                                   | Exemple                               |
+| ------------------------------------------------------------ | -------------------------------------------------------- | ------------------------------------- |
+| <mark style="color:blue;">`text`</mark>                      | Text visible; el caràcter precedit de `&` és el mnemònic | `&Aprovar notificació`                |
+| <mark style="color:blue;">`shortcut`</mark>                  | Drecera de teclat                                        | `Ctrl+Return`                         |
+| <mark style="color:blue;">`toolTip`</mark>                   | Ajuda breu en aturar el ratolí                           | `Aprova la notificació seleccionada`  |
+| <mark style="color:blue;">`statusTip`</mark>                 | Text que apareix a la barra d'estat en explorar el menú  | `Marca la notificació com a aprovada` |
+| <mark style="color:blue;">`icon`</mark>                      | Icona (a la barra d'eines i, opcionalment, al menú)      | icona estàndard d'aplicar             |
+| <mark style="color:blue;">`enabled`</mark>                   | Disponibilitat de l'ordre                                | `False` si no hi ha selecció          |
+| <mark style="color:blue;">`checkable`</mark> / <mark style="color:blue;">`checked`</mark> | Ordre amb estat activat o desactivat | `Alt contrast`                        |
 
 ```python
 from PySide6.QtGui import QAction, QKeySequence   # a Qt 6, QAction és a QtGui
@@ -328,9 +336,9 @@ menu_notificacions.addAction(act_aprovar)   # al menú
 barra_eines.addAction(act_aprovar)          # a la barra d'eines
 ```
 
-Amb Qt Widgets Designer no cal escriure aquest codi: les accions es creen a l'**Editor de acciones** i s'arrosseguen als menús i a la barra d'eines. Designer les desa al `.ui` i `pyside6-uic` genera els atributs com `self.ui.act_aprovar`. D'aquesta manera només cal connectar el senyal `triggered` per part del nostre controlador/presentador. Per coherència amb la nomenclatura, els noms d'objecte de les accions portaran el prefix `act_`.
+Amb Qt Widgets Designer no cal escriure aquest codi: les accions es creen a l'**Editor de acciones** i s'arrosseguen als menús i a la barra d'eines. Designer les desa al `.ui` i <mark style="color:violet;">`pyside6-uic`</mark> genera els atributs com `self.ui.act_aprovar`. D'aquesta manera només cal connectar el senyal <mark style="color:blue;">`triggered`</mark> per part del nostre controlador/presentador. Per coherència amb la nomenclatura, els noms d'objecte de les accions portaran el prefix `act_`.
 
-> **Atenció:** a Qt6 la classe `QAction` és a `PySide6.QtGui`, no a `QtWidgets` com a Qt 5. Molts tutorials antics fan la importació incorrecta i produeixen un `ImportError`.
+> **Atenció:** a Qt 6 la classe <mark style="color:red;">`QAction`</mark> és a `PySide6.QtGui`, no a `QtWidgets` com a Qt 5. Molts tutorials antics fan la importació incorrecta i produeixen un `ImportError`.
 
 #### 5.9.3. Tipus de menús
 
@@ -338,9 +346,9 @@ Amb Qt Widgets Designer no cal escriure aquest codi: les accions es creen a l'**
 | ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
 | **Barra de menús**                             | <mark style="color:red;">**`QMenuBar`**</mark> (<mark style="color:orange;">`menuBar()`</mark>)                                                                                                                         | `Fitxer`, `Notificacions`, `Visualitza`, `Ajuda`                          | Conté **totes** les ordres, agrupades per tema                                              |
 | **Menú desplegable** amb elements i separadors | <mark style="color:red;">**`QMenu`**</mark> amb <mark style="color:orange;">`addAction()`</mark> i <mark style="color:orange;">`addSeparator()`</mark>                                                                  | Menú `Notificacions`                                                      | Agrupa ordres relacionades.                                                                 |
-| **Submenú**                                    | <mark style="color:red;">**`QMenu`**</mark><mark style="color:orange;background-color:orange;">**`.addMenu()`**</mark>                                                                                                  | `Text > Mostrar` (exercici G) i `Visualitza > Text` (ampliació de la PAC) | Com a màxim un nivell de submenú                                                            |
+| **Submenú**                                    | <mark style="color:red;">**`QMenu`**</mark><mark style="color:orange;">**`.addMenu()`**</mark>                                                                                                                          | `Text > Mostrar` (exercici G) i `Visualitza > Text` (ampliació de la PAC) | Com a màxim un nivell de submenú                                                            |
 | **Menú contextual**                            | <mark style="color:orange;">**`setContextMenuPolicy`**</mark>`(`<mark style="color:red;">**`Qt.ContextMenuPolicy.ActionsContextMenu`**</mark>`)` i <mark style="color:orange;">**`addAction()`**</mark> sobre el widget | Clic dret sobre la llista                                                 | Només ordres que afecten l'element seleccionat; mai és l'única manera d'arribar a una ordre |
-| **Menú amb ordres marcables**                  | `QAction.setCheckable(True)`                                                                                                                                                                                            | `Visualitza > Alt contrast`                                               | L'estat s'ha de veure (marca) i s'ha de poder desfer                                        |
+| **Menú amb ordres marcables**                  | <mark style="color:red;">`QAction`</mark><mark style="color:orange;">`.setCheckable(True)`</mark>                                                                                                                       | `Visualitza > Alt contrast`                                               | L'estat s'ha de veure (marca) i s'ha de poder desfer                                        |
 
 Amb <mark style="color:red;">**`ActionsContextMenu`**</mark>, Qt construeix el menú contextual amb les accions afegides al widget, sense escriure cap _handler_ de clic dret. Si el contingut del menú ha de canviar segons el context, s'utilitza <mark style="color:red;">**`CustomContextMenu`**</mark> i el senyal <mark style="color:blue;">**`customContextMenuRequested`**</mark>; no ho necessitarem en aquest tema.
 
@@ -360,7 +368,7 @@ Les convencions dels menús no provenen de WCAG, sinó de les **guies de disseny
 | Les ordres destructives, separades de les habituals i amb confirmació                     | `Descartar…`                                              | Prevenció d'errors                                            |
 | Mnemònics únics dins de cada nivell                                                       | `&Fitxer`, `&Notificacions`, `&Visualitza`, `A&juda`      | Evita conflictes                                              |
 
-Aquestes convencions s'apliquen a aplicacions d'escriptori. En macOS, la barra de menús és a la part superior de la pantalla i Qt mou automàticament algunes ordres (`Quant a`, `Preferències`, `Sortir`) al menú de l'aplicació segons el seu rol (`menuRole`). El menú s'ha de dissenyar pensant en la plataforma on s'utilitzarà.
+Aquestes convencions s'apliquen a aplicacions d'escriptori. En macOS, la barra de menús és a la part superior de la pantalla i Qt mou automàticament algunes ordres (`Quant a`, `Preferències`, `Sortir`) al menú de l'aplicació segons el seu rol (<mark style="color:blue;">`menuRole`</mark>). El menú s'ha de dissenyar pensant en la plataforma on s'utilitzarà.
 
 #### 5.9.5. Distribuir les ordres: menú, barra d'eines, botons, menú contextual i dreceres
 
@@ -397,7 +405,7 @@ Són dos mecanismes diferents:
 
 |                | **Mnemònic**                              | **Drecera (**_**shortcut**_**)**                 |
 | -------------- | ----------------------------------------- | ------------------------------------------------ |
-| **Sintaxi**    | `&` davant la lletra del text (`&Fitxer`) | `setShortcut(QKeySequence(...))`                 |
+| **Sintaxi**    | `&` davant la lletra del text (`&Fitxer`) | <mark style="color:orange;">`setShortcut`</mark>`(`<mark style="color:red;">`QKeySequence`</mark>`(...))` |
 | **Combinació** | `Alt` + lletra                            | Normalment `Ctrl` + tecla                        |
 | **Funció**     | Obre un menú o activa un control visible  | Executa l'ordre directament, sense obrir el menú |
 | **Es mostra**  | Lletra subratllada                        | Al costat del text del menú                      |
@@ -405,9 +413,9 @@ Són dos mecanismes diferents:
 Criteris que cal aplicar:
 
 * **No repeteixis un mnemònic** entre elements del mateix àmbit. Si la barra de menús té `&Ajuda` i un botó de la mateixa finestra té `&Aprovar notificació`, tots dos utilitzen `Alt+A` i la lletra deixa de funcionar de manera fiable (Qt parla de _shortcut ambigu_). La solució és escollir una altra lletra: `A&juda`. Dins d'un menú obert els mnemònics són independents dels d'altres menús.
-* Per a les ordres estàndard utilitza `QKeySequence.StandardKey` (`Copy`, `Find`, `HelpContents`, `ZoomIn`, `ZoomOut`…): Qt tria la combinació adequada a cada plataforma.
+* Per a les ordres estàndard utilitza <mark style="color:red;">`QKeySequence.StandardKey`</mark> (`Copy`, `Find`, `HelpContents`, `ZoomIn`, `ZoomOut`…): Qt tria la combinació adequada a cada plataforma.
 * A macOS, Qt tradueix `Ctrl` a `Cmd` de manera automàtica; no cal fer-ho a mà.
-* `Return` és la tecla principal d'Intro; `Enter` és la del teclat numèric. Qt les tracta com a tecles diferents i, en general, `Ctrl+Return` no respon a la segona; si vols que responguin les dues, assigna les dues combinacions amb `setShortcuts([...])`.
+* `Return` és la tecla principal d'Intro; `Enter` és la del teclat numèric. Qt les tracta com a tecles diferents i, en general, `Ctrl+Return` no respon a la segona; si vols que responguin les dues, assigna les dues combinacions amb <mark style="color:orange;">`setShortcuts([...])`</mark>.
 * No reutilitzis una drecera estàndard per a una altra funció (per exemple, `Ctrl+C` per aprovar).
 * Els menús s'han de poder recórrer amb el teclat (`Alt`, fletxes, `Intro` i `Esc`) sense configuració addicional. Comprova-ho.
 
@@ -465,7 +473,7 @@ L = 0,2126·R + 0,7152·G + 0,0722·B      (amb cada canal sRGB linealitzat)
 ràtio = (L_clar + 0,05) / (L_fosc + 0,05)
 ```
 
-No cal fer aquest càlcul a mà: al projecte inclourem el _helper_ `contrast.py` (vegeu l'apartat [6.3](./#id-6.3.-fulls-destil-i-verificador-de-contrast)), que reb dos colors en format `#RRGGBB`.
+No cal fer aquest càlcul a mà: al projecte inclourem el _helper_ <mark style="color:violet;">`contrast.py`</mark> (vegeu l'apartat [6.3](./#id-6.3.-fulls-destil-i-verificador-de-contrast)), que rep dos colors en format `#RRGGBB`.
 
 Els llindars de referència són els de [**WCAG 2.2**](https://www.w3.org/TR/WCAG22/):
 
@@ -478,7 +486,7 @@ Els llindars de referència són els de [**WCAG 2.2**](https://www.w3.org/TR/WCA
 
 > **Àmbit d'aplicació:** WCAG és un estàndard **web**. No és automàticament l'estàndard de les aplicacions d'escriptori. L'utilitzem perquè fixa valors numèrics verificables i perquè l'estàndard europeu [**EN 301 549**](https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf) (accessibilitat de productes i serveis TIC) aplica criteris equivalents també al programari que no és web. Les guies de plataformes d'escriptori (Windows, macOS, GNOME, KDE) recomanen contrast suficient, però no en fixen llindars numèrics.
 
-Exemples calculats amb `contrast.py`:
+Exemples calculats amb <mark style="color:violet;">`contrast.py`</mark>:
 
 | Text      | Fons      |   Ràtio | Text normal (4,5:1) |
 | --------- | --------- | ------: | ------------------- |
@@ -489,7 +497,7 @@ Exemples calculats amb `contrast.py`:
 
 #### Contrast de l'indicador de focus
 
-L'indicador de focus ha de contrastar amb **tots** els colors que toca, no només amb el fons de la finestra. Un contorn negre (`#000000`) sobre fons blanc té 21:1, però si el control té un fons de color, el contorn també toca aquest color. Amb l'accent `#2563EB` el contorn negre dona 4,06:1 (compleix); amb un blau més fosc com `#1F4E8C` en donaria només 2,53:1 (no compleix el 3:1). Per això l'accent s'ha escollit dins del marge en què el text blanc sobre l'accent arriba a 4,5:1 **i** el contorn negre sobre l'accent arriba a 3:1. Comprova les dues parelles amb `contrast.py` abans de fixar un color d'accent.
+L'indicador de focus ha de contrastar amb **tots** els colors que toca, no només amb el fons de la finestra. Un contorn negre (`#000000`) sobre fons blanc té 21:1, però si el control té un fons de color, el contorn també toca aquest color. Amb l'accent `#2563EB` el contorn negre dona 4,06:1 (compleix); amb un blau més fosc com `#1F4E8C` en donaria només 2,53:1 (no compleix el 3:1). Per això l'accent s'ha escollit dins del marge en què el text blanc sobre l'accent arriba a 4,5:1 **i** el contorn negre sobre l'accent arriba a 3:1. Comprova les dues parelles amb <mark style="color:violet;">`contrast.py`</mark> abans de fixar un color d'accent.
 
 #### 5.10.2. El color com a informació
 
@@ -507,16 +515,16 @@ Criteris recomanats:
 * **Utilitza la font del sistema.** Qt la pren de la plataforma: és llegible, cobreix tots els caràcters de la llengua i respecta la configuració de l'usuari. Fixar una font pròpia només s'ha de fer per una raó de disseny justificada.
 * **Limita les famílies i les mides.** Una família de font és suficient. Estableix una jerarquia amb **mida i pes** (negreta per a títols de secció) i no més de tres nivells.
 * **Mida mínima.** El text funcional no ha de quedar per sota de la mida per defecte de la plataforma. Com a referència mínima verificable, no utilitzis text per sota de **9 pt**.
-* **Amplada de línia.** En texts llargs (com el detall d'una notificació), 50-75 caràcters per línia faciliten la lectura.
+* **Amplada de línia.** En textos llargs (com el detall d'una notificació), 50-75 caràcters per línia faciliten la lectura.
 * **Alineació i estil.** Alinea el text a l'esquerra en textos llargs. Evita el text justificat, els textos llargs en majúscules o en cursiva, i el subratllat de text que no sigui un enllaç.
 * **Text redimensionable.** L'usuari pot augmentar l'escala del sistema o la mida de la font. Els layouts han de suportar que el text creixi sense superposar-se ni tallar informació.
 
 #### 5.10.4. Icones
 
 * Han de ser **reconeixibles i coherents** entre elles (mateix estil i mida).
-* Les icones **sense text** només són acceptables si el significat és universal (`tancar`, `desar`) i sempre amb `toolTip` i nom accessible. Quan no és així, s'acompanyen de text: a la barra d'eines, `ToolButtonTextBesideIcon`.
+* Les icones **sense text** només són acceptables si el significat és universal (`tancar`, `desar`) i sempre amb <mark style="color:blue;">`toolTip`</mark> i nom accessible. Quan no és així, s'acompanyen de text: a la barra d'eines, <mark style="color:blue;">`ToolButtonTextBesideIcon`</mark>.
 * Han de tenir un contrast d'almenys 3:1 amb el fons si transmeten informació.
-* Al projecte utilitzarem **icones del propi estil de Qt** amb `QStyle.standardIcon(...)`: no requereixen cap fitxer extern i s'adapten a la plataforma. Les icones pròpies (fitxers `.svg` o `.png` carregats amb un fitxer de recursos `.qrc`) queden fora de l'abast d'aquest tema.
+* Al projecte utilitzarem **icones del propi estil de Qt** amb <mark style="color:red;">`QStyle`</mark><mark style="color:orange;">`.standardIcon(...)`</mark>: no requereixen cap fitxer extern i s'adapten a la plataforma. Les icones pròpies (fitxers `.svg` o `.png` carregats amb un fitxer de recursos `.qrc`) queden fora de l'abast d'aquest tema.
 
 #### 5.10.5. Criteris verificables de llegibilitat
 
@@ -527,7 +535,7 @@ Aquests són els criteris que s'utilitzaran per avaluar l'aspecte d'una interfí
 * [ ] Cap estat ni missatge depèn només del color.
 * [ ] La font és la del sistema i no hi ha text per sota de 9 pt.
 * [ ] La jerarquia es marca amb no més de tres mides o pesos diferents.
-* [ ] Les ordres de la barra d'eines tenen text o `toolTip` i nom accessible.
+* [ ] Les ordres de la barra d'eines tenen text o <mark style="color:blue;">`toolTip`</mark> i nom accessible.
 * [ ] La interfície continua sent llegible amb la finestra redimensionada.
 
 ### 5.11. Aplicar l'aspecte a Qt: paleta, fonts i fulls d'estil (QSS)
@@ -537,11 +545,11 @@ Qt ofereix diverses maneres de controlar l'aspecte:
 | Mecanisme                                    | Què permet                                           | Avantatges                                                      | Limitacions                                                                   |
 | -------------------------------------------- | ---------------------------------------------------- | --------------------------------------------------------------- | ----------------------------------------------------------------------------- |
 | **Estil i paleta del sistema**               | Utilitzar l'aspecte per defecte de la plataforma     | Respecta el tema clar/fosc i el mode d'alt contrast de l'usuari | Poc control sobre la identitat visual                                         |
-| **`QPalette` i `QFont`** (en codi)           | Canviar colors i fonts de manera global o per widget | Mantenen l'estil nadiu                                          | Menys flexible per als estats (`hover`, `focus`…)                             |
+| <mark style="color:red;">**`QPalette`**</mark> i <mark style="color:red;">**`QFont`**</mark> (en codi) | Canviar colors i fonts de manera global o per widget | Mantenen l'estil nadiu                                          | Menys flexible per als estats (`hover`, `focus`…)                             |
 | **QSS (fulls d'estil de Qt)**                | Definir l'aspecte amb regles semblants a CSS         | Flexible, centralitzable en un fitxer, distingeix estats        | Substitueix l'estil nadiu dels widgets afectats; no s'adapta sol al tema fosc |
-| **`styleSheet` dins de Qt Widgets Designer** | QSS escrit widget per widget                         | Ràpid per provar                                                | Dispers, difícil de mantenir i de revisar                                     |
+| <mark style="color:blue;">**`styleSheet`**</mark> **dins de Qt Widgets Designer** | QSS escrit widget per widget | Ràpid per provar                                                | Dispers, difícil de mantenir i de revisar                                     |
 
-Durant el projecte <mark style="color:violet;">**BotEscola Desktop**</mark> utilitzarem la tècnica del **QSS en un únic fitxer extern** (`estils/*.qss`) carregat des del codi. Hi ha dues raons: permet definir la paleta i **verificar-ne el contrast**, i separa l'aspecte del disseny estructural (`.ui`) i de la lògica (`.py`). Cal ser conscient del cost: en fixar colors, l'aplicació deixa de seguir el tema clar/fosc del sistema. Per això a l'ampliació del projecte s'ofereix una variant d'alt contrast.
+Durant el projecte <mark style="color:violet;">**BotEscola Desktop**</mark> utilitzarem la tècnica del **QSS en un únic fitxer extern** (<mark style="color:violet;">`styles/*.qss`</mark>) carregat des del codi. Hi ha dues raons: permet definir la paleta i **verificar-ne el contrast**, i separa l'aspecte del disseny estructural (`.ui`) i de la lògica (`.py`). Cal ser conscient del cost: en fixar colors, l'aplicació deixa de seguir el tema clar/fosc del sistema. Per això a l'ampliació del projecte s'ofereix una variant d'alt contrast.
 
 #### Sintaxi bàsica de QSS
 
@@ -559,13 +567,13 @@ selector {
 | `QMenu::item:selected` | Subcontrol amb pseudoestat            | Element seleccionat d'un menú                |
 | `QMenuBar, QToolBar`   | Diversos selectors separats per comes | Mateixa regla per a tots dos                 |
 
-Una regla més específica (per exemple, `QLabel#lbl_resultat`) preval sobre una de general (`QLabel`). Un full d'estil assignat a un widget preval sobre el de l'aplicació. Per aquest motiu, un únic fitxer d'aplicació i cap `styleSheet` dins de Designer és el camí més senzill de mantenir.
+Una regla més específica (per exemple, `QLabel#lbl_resultat`) preval sobre una de general (`QLabel`). Un full d'estil assignat a un widget preval sobre el de l'aplicació. Per aquest motiu, un únic fitxer d'aplicació i cap <mark style="color:blue;">`styleSheet`</mark> dins de Designer és el camí més senzill de mantenir.
 
 #### Regles que eviten errors habituals
 
 1. **Defineix sempre `color` i `background-color` junts** a la mateixa regla. Si només fixes el color del text, el fons continua venint del sistema: amb tema fosc, el text pot quedar il·legible.
 2. **No eliminis l'indicador de focus.** Regles com `border: none` o `outline: none` en un control amb `:focus` fan invisible la navegació amb teclat.
-3. **No utilitzis `font-size` ni `font-family` al QSS** si vols canviar la mida amb `QFont` des del codi: la regla QSS té prioritat sobre el `QFont`.
+3. **No utilitzis `font-size` ni `font-family` al QSS** si vols canviar la mida amb <mark style="color:red;">`QFont`</mark> des del codi: la regla QSS té prioritat sobre el <mark style="color:red;">`QFont`</mark>.
 4. **Els errors de QSS són silenciosos.** Una regla mal escrita simplement no s'aplica. Qt escriu un avís (_Could not parse stylesheet_) a la consola: llegeix-la.
 5. **No t'oblidis de mantenir la mida dels controls en canviar d'estat.** Si el focus augmenta el gruix de la vora (`1px` → `3px`), el control canvia de mida. Fixa el gruix i canvia només el color (`border-color`).
 6. **Carrega el fitxer amb una ruta relativa al mòdul**, no a la carpeta des d'on s'executa el programa.
@@ -573,10 +581,10 @@ Una regla més específica (per exemple, `QLabel#lbl_resultat`) preval sobre una
 ```python
 from pathlib import Path
 
-RUTA_ESTILS = Path(__file__).parent / "estils"
+RUTA_ESTILS = Path(__file__).parent / "styles"
 
 def carrega_estil(app, fitxer):
-    """Carrega un full d'estil QSS de la carpeta estils/."""
+    """Carrega un full d'estil QSS de la carpeta styles/."""
     ruta = RUTA_ESTILS / fitxer
     app.setStyleSheet(ruta.read_text(encoding="utf-8"))
 ```
@@ -605,7 +613,7 @@ projecte_exemple/
 ├── generated/
 │   ├── ui_finestra_exemple.py
 │   └── ui_finestra_menus.py
-├── estils/
+├── styles/
 │   └── exemple.qss
 ├── app.py
 ├── app_menus.py
@@ -637,8 +645,10 @@ python -m pip install PySide6
 Comprovació:
 
 ```bash
-python -c "import PySide6; print(PySide6.__version__)"
+python -c "import sys, PySide6; print(sys.version.split()[0], PySide6.__version__)"
 ```
+
+Anota les versions de Python i de PySide6 al <mark style="color:violet;">`README.md`</mark> del projecte: s'han de poder indicar a l'informe.
 
 Qt Widgets Designer i el generador s'executen amb les eines instal·lades pel paquet:
 
@@ -648,7 +658,7 @@ Dissenyador Visual:
 pyside6-designer
 ```
 
-Generació de codi Python a partir del fitxer .ui:
+Generació de codi Python a partir del fitxer `.ui`:
 
 ```bash
 pyside6-uic ui/finestra_exemple.ui -o generated/ui_finestra_exemple.py
@@ -658,12 +668,12 @@ Si la comanda no es troba, cal verificar que l'entorn virtual està actiu i que 
 
 ### 6.3. Fulls d'estil i verificador de contrast
 
-La gestió dels estils i la verificació de contrast, requereix dels següents fitxers/carpetes:
+La gestió dels estils i la verificació de contrast requereix els següents fitxers/carpetes:
 
-* `estils/`: fulls d'estil `.qss` . Són fitxers de text que **sí que s'editen manualment**; no són codi generat.
-* `contrast.py`: petit _helper_ que calcula la ràtio de contrast entre dos colors. No depèn de PySide6.
+* `styles/`: fulls d'estil `.qss`. Són fitxers de text que **sí que s'editen manualment**; no són codi generat.
+* <mark style="color:violet;">`contrast.py`</mark>: petit _helper_ que calcula la ràtio de contrast entre dos colors. No depèn de PySide6.
 
-Crea `contrast.py` a l'arrel del projecte:
+Crea <mark style="color:violet;">`contrast.py`</mark> a l'arrel del projecte:
 
 ```python
 """Càlcul de la ràtio de contrast WCAG entre dos colors (#RRGGBB)."""
@@ -736,7 +746,7 @@ El wireframe no defineix colors ni detalls gràfics. Serveix per decidir quina i
 7. Afegeix un <mark style="color:red;">`QLabel`</mark> amb <mark style="color:blue;">`objectName`</mark> `lbl_resultat` i text `Resultat: -`.
 8. Selecciona el formulari i aplica un <mark style="color:red;">`QVBoxLayout`</mark>.
 9. Agrupa els dos botons en un <mark style="color:red;">`QHBoxLayout`</mark>; l'objectiu és que els controls quedin dins d'una jerarquia de layouts.
-10. Assigna tooltips als botons i desa el fitxer com `ui/finestra_exemple.ui`.
+10. Assigna tooltips als botons i desa el fitxer com <mark style="color:violet;">`ui/finestra_exemple.ui`</mark>.
 
 No cal fixar coordenades. Si Qt Widgets Designer mostra temporalment una disposició lliure, el disseny encara no és correcte fins que el contenidor tingui un layout.
 
@@ -748,7 +758,7 @@ pyside6-uic ui/finestra_exemple.ui -o generated/ui_finestra_exemple.py
 
 ### Pas 4. Integració amb la lògica
 
-Crea `app.py`:
+Crea <mark style="color:violet;">`app.py`</mark>:
 
 ```python
 import sys
@@ -821,17 +831,17 @@ Ara construïm una **segona versió** del comptador de caràcters amb estructura
 
 * `Sortir` és una ordre poc freqüent i estàndard: només al menú `Fitxer`, amb drecera estàndard.
 * `Comptar` i `Netejar` són les ordres principals de l'aplicació: menú, barra d'eines i botó.
-* Les tres ordres són accessibles des d'un menú, tal i com vàrem indicar a l'apartat [5.9.5](./#id-5.9.5.-distribuir-les-ordres-menu-barra-deines-botons-menu-contextual-i-dreceres).
+* Les tres ordres són accessibles des d'un menú, tal com vàrem indicar a l'apartat [5.9.5](./#id-5.9.5.-distribuir-les-ordres-menu-barra-deines-botons-menu-contextual-i-dreceres).
 
 ### Pas 6. Disseny a Qt Widgets Designer de la finestra amb menús
 
 1. Executa <mark style="color:violet;">**`pyside6-designer`**</mark> i crea un formulari de tipus **Main Window**.
 2. Al widget central, afegeix un <mark style="color:red;">`QLabel`</mark> amb el text `Introdueix el missatge:`, un <mark style="color:red;">`QLineEdit`</mark> amb <mark style="color:blue;">`objectName`</mark> `txt_missatge`, dos <mark style="color:red;">`QPushButton`</mark> (`btn_comptar` amb text `Comptar caràcters` i `btn_netejar` amb text `Netejar`) i un <mark style="color:red;">`QLabel`</mark> amb <mark style="color:blue;">`objectName`</mark> `lbl_resultat` i text `Resultat: -`. Aplica un <mark style="color:red;">`QVBoxLayout`</mark> al widget central i agrupa els dos botons en un <mark style="color:red;">`QHBoxLayout`</mark>.
 3. Obre l'**Editor de acciones** (finestra inferior) i crea les tres accions de la taula del Pas 5 amb el botó _Nuevo_: indica-hi el text, l'<mark style="color:blue;">`objectName`</mark> i la drecera.
-4. A la barra de menús, escriu al lloc _Escriba aquí Here_ els noms `&Fitxer` i `&Text`. Arrossega `act_sortir` a `Fitxer`, i `act_comptar` i `act_netejar` a `Text`.
+4. A la barra de menús, escriu al lloc _Escriba aquí_ els noms `&Fitxer` i `&Text`. Arrossega `act_sortir` a `Fitxer`, i `act_comptar` i `act_netejar` a `Text`.
 5. Fes clic dret sobre el formulari → **Añadir Barra de Herramientas**. Assigna-li l'<mark style="color:blue;">`objectName`</mark> `tb_principal` i, a l'editor de propietats, <mark style="color:blue;">`toolButtonStyle`</mark> = `ToolButtonTextBesideIcon`. Arrossega-hi `act_comptar` i `act_netejar`.
-6. Selecciona cada acció i assigna a l'Editor de Propietats la propietat <mark style="color:blue;">`statusTip`</mark> (per exemple, `Compta els caràcters del missatge`) i <mark style="color:blue;">`toolTip`</mark>.
-7. Al 'Editor de Propietats del formulari, assigna <mark style="color:blue;">`windowTitle`</mark> = `Comptador de caràcters`. Desa el fitxer com `ui/finestra_menus.ui`.
+6. Selecciona cada acció i assigna a l'editor de propietats la propietat <mark style="color:blue;">`statusTip`</mark> (per exemple, `Compta els caràcters del missatge`) i <mark style="color:blue;">`toolTip`</mark>.
+7. A l'editor de propietats del formulari, assigna <mark style="color:blue;">`windowTitle`</mark> = `Comptador de caràcters`. Desa el fitxer com <mark style="color:violet;">`ui/finestra_menus.ui`</mark>.
 
 ### Pas 7. Generació del mòdul Python
 
@@ -839,7 +849,7 @@ Ara construïm una **segona versió** del comptador de caràcters amb estructura
 pyside6-uic ui/finestra_menus.ui -o generated/ui_finestra_menus.py
 ```
 
-Obre el fitxer generat **només per llegir-lo** i localitza les accions i els menús (`self.act_comptar = QAction(MainWindow)`, `self.menuFitxer`, `self.tb_principal`...). Observa que, en un <mark style="color:red;">`QMainWindow`</mark>, la classe generada és <mark style="color:red;">`Ui_MainWindow`</mark>.
+Obre el fitxer generat **només per llegir-lo** i localitza les accions i els menús (`self.act_comptar = QAction(MainWindow)`, `self.menuFitxer`, `self.tb_principal`...). Observa que, en un <mark style="color:red;">`QMainWindow`</mark>, la classe generada és <mark style="color:violet;">`Ui_MainWindow`</mark>.
 
 ### Pas 8. Integració amb la lògica (`app_menus.py`)
 
@@ -851,11 +861,11 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QStyle
 
 from generated.ui_finestra_menus import Ui_MainWindow
 
-RUTA_ESTILS = Path(__file__).parent / "estils"
+RUTA_ESTILS = Path(__file__).parent / "styles"
 
 
 def carrega_estil(app, fitxer):
-    """Carrega un full d'estil QSS de la carpeta estils/."""
+    """Carrega un full d'estil QSS de la carpeta styles/."""
     app.setStyleSheet((RUTA_ESTILS / fitxer).read_text(encoding="utf-8"))
 
 
@@ -911,10 +921,10 @@ if __name__ == "__main__":
 Executa-ho amb <mark style="color:violet;">**`python app_menus.py`**</mark>, comentant abans la línia que carrega els estils (no tens encara el QSS implementat!). Comprova que:
 
 * El menú `Text` mostra les accions amb la drecera al costat i, en aturar-hi el cursor, la barra d'estat mostra el seu <mark style="color:blue;">`statusTip`</mark>;
-* amb el camp buit, `Comptar caràcters` està inhabilitat al menú, a la barra d'eines **i** al botó: l'acció s'inhabilita amb un únic <mark style="color:blue;">`setEnabled`</mark>, i el botó, que és un widget independent, s'ha de sincronitzar a part;
+* amb el camp buit, `Comptar caràcters` està inhabilitat al menú, a la barra d'eines **i** al botó: l'acció s'inhabilita amb un únic <mark style="color:orange;">`setEnabled`</mark>, i el botó, que és un widget independent, s'ha de sincronitzar a part;
 * `Alt+F`, `Alt+T` i `Ctrl+Return` funcionen amb el teclat.
 
-### Pas 9. Full d'estil (`estils/exemple.qss`)
+### Pas 9. Full d'estil (`styles/exemple.qss`)
 
 La paleta està pensada perquè cada parella de colors compleixi el contrast que exigeix 5.10. Crea el fitxer:
 
@@ -1042,16 +1052,16 @@ Aquesta taula, juntament amb el fitxer `.qss`, és l'evidència del compliment a
 * <mark style="color:orange;">`setupUi(self)`</mark> crea i configura els controls descrits al `.ui` dins de la finestra.
 * <mark style="color:orange;">`show()`</mark> fa visible la finestra; crear l'objecte no implica mostrar-lo.
 * <mark style="color:orange;">`app.exec()`</mark> inicia el bucle d'esdeveniments i manté viva la GUI.
-* <mark style="color:orange;">`clicked.connect(...)`</mark> registra un handler per a un senyal de click.
+* <mark style="color:blue;">`clicked`</mark><mark style="color:orange;">`.connect(...)`</mark> registra un handler per a un senyal de clic.
 * <mark style="color:blue;">`textChanged`</mark> permet mantenir l'estat del botó sincronitzat amb el contingut del camp.
 * <mark style="color:orange;">`setFocus()`</mark> estableix el focus inicial, però l'ordre de tabulació s'ha de configurar i verificar per separat.
 * <mark style="color:violet;">`Ui_Form`</mark> és codi generat (la **Vista**); `FinestraPrincipal` / `FinestraMenus` és codi propi i és el lloc adequat per a la lògica de presentació (el **Presentador**, en sentit ampli).
 * <mark style="color:red;">`QMainWindow`</mark> proporciona llocs per a la barra de menús, les barres d'eines i la barra d'estat; per això la classe generada és <mark style="color:violet;">`Ui_MainWindow`</mark> i no <mark style="color:violet;">`Ui_Form`</mark>.
 * <mark style="color:red;">`QAction`</mark> és un objecte independent del lloc on es mostra. Designer el crea (`self.ui.act_comptar`) i el mateix objecte apareix al menú i a la barra d'eines. Té un únic senyal, <mark style="color:blue;">`triggered`</mark>.
-* `btn_comptar.clicked.connect(self.ui.act_comptar.trigger)` fa que el botó **no tingui lògica pròpia**: delega en l'acció. Hi ha un sol _handler_ per a quatre maneres d'activar l'ordre (menú, barra, botó i drecera).
+* `btn_comptar.`<mark style="color:blue;">`clicked`</mark>`.`<mark style="color:orange;">`connect`</mark>`(self.ui.act_comptar.`<mark style="color:orange;">`trigger`</mark>`)` fa que el botó **no tingui lògica pròpia**: delega en l'acció. Hi ha un sol _handler_ per a quatre maneres d'activar l'ordre (menú, barra, botó i drecera).
 * <mark style="color:orange;">`setEnabled()`</mark> sobre l'acció inhabilita l'ordre al menú, a la barra d'eines i a la drecera alhora. El botó és un widget independent i s'ha de sincronitzar a mà (un <mark style="color:red;">`QToolButton`</mark> associat a l'acció ho fa automàticament).
 * `statusBar().`<mark style="color:orange;">`showMessage(text, 5000)`</mark> mostra un missatge temporal (5000 ms) a la barra d'estat: és el feedback de la primera heurística de Nielsen.
-* `QStyle.`<mark style="color:orange;">`standardIcon(...)`</mark> obté icones del propi estil de Qt, sense fitxers externs.
+* <mark style="color:red;">`QStyle`</mark>`.`<mark style="color:orange;">`standardIcon(...)`</mark> obté icones del propi estil de Qt, sense fitxers externs.
 * `Path(__file__).parent` fa que el full d'estil es trobi encara que el programa s'executi des d'una altra carpeta.
 * <mark style="color:orange;">`app.setStyleSheet(...)`</mark> aplica el QSS a tota l'aplicació. L'aspecte queda separat de l'estructura (`.ui`) i del comportament (`.py`).
 * Cada fitxer té una responsabilitat: el `.ui` descriu l'estructura i les ordres, el `.qss` l'aspecte i el `.py` el comportament. És una extensió natural de la separació de responsabilitats de [5.2](./#id-5.2.-separacio-de-responsabilitats-i-arquitectura-daplicacions): canviar els colors no obliga a tocar la lògica.
@@ -1060,9 +1070,11 @@ Aquesta taula, juntament amb el fitxer `.qss`, és l'evidència del compliment a
 
 Tots els exercicis s'han de lliurar a través de GitHub amb el codi font i una captura de pantalla de la finestra resultant. Els fitxers generats per Qt Widgets Designer s'han d'incloure, però no s'han de modificar manualment.
 
+**Ús de la IA:** pots utilitzar-la per consultar documentació o per explicar un error, però has de ser capaç de justificar cada línia del que lliures i de modificar-la sense ajuda. Això també val per a la PAC: deixa constància (en un comentari o al <mark style="color:violet;">`README.md`</mark>) de les decisions de disseny que has pres tu i per què.
+
 ### Exercici A — Reproducció
 
-Reprodueix el comptador de caràcters (primera versió). Fes una captura de la finestra i lliura el projecte amb el `.ui`, el fitxer generat i <mark style="color:violet;">`app.py`</mark><mark style="color:violet;">.</mark>
+Reprodueix el comptador de caràcters (primera versió). Fes una captura de la finestra i lliura el projecte amb el `.ui`, el fitxer generat i <mark style="color:violet;">`app.py`</mark>.
 
 ### Exercici B — Modificació
 
@@ -1099,7 +1111,7 @@ Una empresa necessita portar la seva eina interna de facturació escrita origina
 
 ### Exercici F — Aplicació pont cap al projecte transversal
 
-Dissenya `ui/configuracio.ui` per configurar la connexió del servidor de correu de <mark style="color:violet;">**BotEscola Desktop**</mark>:
+Dissenya <mark style="color:violet;">`ui/configuracio.ui`</mark> per configurar la connexió del servidor de correu de <mark style="color:violet;">**BotEscola Desktop**</mark>:
 
 * servidor IMAP;
 * port;
@@ -1113,8 +1125,8 @@ Utilitza <mark style="color:red;">`QFormLayout`</mark> per als camps i una dispo
 
 Parteix de la segona versió del comptador (<mark style="color:violet;">**`app_menus.py`**</mark>, Passos 5 a 10) i fes aquestes modificacions:
 
-1. Afegeix l'acció `act_copiar` (`&Copiar el resultat`, drecera `Ctrl+Shift+C`) al menú `Text` i a la barra d'eines. Ha de copiar al porta-retalls el contingut de `lbl_resultat` (<mark style="color:orange;">`QApplication.clipboard().setText(...)`</mark>) i només ha d'estar habilitada quan s'ha fet un recompte.
-2. Afegeix un **menú contextual** al camp de text amb les accions `Comptar caràcters` i `Netejar` (les mateixes, no còpies). Atenció: amb <mark style="color:red;">`ActionsContextMenu`</mark> el menú estàndard del camp (Retalla, Copia, Enganxa…) desapareix; decideix i justifica si cal conservar-lo. Les accions les hauràs d'afegir per codi, ja el Qt Widgets Designer sols et permet establir el tipus de menú contextual (<mark style="color:blue;">`contextMenuPolicy`</mark>), no el seu contingut.
+1. Afegeix l'acció `act_copiar` (`&Copiar el resultat`, drecera `Ctrl+Shift+C`) al menú `Text` i a la barra d'eines. Ha de copiar al porta-retalls el contingut de `lbl_resultat` (<mark style="color:red;">`QApplication`</mark><mark style="color:orange;">`.clipboard().setText(...)`</mark>) i només ha d'estar habilitada quan s'ha fet un recompte.
+2. Afegeix un **menú contextual** al camp de text amb les accions `Comptar caràcters` i `Netejar` (les mateixes, no còpies). Atenció: amb <mark style="color:red;">`ActionsContextMenu`</mark> el menú estàndard del camp (Retalla, Copia, Enganxa…) desapareix; decideix i justifica si cal conservar-lo. Les accions les hauràs d'afegir per codi, ja que Qt Widgets Designer sols et permet establir el tipus de menú contextual (<mark style="color:blue;">`contextMenuPolicy`</mark>), no el seu contingut.
 3. Crea un **submenú** `Mostrar` dins del menú `Text` amb una **acció marcable** `Mostrar el nombre de paraules` (si has fet l'exercici B, fes que el resultat inclogui o no les paraules segons aquest estat).
 
 **Lliurament:** el `.ui`, el codi, una captura amb el menú desplegat i una taula breu _acció → on apareix → per què_.
@@ -1163,7 +1175,7 @@ QLineEdit {
 
 ### Exercici I — Anàlisi: contrast i tipografia
 
-**Part 1.** Calcula amb `contrast.py` la ràtio de cadascuna d'aquestes parelles i indica si compleix el llindar que li correspon (text normal 4,5:1, text gran 3:1, component no textual 3:1):
+**Part 1.** Calcula amb <mark style="color:violet;">`contrast.py`</mark> la ràtio de cadascuna d'aquestes parelles i indica si compleix el llindar que li correspon (text normal 4,5:1, text gran 3:1, component no textual 3:1):
 
 | # | Ús                       | Color     | Fons      |
 | - | ------------------------ | --------- | --------- |
@@ -1174,17 +1186,17 @@ QLineEdit {
 | 5 | Vora d'un camp de text   | `#C4CAD0` | `#FFFFFF` |
 | 6 | Text de la barra d'estat | `#767676` | `#FFFFFF` |
 
-**Part 2.** Per a cada parella que no compleixi, proposa un color corregit que mantingui el to de la paraula original (per exemple, un vermell més fosc per al missatge d'error) i comprova amb `contrast.py` que ara compleix.
+**Part 2.** Per a cada parella que no compleixi, proposa un color corregit que mantingui el to de la paraula original (per exemple, un vermell més fosc per al missatge d'error) i comprova amb <mark style="color:violet;">`contrast.py`</mark> que ara compleix.
 
-**Part 3.** Fes una captura de la finestra del comptador (`app_menus.py`) i **converteix-la a escala de grisos** amb qualsevol editor d'imatges. Indica si es pot distingir cada estat i cada missatge. Si alguna cosa només es distingia pel color, proposa'n una millora.
+**Part 3.** Fes una captura de la finestra del comptador (<mark style="color:violet;">`app_menus.py`</mark>) i **converteix-la a escala de grisos** amb qualsevol editor d'imatges. Indica si es pot distingir cada estat i cada missatge. Si alguna cosa només es distingia pel color, proposa'n una millora.
 
 **Lliurament:** una taula amb els resultats i les correccions, i la captura en escala de grisos amb el teu comentari.
 
 ### Exercici J — Repte: dreceres generades automàticament
 
-Afegeix un menú `Ajuda` a `app_menus.py` amb l'ordre `Dreceres de teclat…`. Ha de mostrar un diàleg amb una llista de **totes les ordres que tenen drecera**, amb el seu text i la seva combinació.
+Afegeix un menú `Ajuda` a <mark style="color:violet;">`app_menus.py`</mark> amb l'ordre `Dreceres de teclat…`. Ha de mostrar un diàleg amb una llista de **totes les ordres que tenen drecera**, amb el seu text i la seva combinació.
 
-**No hi ha instruccions pas a pas.** Has de decidir com obtenir les accions (per exemple, `self.findChildren(QAction)`), com netejar el text dels mnemònics (`&`), com mostrar el resultat i com evitar duplicats. El requisit essencial és que la llista **no estigui escrita a mà**: si afegeixes una acció nova amb drecera, ha d'aparèixer automàticament al diàleg.
+**No hi ha instruccions pas a pas.** Has de decidir com obtenir les accions (per exemple, `self.`<mark style="color:orange;">`findChildren`</mark>`(`<mark style="color:red;">`QAction`</mark>`)`), com netejar el text dels mnemònics (`&`), com mostrar el resultat i com evitar duplicats. El requisit essencial és que la llista **no estigui escrita a mà**: si afegeixes una acció nova amb drecera, ha d'aparèixer automàticament al diàleg.
 
 **Lliurament:** codi, captura del diàleg i una explicació breu de la decisió de disseny i de per què evita que el diàleg quedi desactualitzat.
 
@@ -1198,7 +1210,7 @@ Afegeix un menú `Ajuda` a `app_menus.py` amb l'ordre `Dreceres de teclat…`. H
 | La finestra es congela                                                              | S'executa una operació llarga en el fil de la GUI                                             | Posteriorment, mou la tasca a un worker o fil adequat                        | No bloquegis handlers amb operacions costoses                  |
 | Un dels handlers s'executa només iniciar l'aplicació                                | S'ha escrit `connect(metode())`                                                               | Escriu `connect(metode)`                                                     | Recorda que `connect` rep una referència                       |
 | El botó continua actiu amb entrada buida                                            | Només s'ha configurat l'estat inicial                                                         | Connecta la validació a `textChanged`                                        | Centralitza la regla en un mètode                              |
-| El focus salta en un ordre estrany                                                  | Tab order no configurat o jerarquia poc clara                                                 | Utilitza _Edit Tab Order_ i prova amb teclat                                 | Defineix el flux abans de lliurar                              |
+| El focus salta en un ordre estrany                                                  | Tab order no configurat o jerarquia poc clara                                                 | Utilitza _Editar orden de tabulación_ i prova amb teclat                     | Defineix el flux abans de lliurar                              |
 | El tooltip conté l'única explicació d'un botó                                       | S'ha confós ajuda contextual amb etiquetatge                                                  | Mantén un text o nom accessible clar                                         | Verifica la interfície sense ratolí                            |
 | `ImportError: cannot import name 'QAction' from 'PySide6.QtWidgets'`                | A Qt 6, `QAction` és a `QtGui`                                                                | `from PySide6.QtGui import QAction`                                          | Consulta la documentació de Qt 6 i no copiïs tutorials de Qt 5 |
 | Una drecera amb `Alt` no funciona o no ho fa de manera fiable                       | Dos elements de la finestra utilitzen el mateix mnemònic (per exemple, `&Ajuda` i `&Aprovar`) | Canvia la lletra d'un dels dos (`A&juda`)                                    | Fes una taula de mnemònics abans d'assignar-los                |
@@ -1207,23 +1219,23 @@ Afegeix un menú `Ajuda` a `app_menus.py` amb l'ordre `Dreceres de teclat…`. H
 | `connect(self.aprovar())` a una acció executa l'ordre en iniciar-se                 | S'ha escrit el mètode amb parèntesis                                                          | Escriu `connect(self.aprovar)`                                               | Recorda que `connect` rep una referència                       |
 | El text és il·legible amb tema fosc després d'aplicar un QSS                        | S'ha fixat `color` però no `background-color`                                                 | Fixa'ls junts a la mateixa regla                                             | Prova el full d'estil amb el tema clar i el fosc               |
 | Una regla del QSS no té cap efecte                                                  | Error de sintaxi (Qt l'ignora en silenci) o selector incorrecte                               | Llegeix el missatge de la consola; revisa `objectName`, claus i punts i coma | Prova cada regla en afegir-la                                  |
-| El full d'estil no es troba en executar el programa des d'una altra carpeta         | Ruta relativa al directori de treball                                                         | Utilitza `Path(__file__).parent / "estils"`                                  | No depenguis del directori actual                              |
+| El full d'estil no es troba en executar el programa des d'una altra carpeta         | Ruta relativa al directori de treball                                                         | Utilitza `Path(__file__).parent / "styles"`                                  | No depenguis del directori actual                              |
 | `QApplication.setFont` no canvia la mida del text                                   | El QSS fixa `font-size` i té prioritat                                                        | Elimina `font-size` del QSS                                                  | Deixa les mides de text al `QFont`                             |
 | Els controls "salten" en rebre el focus                                             | La vora canvia de gruix a l'estat `:focus`                                                    | Fixa el gruix i canvia només `border-color`                                  | Prova el focus amb `Tab`                                       |
 | Un botó de la barra d'eines només mostra una icona sense sentit                     | Icona sense text ni tooltip                                                                   | `ToolButtonTextBesideIcon` i `toolTip`                                       | Prova la barra amb algú que no conegui l'aplicació             |
 
 ## 11. Bones pràctiques
 
-* **Respecta el `.ui` com a font del disseny i** **no editis manualment el fitxer generat**.
+* **Respecta el `.ui` com a font del disseny i no editis manualment el fitxer generat**.
 * **Respecta la separació de responsabilitats**: Qt Widgets Designer defineix la Vista; el codi Python fa de Presentador (lògica de presentació).
-* **Utilitza noms interns consistents**: `btn_`, `txt_`, `lbl_`, `lst_`, `chk_` segons la convenció del projecte.
+* **Utilitza noms interns consistents**: `btn_` (botons), `txt_` (camps de text), `lbl_` (etiquetes), `lst_` (llistes), `chk_` (caselles), `act_` (accions), `tb_` (barres d'eines) i prefixos descriptius per als components propis del Tema 2 (com `sel_` per a selectors o `lbl_` per a etiquetes especialitzades); **l'absència d'accents i espais és essencial** (també quan els noms es generin dinàmicament per codi).
 * **No utilitzis coordenades de pantalla absolutes** per resoldre una finestra que ha de redimensionar-se.
-* **No facis servir el color com a únic indicador d'estat** (Criteri d'accessibilitat i visibilitat).
+* **No facis servir el color com a únic indicador d'estat** (criteri d'accessibilitat i visibilitat).
 * **Dona missatges orientats a l'acció**: què ha passat i què pot fer l'usuari.
 * **Mostra el focus en un punt previsible després d'una acció**, especialment en formularis i diàlegs.
 * **Prova la interfície amb teclat, finestra petita, text llarg i dades buides**.
-* **No consideris que un tooltip substitueix un `accessibleName`, una etiqueta o un text d'estat**.
-* **Defineix cada ordre com una única `QAction`** i reutilitza-la al menú, a la barra d'eines, al menú contextual i als botons (prefix `act_`).
+* **No consideris que un tooltip substitueix un <mark style="color:blue;">`accessibleName`</mark>, una etiqueta o un text d'estat**.
+* **Defineix cada ordre com una única <mark style="color:red;">`QAction`</mark>** i reutilitza-la al menú, a la barra d'eines, al menú contextual i als botons (prefix `act_`).
 * **Fes que tota ordre sigui accessible des d'un menú**; la resta de llocs són accelerants.
 * **Utilitza la mateixa forma verbal a totes les ordres** i posa punts suspensius només quan l'ordre demana més informació o confirmació.
 * **Fes una taula de mnemònics i dreceres abans d'assignar-los**: han de ser únics dins de cada àmbit.
@@ -1235,11 +1247,11 @@ Afegeix un menú `Ajuda` a `app_menus.py` amb l'ordre `Dreceres de teclat…`. H
 * **Utilitza la font del sistema** i no baixis de 9 pt en text funcional.
 * **Prova els menús i les dreceres amb el teclat, i la finestra en escala de grisos**.
 
-## 12. PAC1: Prototip de BotEscola Desktop
+## 12. PAC 1: Prototip de BotEscola Desktop
 
 ### Context
 
-La direcció del centre necessita un panell per consultar notificacions pendents i decidir si s'aproven o es descarten. En aquest tema només es construirà el prototip funcional amb dades de prova; la persistència i la connexió amb serveis s'abordaran més endavant.
+La direcció del centre necessita un panell per consultar notificacions per revisar i decidir si s'aproven o es descarten. En aquest tema només es construirà el prototip funcional amb dades de prova; la persistència i la connexió amb serveis s'abordaran més endavant.
 
 El prototip ha de ser també una aplicació d'escriptori reconeixible: les ordres s'organitzen en menús, barra d'eines i menú contextual, i la interfície té un aspecte coherent amb un contrast verificat.
 
@@ -1249,34 +1261,34 @@ El prototip ha de ser també una aplicació d'escriptori reconeixible: les ordre
 
 1. La finestra principal serà de tipus <mark style="color:red;">`QMainWindow`</mark>.
 2. El títol serà `BotEscola - Panell de control`.
-3. El panell esquerre contindrà un `QListWidget` amb l'etiqueta visible `Missatges pendents`.
-4. El panell dret contindrà l'etiqueta visible `Detall` i un `QTextEdit` de només lectura per al detall.
+3. El panell esquerre contindrà un <mark style="color:red;">`QListWidget`</mark> amb l'etiqueta visible `Notificacions per revisar`.
+4. El panell dret contindrà l'etiqueta visible `Detall` i un <mark style="color:red;">`QTextEdit`</mark> de només lectura per al detall.
 5. Sota el detall hi haurà els botons `&Aprovar notificació` i `&Descartar…`.
-6. En iniciar-se, s'hi afegiran tres notificacions de prova.
+6. En iniciar-se, s'hi afegiran tres notificacions de prova. Cada notificació serà un diccionari amb els camps `id`, `remitent`, `assumpte`, `data` i `detall` (vegeu «Restriccions»).
 7. En seleccionar una notificació, se'n mostrarà el detall corresponent.
-8. `Aprovar` i `Descartar` actualitzaran un missatge d'estat visible i actuaran sobre la selecció actual. Encara no cal persistir els canvis.
+8. `Aprovar` i `Descartar` actualitzaran un missatge d'estat visible i actuaran sobre la selecció actual. Encara no cal persistir els canvis ni eliminar la notificació de la llista: en aquest tema només es comunica el resultat de l'acció.
 9. La finestra tindrà una **barra de menús** amb aquests menús i ordres:
 
 | Menú             | Ordres                                                                                                                                | Drecera                                                   |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
 | `&Fitxer`        | `&Sortir`                                                                                                                             | `Ctrl+Q`                                                  |
-| `&Notificacions` | `&Aprovar notificació`, `&Descartar…`                                                                                                 | `Ctrl+Return`, `Supr` (`QKeySequence.StandardKey.Delete`) |
-| `&Visualitza`    | `Barra d'eines` (marcable; s'obté amb `toggleViewAction()` de la barra d'eines, a la qual s'assigna el `windowTitle` `Barra d'eines`) | —                                                         |
-| `A&juda`         | `&Quant a BotEscola…` (`QMessageBox.about`)                                                                                           | —                                                         |
+| `&Notificacions` | `&Aprovar notificació`, `&Descartar…`                                                                                                 | `Ctrl+Return`, `Supr` (<mark style="color:red;">`QKeySequence.StandardKey.Delete`</mark>) |
+| `&Visualitza`    | `Barra d'eines` (marcable; s'obté amb <mark style="color:orange;">`toggleViewAction()`</mark> de la barra d'eines, a la qual s'assigna el <mark style="color:blue;">`windowTitle`</mark> `Barra d'eines`) | —                                                         |
+| `A&juda`         | `&Quant a BotEscola…` (<mark style="color:red;">`QMessageBox`</mark><mark style="color:orange;">`.about`</mark>)                      | —                                                         |
 
-10. Hi haurà una **barra d'eines** (`tb_principal`) amb `Aprovar notificació` i `Descartar…`, amb icona i text (<mark style="color:red;">`ToolButtonTextBesideIcon`</mark>). Les icones s'obtindran amb <mark style="color:orange;">`QStyle.standardIcon()`</mark>.
+10. Hi haurà una **barra d'eines** (`tb_principal`) amb `Aprovar notificació` i `Descartar…`, amb icona i text (<mark style="color:blue;">`ToolButtonTextBesideIcon`</mark>). Les icones s'obtindran amb <mark style="color:red;">`QStyle`</mark><mark style="color:orange;">`.standardIcon()`</mark>.
 11. La llista tindrà un **menú contextual** (clic dret) amb les mateixes ordres `Aprovar notificació` i `Descartar…`.
-12. Cada ordre serà **una sola `QAction`** (`act_aprovar`, `act_descartar`, `act_sortir`, `act_quant_a`). El menú, la barra d'eines, el menú contextual i la drecera utilitzaran la mateixa acció, i els botons de la finestra activaran l'acció (no tindran _handler_ propi).
+12. Cada ordre serà **una sola <mark style="color:red;">`QAction`</mark>** (`act_aprovar`, `act_descartar`, `act_sortir`, `act_quant_a`). El menú, la barra d'eines, el menú contextual i la drecera utilitzaran la mateixa acció, i els botons de la finestra activaran l'acció (no tindran _handler_ propi).
 13. Sense cap notificació seleccionada, les ordres `Aprovar` i `Descartar` estaran **inhabilitades** al menú, a la barra d'eines, al menú contextual i als botons. Una única funció (<mark style="color:orange;">`actualitzar_estat_accions`</mark>) gestionarà aquest estat.
 14. `Descartar…` demanarà **confirmació** amb un <mark style="color:red;">`QMessageBox`</mark> amb els botons `Descartar` i `Cancel·lar`; `Cancel·lar` serà l'opció per defecte. Si l'usuari cancel·la, no es modificarà res.
-15. Els missatges d'estat començaran amb un **prefix textual** que indiqui el resultat (`Aprovada:`, `Descartada:`, `Cancel·lada:`) seguit de la notificació afectada.
+15. Els missatges d'estat començaran amb un **prefix textual** que indiqui el resultat (`Aprovada:`, `Descartada:`, `Cancel·lada:`) seguit de la notificació afectada (identificada per l'assumpte o el remitent).
 16. L'aspecte es definirà en un **únic full d'estil** <mark style="color:violet;">`styles/botescola.qss`</mark>, carregat des del codi amb `Path(__file__).parent`. La paleta tindrà com a màxim deu colors, cadascun amb un ús definit. El full d'estil cobrirà, com a mínim: finestra, barres de menús, eines i estat, menús desplegables, botons (normal, cursor a sobre, focus i inhabilitat), llista (element seleccionat), detall i camps.
-17. La tipografia serà la del sistema, sense fixar-ne la família. Els títols de secció (`Missatges pendents` i `Detall`) es diferenciaran amb negreta a partir del seu <mark style="color:blue;">`objectName`</mark>.
-18. Cada parella de colors text/fons tindrà una ràtio ≥ 4,5:1, i les vores dels controls i l'indicador de focus, ≥ 3:1 **respecte de tots els colors adjacents** (fons de la finestra i fons del control). Es documentaran a `taula_contrast.md`.
+17. La tipografia serà la del sistema, sense fixar-ne la família. Els títols de secció (`Notificacions per revisar` i `Detall`) es diferenciaran amb negreta a partir del seu <mark style="color:blue;">`objectName`</mark>.
+18. Cada parella de colors text/fons tindrà una ràtio ≥ 4,5:1, i les vores dels controls i l'indicador de focus, ≥ 3:1 **respecte de tots els colors adjacents** (fons de la finestra i fons del control). Es documentaran a <mark style="color:violet;">`taula_contrast.md`</mark>.
 
 **Ampliació (opcional)**
 
-19. Submenú `Visualitza > Text` amb `Augmentar el text`, `Reduir el text` i `Mida per defecte` (accions estàndard `ZoomIn` i `ZoomOut`, i `Ctrl+0`), utilitzant <mark style="color:orange;">`QApplication.setFont()`</mark>.
+19. Submenú `Visualitza > Text` amb `Augmentar el text`, `Reduir el text` i `Mida per defecte` (accions estàndard `ZoomIn` i `ZoomOut`, i `Ctrl+0`), utilitzant <mark style="color:red;">`QApplication`</mark><mark style="color:orange;">`.setFont()`</mark>.
 20. Acció marcable `Visualitza > Alt contrast` que canvia entre <mark style="color:violet;">`botescola.qss`</mark> i un segon full d'estil <mark style="color:violet;">`alt_contrast.qss`</mark> (per exemple, text blanc `#FFFFFF` sobre fons negre `#000000`, accent groc `#FFD400`), també amb contrast documentat.
 
 ### Requisits no funcionals
@@ -1285,8 +1297,8 @@ El prototip ha de ser també una aplicació d'escriptori reconeixible: les ordre
 * El detall no es podrà editar.
 * La llista, les accions i els menús seran accessibles amb teclat.
 * El focus inicial serà a la llista.
-* L'ordre de tabulació seguirà: llista, detall, aprovar, descartar.
-* Els botons tindran les dreceres amb ampersand `&Aprovar notificació` i `&Descartar…`. Verifica que les dreceres no entren en conflicte amb els mnemònics de la barra de menús (`F`, `N`, `V`, `J`) ni amb cap altre control.
+* L'ordre de tabulació seguirà: llista, detall, aprovar, descartar (activa la propietat <mark style="color:blue;">`tabChangesFocus`</mark> al <mark style="color:red;">`QTextEdit`</mark> perquè la tecla `Tab` mogui el focus al control següent).
+* Els botons tindran els mnemònics amb ampersand `&Aprovar notificació` i `&Descartar…`. Verifica que aquests mnemònics no entren en conflicte amb els de la barra de menús (`F`, `N`, `V`, `J`) ni amb cap altre control.
 * Els missatges d'estat indicaran què s'ha fet i sobre quin element.
 * La finestra serà usable en una amplada petita raonable i mantindrà els controls visibles.
 * L'indicador de focus serà visible en tots els controls (vora amb contrast ≥ 3:1).
@@ -1298,17 +1310,17 @@ El prototip ha de ser també una aplicació d'escriptori reconeixible: les ordre
 * No s'accepten coordenades absolutes.
 * No s'edita <mark style="color:violet;">`ui_botescola.py`</mark> manualment.
 * No es connecta cap servei extern.
-* La lògica de dades de prova ha d'estar separada, com a mínim, en una estructura llegible i no dispersa pels handlers. Idealment en un fitxer python independent.
-* No s'utilitza cap `styleSheet` dins de Qt Widgets Designer ni per widget des del codi: tot l'aspecte és al fitxer `.qss`.
-* No s'utilitzen fitxers d'icones externs (només <mark style="color:orange;">`QStyle.standardIcon()`</mark>).
+* La lògica de dades de prova ha d'estar separada, com a mínim, en una estructura llegible i no dispersa pels handlers. Idealment en un fitxer Python independent (<mark style="color:violet;">`dades.py`</mark>), amb els camps `id`, `remitent`, `assumpte`, `data` i `detall`; el Tema 2 hi afegirà `llegida` i `prioritat`.
+* No s'utilitza cap <mark style="color:blue;">`styleSheet`</mark> dins de Qt Widgets Designer ni per widget des del codi: tot l'aspecte és al fitxer `.qss`.
+* No s'utilitzen fitxers d'icones externs (només <mark style="color:red;">`QStyle`</mark><mark style="color:orange;">`.standardIcon()`</mark>).
 
 ### Tasques
 
-1. Elabora un wireframe (amb barra de menús, barra d'eines, llista, detall, botons i barra d'estat) i justifica la jerarquia de la pantalla. Pot ser un esquema en text pla o un esboç dibuixat.
+1. Elabora un wireframe (amb barra de menús, barra d'eines, llista, detall, botons i barra d'estat) i justifica la jerarquia de la pantalla. Pot ser un esquema en text pla o un esbós dibuixat.
 2. Elabora la **taula de distribució d'ordres**: per a cada ordre, on apareix (menú, barra, botó, menú contextual, drecera) i per què.
 3. Crea la interfície a Qt Widgets Designer: finestra, layouts, accions, menús i barra d'eines.
 4. Genera el mòdul Python i implementa la classe principal respectant la capa Presentador.
-5. Connecta la selecció de notificació i les accions; implementa `actualitzar_estat_accions`, el menú contextual i el diàleg de confirmació.
+5. Connecta la selecció de notificació i les accions; implementa <mark style="color:orange;">`actualitzar_estat_accions`</mark>, el menú contextual i el diàleg de confirmació.
 6. Configura el focus inicial, el tab order, tooltips i noms accessibles quan sigui necessari.
 7. Defineix la paleta, escriu <mark style="color:violet;">`styles/botescola.qss`</mark> i carrega'l des del codi.
 8. Verifica cada parella de colors amb <mark style="color:violet;">`contrast.py`</mark> i documenta-ho a <mark style="color:violet;">`taula_contrast.md`</mark>.
@@ -1336,16 +1348,18 @@ El prototip ha de ser també una aplicació d'escriptori reconeixible: les ordre
 
 ### Evidències de lliurament
 
+* Lliurament en un repositori Git (o `.zip`).
 * Carpeta de projecte:
 
 ```
-botEscolaDesktop/
+botescola/
 ├── ui/
-│   ├── botescola.ui
+│   └── botescola.ui
 ├── generated/
-│   ├── ui_botescola.py
+│   └── ui_botescola.py
 ├── styles/
 │   └── botescola.qss
+├── dades.py
 ├── botescola_app.py
 ├── contrast.py
 ├── taula_contrast.md
@@ -1357,33 +1371,48 @@ botEscolaDesktop/
 * Captures: finestra principal, un menú obert, el menú contextual, el diàleg de confirmació i la finestra en escala de grisos.
 * Informe breu que inclogui: (a) com a mínim dues heurístiques de Nielsen respectades, (b) la justificació de la distribució de les ordres i (c) la justificació de l'aspecte (paleta i tipografia).
 * Taula de proves amb resultat obtingut.
+* <mark style="color:violet;">`README.md`</mark> amb les versions de Python i PySide6 utilitzades.
+
+### Rúbrica de la PAC
+
+| Criteri observable | Insuficient | Suficient | Bo |
+| ------------------ | ----------- | --------- | -- |
+| Finestra i layouts | Usa coordenades absolutes, la finestra no és un `QMainWindow` o els controls se superposen en redimensionar | `QMainWindow` amb layouts; mostra llista, detall, botons i barra d'estat, i es redimensiona sense solapaments | A més, és usable amb una amplada petita i amb el text més gran |
+| Separació de responsabilitats | Edita el fitxer generat o barreja dades i lògica dins dels handlers | `.ui`, mòdul generat i classe pròpia separats; dades de prova en una estructura llegible | A més, dades de prova en un fitxer Python independent i regeneració del mòdul documentada |
+| Senyals i interacció | Un handler s'executa en iniciar (`connect(metode())`) o la selecció no mostra el detall | La selecció mostra el detall; `Aprovar` i `Descartar` actuen sobre la selecció i actualitzen el missatge d'estat | A més, els missatges tenen prefix (`Aprovada:`, `Descartada:`, `Cancel·lada:`) i indiquen l'element afectat |
+| Ordres i menús | Les ordres només són botons, o una mateixa ordre es duplica en controls independents | Una única `QAction` per ordre, compartida pel menú, la barra d'eines, el menú contextual i els botons; hi ha els quatre menús | A més, mnemònics únics, ordre i dreceres estàndard, punts suspensius quan toca i taula de distribució justificada |
+| Estat i seqüència de control | Les ordres són actives sense selecció o `Descartar…` no demana confirmació | Sense selecció, `Aprovar` i `Descartar` s'inhabiliten a tots els llocs des d'una única funció; el descart demana confirmació | A més, la confirmació té botons de verb explícit i `Cancel·lar` per defecte, i en cancel·lar no es modifica res |
+| Aspecte (QSS) | Hi ha estils dins del `.ui` o per widget des del codi, o no hi ha full d'estil | Un únic `.qss` carregat amb `Path(__file__).parent`; cobreix els elements requerits i la paleta té com a màxim deu colors | A més, fixa `color` i `background-color` junts, no elimina el focus ni en canvia la mida, i diferencia els títols per `objectName` |
+| Contrast i color | No documenta el contrast o hi ha parelles per sota de 4,5:1 (text) o 3:1 (vores i focus) | `taula_contrast.md` amb les ràtios; text ≥ 4,5:1 i vores i focus ≥ 3:1 | A més, el focus es verifica contra tots els colors adjacents i cap estat depèn només del color (prova en escala de grisos) |
+| Teclat i accessibilitat | No es pot utilitzar amb teclat o el focus no és visible | Focus inicial a la llista, ordre de tabulació definit, dreceres i mnemònics sense conflictes i focus visible | A més, tooltips i `accessibleName` quan cal, i proves de teclat documentades |
+| Documentació i evidències | Falta el wireframe, la taula d'ordres, les captures o l'informe | Wireframe, taula de distribució d'ordres, captures i informe amb dues heurístiques de Nielsen | A més, justifica la paleta i la tipografia, i la taula de proves recull el resultat real i les incidències |
 
 ## 13. Proves
 
-| Cas                      | Procediment                                                                     | Resultat esperat                                                                     |
-| ------------------------ | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| Inici                    | Executa l'aplicació                                                             | Es mostra la finestra i hi ha tres notificacions                                     |
-| Selecció                 | Selecciona cada element                                                         | El detall correspon a l'element seleccionat                                          |
-| Aprovació                | Selecciona un element i activa `Aprovar`                                        | Es mostra un missatge d'estat específic                                              |
-| Descart                  | Selecciona un element i activa `Descartar…`; a la confirmació, prem `Descartar` | Es mostra un missatge d'estat específic que comença per `Descartada:`                |
-| Redimensió               | Redueix i amplia la finestra                                                    | No hi ha solapaments ni pèrdua d'informació essencial                                |
-| Teclat                   | Usa només `Tab`, fletxes i barra espaiadora                                     | Es pot navegar i executar les accions                                                |
-| Dreceres                 | Prem `Alt+A` i `Alt+D`                                                          | S'activa la funció corresponent                                                      |
-| Text llarg               | Selecciona una notificació amb detall llarg                                     | El text es pot consultar sense editar-lo                                             |
-| Estat sense selecció     | Inicia l'aplicació sense seleccionar cap notificació                            | `Aprovar` i `Descartar` estan inhabilitades al menú, a la barra d'eines i als botons |
-| Confirmació de descart   | Activa `Descartar…` i prem `Cancel·lar`                                         | No canvia res i el missatge d'estat comença per `Cancel·lada:`                       |
-| Menús amb teclat         | Prem `Alt+N`, recorre el menú amb fletxes i tanca amb `Esc`                     | El menú s'obre, mostra les dreceres i es pot recórrer sense ratolí                   |
-| Drecera d'ordre          | Selecciona un element i prem `Ctrl+Return`                                      | Té el mateix efecte que el botó i el menú                                            |
-| Menú contextual          | Fes clic dret sobre una notificació                                             | Apareixen `Aprovar notificació` i `Descartar…`, amb el mateix efecte que la resta    |
-| Barra d'eines            | Amaga i mostra la barra amb `Visualitza`                                        | La barra desapareix i reapareix, i la marca del menú reflecteix l'estat              |
-| Conflicte de mnemònics   | Prova `Alt+F`, `Alt+N`, `Alt+V`, `Alt+J`, `Alt+A` i `Alt+D`                     | Cada combinació activa un únic element                                               |
-| Contrast                 | Executa `contrast.py` per a cada parella de la paleta                           | Text ≥ 4,5:1; vores i focus ≥ 3:1; resultats a `taula_contrast.md`                   |
-| Focus visible            | Recorre tota la finestra amb `Tab`                                              | El focus és visible en tots els controls                                             |
-| Escala de grisos         | Converteix una captura a escala de grisos                                       | S'identifiquen tots els estats i missatges sense el color                            |
-| Ampliació: text més gran | Utilitza `Augmentar el text` diverses vegades                                   | Cap control se superposa ni es talla                                                 |
-| Ampliació: alt contrast  | Activa `Alt contrast`                                                           | El canvi és immediat, s'aplica a tota la finestra i es pot desfer                    |
+| Cas                      | Procediment                                                                     | Resultat esperat                                                                     | Resultat obtingut |
+| ------------------------ | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ | ------------------ |
+| Inici                    | Executa l'aplicació                                                             | Es mostra la finestra i hi ha tres notificacions                                     |  |
+| Selecció                 | Selecciona cada element                                                         | El detall correspon a l'element seleccionat                                          |  |
+| Aprovació                | Selecciona un element i activa `Aprovar`                                        | Es mostra un missatge d'estat específic que comença per `Aprovada:`                  |  |
+| Descart                  | Selecciona un element i activa `Descartar…`; a la confirmació, prem `Descartar` | Es mostra un missatge d'estat específic que comença per `Descartada:`                |  |
+| Redimensió               | Redueix i amplia la finestra                                                    | No hi ha solapaments ni pèrdua d'informació essencial                                |  |
+| Teclat                   | Usa només `Tab`, fletxes i barra espaiadora                                     | Es pot navegar i executar les accions                                                |  |
+| Mnemònics dels botons    | Prem `Alt+A` i `Alt+D`                                                          | S'activa la funció corresponent                                                      |  |
+| Text llarg               | Selecciona una notificació amb detall llarg                                     | El text es pot consultar sense editar-lo                                             |  |
+| Estat sense selecció     | Inicia l'aplicació sense seleccionar cap notificació                            | `Aprovar` i `Descartar` estan inhabilitades al menú, a la barra d'eines i als botons |  |
+| Confirmació de descart   | Activa `Descartar…` i prem `Cancel·lar`                                         | No canvia res i el missatge d'estat comença per `Cancel·lada:`                       |  |
+| Menús amb teclat         | Prem `Alt+N`, recorre el menú amb fletxes i tanca amb `Esc`                     | El menú s'obre, mostra les dreceres i es pot recórrer sense ratolí                   |  |
+| Drecera d'ordre          | Selecciona un element i prem `Ctrl+Return`                                      | Té el mateix efecte que el botó i el menú                                            |  |
+| Menú contextual          | Fes clic dret sobre una notificació                                             | Apareixen `Aprovar notificació` i `Descartar…`, amb el mateix efecte que la resta    |  |
+| Barra d'eines            | Amaga i mostra la barra amb `Visualitza`                                        | La barra desapareix i reapareix, i la marca del menú reflecteix l'estat              |  |
+| Conflicte de mnemònics   | Prova `Alt+F`, `Alt+N`, `Alt+V`, `Alt+J`, `Alt+A` i `Alt+D`                     | Cada combinació activa un únic element                                               |  |
+| Contrast                 | Executa `contrast.py` per a cada parella de la paleta                           | Text ≥ 4,5:1; vores i focus ≥ 3:1; resultats a `taula_contrast.md`                   |  |
+| Focus visible            | Recorre tota la finestra amb `Tab`                                              | El focus és visible en tots els controls                                             |  |
+| Escala de grisos         | Converteix una captura a escala de grisos                                       | S'identifiquen tots els estats i missatges sense el color                            |  |
+| Ampliació: text més gran | Utilitza `Augmentar el text` diverses vegades                                   | Cap control se superposa ni es talla                                                 |  |
+| Ampliació: alt contrast  | Activa `Alt contrast`                                                           | El canvi és immediat, s'aplica a tota la finestra i es pot desfer                    |  |
 
-Registra també el resultat real i les incidències trobades. Una prova no és només el comportament esperat: cal deixar constància del que ha passat.
+Omple la columna _Resultat obtingut_ amb el que ha passat realment i descriu les incidències trobades (símptoma, causa i correcció) a l'informe. Una prova no és només el comportament esperat: cal deixar constància del que ha passat.
 
 ## 14. Autoavaluació
 
@@ -1413,7 +1442,7 @@ Registra també el resultat real i les incidències trobades. Una prova no és n
 ### Solucions orientatives
 
 1. b) `app.exec()`.
-2. L'arxiu `.ui` (i el seu derivat compilat `ui_*.py`) formen part de la Vista. No executa operacions de dades. L'arxiu `app.py` forma el Presentador, el qual avalua les interaccions (Senyals) i envia càlculs al model de dades de Python abans d'actualitzar la pantalla.
+2. L'arxiu `.ui` (i el seu derivat generat `ui_*.py`) formen part de la Vista. No executa operacions de dades. L'arxiu `app.py` forma el Presentador, el qual avalua les interaccions (Senyals) i envia càlculs al model de dades de Python abans d'actualitzar la pantalla.
 3. Els parèntesis executen el mètode immediatament i en passen el resultat a `connect`; cal passar la referència, sense parèntesis.
 4. Es viola fonamentalment l'Heurística de Prevenció d'errors (i la de visibilitat de l'estat del sistema, atès que no avisa de manera contextual què va anar malament abans de fallar).
 5. `QFormLayout` és adequat per a parelles etiqueta-camp perquè gestiona aquesta relació i facilita el manteniment. `QGridLayout` és útil quan cal una graella més general.
@@ -1430,13 +1459,21 @@ Registra també el resultat real i les incidències trobades. Una prova no és n
 
 ## 15. Repàs final
 
-En aquest tema hem après a planificar una GUI elaborant prèviament un wireframe, crear-la amb Qt Widgets Designer i integrar-la en una aplicació PySide6. Hem conegut l'espectre tecnològic (des d'Electron fins a tecnologies nadives), la importància de separar la vista de la lògica de presentació (organització inspirada en MVP) i hem diferenciat el fitxer descriptiu del codi generat.
+**Què hem après**
 
-Hem posat en pràctica layouts, senyals, mètodes i el bucle d'esdeveniments. També hem interioritzat el que separa un simple panell gràfic d'un producte real: la rigorosa aplicació de les regles de disseny centrades en l'usuari (Heurístiques de Nielsen) i els criteris inicials d'accessibilitat (focus, tab order, dreceres de teclat).
+* Una aplicació gràfica no s'executa de principi a fi: crea la finestra i espera esdeveniments. Qt gestiona el bucle (<mark style="color:orange;">`app.exec()`</mark>) i la lògica hi respon connectant senyals amb slots, passant-hi la referència al mètode i no el resultat de cridar-lo.
+* El `.ui` descriu l'estructura de la vista, <mark style="color:violet;">`pyside6-uic`</mark> en genera el mòdul Python, que no s'edita mai, i la classe pròpia fa de Presentador. La mateixa separació s'aplica a l'aspecte, que viu en un únic fitxer `.qss`.
+* Cada ordre es defineix una sola vegada com a <mark style="color:red;">`QAction`</mark> i es reutilitza al menú, a la barra d'eines, al menú contextual i als botons. Tota ordre és accessible des d'un menú, i les ordres no aplicables s'inhabiliten en lloc d'amagar-se.
+* La usabilitat (heurístiques de Nielsen) i l'accessibilitat (teclat, focus, noms accessibles, color com a informació) són criteris que es verifiquen. Una prova de contrast no basta per afirmar que una aplicació «compleix WCAG».
+* La pantalla de <mark style="color:violet;">**BotEscola Desktop**</mark> és la base dels temes següents. L'estil visual i la taula de contrast es mantenen, i els components que es creïn els hauran de respectar.
 
-Hem estructurat l'aplicació com una aplicació d'escriptori: les ordres es defineixen una sola vegada com a accions i es distribueixen en menús, barra d'eines, menú contextual i botons, seguint les convencions de les guies de plataforma. Hem definit l'aspecte en un full d'estil separat i n'hem verificat la llegibilitat amb criteris mesurables (ràtio de contrast, mida de la font, ús del color).
+**Què hauríem de saber fer**
 
-La pantalla del projecte <mark style="color:violet;">**BotEscola Desktop**</mark> serà la base dels temes següents. No s'hi han introduït encara persistència, components reutilitzables ni connexions externes perquè aquests aprenentatges tenen assignada una progressió posterior. L'estil visual i la taula de contrast es mantindran als temes següents, i els components que es creïn haurien de respectar-los.
+* Comparar llibreries de GUI segons requisits, arquitectura i llicència, i planificar una pantalla amb un wireframe abans de construir-la.
+* Crear la interfície a Qt Widgets Designer amb layouts, generar-ne el mòdul amb <mark style="color:violet;">`pyside6-uic`</mark> i integrar-lo en una classe pròpia sense editar el codi generat.
+* Definir ordres com a <mark style="color:red;">`QAction`</mark>, distribuir-les amb un criteri coherent (mnemònics i dreceres sense conflictes) i demanar confirmació per a les ordres destructives.
+* Escriure un full `.qss` que fixi `color` i `background-color` junts, calcular i documentar la ràtio de contrast de cada parella amb <mark style="color:violet;">`contrast.py`</mark>, i comprovar que cap informació depèn només del color.
+* Provar la interfície amb teclat, redimensionant la finestra i en escala de grisos, i registrar el resultat real de cada prova.
 
 ## 16. Checklist de competències
 
@@ -1485,13 +1522,14 @@ La pantalla del projecte <mark style="color:violet;">**BotEscola Desktop**</mark
 * **Contrast:** relació entre la lluminància de dos colors, de 1:1 a 21:1; s'utilitza per mesurar la llegibilitat.
 * **Drecera de teclat (**_**shortcut**_**):** combinació de tecles que executa una ordre directament, com `Ctrl+Q`.
 * **GUI:** interfície gràfica d'usuari.
-* **Heurístiques de Nielsen:** Conjunt de 10 normes generals descrites per Jakob Nielsen per dictaminar de forma estandarditzada i predictiva la usabilitat d'una interfície.
+* **Heurístiques de Nielsen:** conjunt de 10 normes generals descrites per Jakob Nielsen per dictaminar de forma estandarditzada i predictiva la usabilitat d'una interfície.
 * **Layout:** objecte que gestiona la distribució i la mida dels widgets sense coordenades fixes.
 * **Menú contextual:** menú que apareix en fer clic dret sobre un element i que conté les ordres que hi són aplicables.
 * **Mnemònic:** lletra subratllada d'un text (`&Fitxer`) que, combinada amb `Alt`, obre un menú o activa un control.
-* **MVP (Model-Vista-Presentador):** Patró d'arquitectura de programari que desacobla les dades (Model), l'aparença visual (Vista) i la lògica que les connecta (Presentador). En aquest tema se n'utilitza només una versió simplificada.
+* **MVP (Model-Vista-Presentador):** patró d'arquitectura de programari que desacobla les dades (Model), l'aparença visual (Vista) i la lògica que les connecta (Presentador). En aquest tema se n'utilitza només una versió simplificada.
 * **ObjectName:** identificador intern d'un objecte Qt, invisible de cara a l'usuari però essencial per al codi.
 * **Paleta:** conjunt reduït de colors, cadascun amb un ús definit, d'una interfície. També és el nom de la classe `QPalette` de Qt.
+* **Propietat:** característica d'un objecte que en descriu o configura l'estat (`enabled`, `toolTip`). A Qt són les que mostra l'editor de propietats del Designer; al Tema 2 s'hi afegeixen les propietats de Python (`@property`).
 * **QSS:** llenguatge de fulls d'estil de Qt, semblant a CSS, per definir l'aspecte dels widgets.
 * **Senyal:** notificació que emet un objecte quan es produeix un esdeveniment o canvia un estat.
 * **Slot o handler:** funció o mètode que rep una resposta d'un senyal.
