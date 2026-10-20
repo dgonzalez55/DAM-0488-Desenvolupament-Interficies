@@ -7,7 +7,7 @@
 * **Tema:** 2. Arquitectura de Components
 * **Durada presencial:** 12 hores
 * **RA treballats:** RA3
-* **Prerequisits:** Ús bàsic de Qt Widgets Designer i comprensió del bucle d'esdeveniments (Tema 1), **POO bàsica a Python** (incloent-hi propietats, atributs i mètodes de classe, excepcions i funcions `lambda`) i ús bàsic de Git. Si aquesta base no és sòlida, caldrà treballar els materials de reforç; no es pressuposa experiència prèvia creant classes Qt.
+* **Prerequisits:** Ús bàsic de Qt Widgets Designer i comprensió del bucle d'esdeveniments (Tema 1), **POO bàsica a Python** (incloent-hi propietats, atributs i mètodes de classe, excepcions i funcions `lambda`) i ús bàsic de Git. Si aquesta base no és sòlida, caldrà treballar els materials de reforç; no es pressuposa experiència prèvia creant components de Qt.
 * **Projecte transversal:** <mark style="color:violet;">**BotEscola Desktop**</mark>. En aquest tema construïm components propis i reutilitzables: un <mark style="color:red;">`SelectorPrioritat`</mark> (exemple guiat), un <mark style="color:red;">`ComptadorPendents`</mark> (exercici d'aplicació) i una <mark style="color:red;">`TargetaNotificacio`</mark> (PAC 2) que mostrarà el remitent, assumpte, data i estat de cada notificació. Els components es proven amb proves unitàries automàtiques, es documenten, s'empaqueten i s'integren a la finestra principal de l'aplicatiu <mark style="color:violet;">**BotEscola Desktop**</mark>.
 
 ### Criteris d'avaluació treballats
@@ -49,7 +49,7 @@ En acabar el tema, l'alumne serà capaç de:
 
 1. Comparar les eines per crear i provar components (subclasse en codi, widget promocionat, plugin de Designer, `QUiLoader`, `pytest-qt`, `unittest` amb `QTest`) i justificar l'elecció en un escenari concret.
 2. Crear un component visual com a subclasse de `QWidget`, amb layouts interns i sense fitxer `.ui`.
-3. Definir les propietats i els mètodes públics d'un component amb valors per defecte, validant els valors no admissibles, i desar-ne i restaurar-ne l'estat amb `to_dict()` i `from_dict()`.
+3. Definir les propietats i els mètodes públics d'un component amb valors per defecte, validar els valors no admissibles i serialitzar/restaurar-ne l'estat amb `to_dict()` i `from_dict()`, distingint aquestes operacions del desament persistent en un fitxer.
 4. Determinar els esdeveniments a què ha de respondre un component, definir els senyals propis que emet i associar-hi les accions corresponents.
 5. Escriure i executar proves unitàries amb `pytest` i `pytest-qt` que verifiquin valors inicials, interacció simulada, senyals emesos i entrades no vàlides.
 6. Documentar un component amb docstrings i amb una fitxa que descrigui la seva interfície pública.
@@ -139,6 +139,8 @@ Segons com es construeix, es distingeixen tres tipus de component:
 
 En aquest tema treballarem sobretot amb **widgets compostos** i **widgets especialitzats**.
 
+> **Nota:** Les regles QSS àmplies com `QWidget { background-color }` afecten també els widgets dins de <mark style="color:red;">`QListWidget`</mark> i poden tapar el ressaltat de la selecció. Per això, quan es creen components compostos, cal tenir en compte que el seu aspecte pot canviar segons el context on s'utilitzi. La solució passar per emprar un selector específic, com `QListWidget::item:selected` o `QListView::item:selected`, o bé establir un color de fons neutre al component `background-color: transparent;`.
+
 ### 5.2. Interfície pública: propietats, mètodes i valors per defecte
 
 La **interfície pública** d'un component és el conjunt d'elements que l'exterior pot utilitzar: el constructor, les propietats, els mètodes i els senyals. Tot el que no forma part d'aquesta interfície (per exemple, els botons interns) es considera privat i, per convenció en Python, el nom comença per `_`.
@@ -163,7 +165,7 @@ A Qt hi ha dos mecanismes que sovint es confonen:
 | ---------------------- | ----------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | **Nivell**             | Alt: "ha passat una cosa" (<mark style="color:blue;">`clicked`</mark>, <mark style="color:blue;">`prioritat_canviada`</mark>) | Baix: entrada o sistema (clic, tecla, canvi de mida, pintat)                                                          |
 | **Com es rep**         | Connectant-lo a un slot (qualsevol funció o mètode)         | Sobreescrivint un handler virtual (<mark style="color:orange;">`mousePressEvent`</mark>, <mark style="color:orange;">`keyPressEvent`</mark>, <mark style="color:orange;">`resizeEvent`</mark>) o amb un filtre d'esdeveniments |
-| **Qui el genera**      | L'objecte que el declara, cridant <mark style="color:orange;">`emit()`</mark> | El bucle d'esdeveniments de Qt                                                                                        |
+| **Qui el genera / distribueix** | L'objecte que declara el senyal, cridant <mark style="color:orange;">`emit()`</mark> | L'esdeveniment pot originar-se al sistema operatiu, a Qt o a l'aplicació; el bucle d'esdeveniments el distribueix als objectes corresponents |
 | **Ús en un component** | Formen la interfície pública cap a l'exterior               | Són un detall intern; si l'exterior ho ha de saber, es converteix en un senyal                                        |
 
 Fins ara hem consumit senyals que Qt ja ofereix (<mark style="color:blue;">`clicked`</mark>, <mark style="color:blue;">`textChanged`</mark>). Un component també pot **declarar senyals propis** per avisar de coses que només ell coneix. Per exemple, si dissenyem un component de "Selector de Prioritat" (Baixa, Normal, Alta), aquest ha d'emetre un senyal **propi** tipus <mark style="color:blue;">`prioritat_canviada`</mark> enviant el nou valor. A PySide6 es fa amb <mark style="color:red;">`Signal`</mark>`(tipus)`, declarat **a nivell de classe**, i s'emet amb <mark style="color:orange;">`emit()`</mark>.
@@ -184,15 +186,30 @@ graph LR
 
 Així el component no necessita conèixer la finestra on viu, i pot reutilitzar-se en qualsevol lloc.
 
-### 5.4. Persistència de l'estat del component
+### 5.4. Serialització i persistència de l'estat del component
 
-La **persistència** és la capacitat de conservar l'estat del component més enllà de la seva vida en memòria. No es desen els widgets, sinó **les dades que defineixen el seu estat**. En treballem tres nivells:
+La **persistència** és la capacitat de conservar les dades més enllà de la vida de l'objecte en memòria. No es desen els widgets, sinó **les dades que defineixen el seu estat**. Cal distingir la representació de l'estat de la seva conservació efectiva. Treballem tres nivells:
 
-1. **Estructura de dades pròpia** (aquest tema): el component ofereix <mark style="color:orange;">`to_dict()`</mark>, que retorna un diccionari amb dades simples (text, números, booleans), i <mark style="color:orange;">`from_dict()`</mark>, que crea un component a partir d'aquest diccionari. Aquest diccionari es pot convertir a JSON o passar a qualsevol altra capa.
-2. **Preferències de l'usuari** amb <mark style="color:red;">`QSettings`</mark> (ampliació): per recordar coses com l'última prioritat triada entre execucions.
-3. **Base de dades** (Tema 4): el component no accedeix directament a les dades; el Presentador les hi proporciona.
+1. **Serialització i restauració** (aquest tema): el component ofereix <mark style="color:orange;">`to_dict()`</mark>, que retorna un diccionari amb dades simples (text, números, booleans), i <mark style="color:orange;">`from_dict()`</mark>, que crea un component a partir d'aquest diccionari. Aquests mètodes, per si sols, **no desen res en disc**; permeten representar i reconstruir l'estat.
+2. **Fitxer o preferències d'usuari**: un diccionari es pot desar en JSON amb el mòdul `json`, o bé utilitzar <mark style="color:red;">`QSettings`</mark> (ampliació) per recordar, per exemple, l'última prioritat triada entre execucions.
+3. **Base de dades** (Tema 4): el component no hi accedeix directament; el Presentador o la capa de dades li proporciona la informació.
 
-El criteri és que una prova pugui verificar l'anada i tornada: si es desa l'estat i es restaura, el resultat ha de ser idèntic.
+Exemple mínim de persistència en JSON, un cop `component.to_dict()` retorna les dades del component:
+
+```python
+import json
+
+# Desar l'estat en un fitxer.
+with open("estat_component.json", "w", encoding="utf-8") as fitxer:
+    json.dump(component.to_dict(), fitxer, ensure_ascii=False, indent=2)
+
+# Llegir-lo i reconstruir el component (la classe ha d'implementar from_dict).
+with open("estat_component.json", encoding="utf-8") as fitxer:
+    dades = json.load(fitxer)
+component_restaurat = type(component).from_dict(dades)
+```
+
+Una prova d'anada i tornada comprova que `from_dict(component.to_dict())` reconstrueix les mateixes dades. Si també es vol provar la persistència, cal verificar el desament i la lectura del fitxer, no només el diccionari.
 
 ### 5.5. Estructura i empaquetat de components
 
@@ -212,7 +229,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "botescola-components"
+name = "botescola-modules"
 version = "0.1.0"
 description = "Components visuals reutilitzables de BotEscola Desktop"
 requires-python = ">=3.10"
@@ -392,7 +409,7 @@ Abans d'escriure codi, decidim què veu l'exterior del component:
 | Propietat   | <mark style="color:blue;">`prioritat`</mark>         | `str` (lectura i escriptura) | Nivell actual; ha de ser un valor de `NIVELLS`                          |
 | Constant    | `NIVELLS`                                            | `tuple[str]`                 | Valors admesos: `("Baixa", "Normal", "Alta")`                           |
 | Senyal      | <mark style="color:blue;">`prioritat_canviada(str)`</mark> | <mark style="color:red;">`Signal`</mark>`(str)` | S'emet **només si el valor canvia**                                     |
-| Mètodes     | <mark style="color:orange;">`to_dict()`</mark> / <mark style="color:orange;">`from_dict(dades)`</mark> | — | Desa i restaura l'estat                                                 |
+| Mètodes     | <mark style="color:orange;">`to_dict()`</mark> / <mark style="color:orange;">`from_dict(dades)`</mark> | — | Representa l'estat com a diccionari i el reconstrueix |
 
 I la taula d'esdeveniments del component:
 
@@ -651,7 +668,7 @@ def test_valor_no_valid_es_rebutja(qtbot):
         SelectorPrioritat(prioritat="Urgent")
 
 
-def test_persistencia_anada_i_tornada(qtbot):
+def test_serialitzacio_anada_i_tornada(qtbot):
     original = SelectorPrioritat(prioritat="Alta")
     qtbot.addWidget(original)
 
@@ -726,9 +743,9 @@ Un cop el component funciona, cal ser capaç d'explicar-ho i modificar-ho.
 
 * El component rep dades pel constructor i la propietat, i avisa amb el senyal. No coneix <mark style="color:violet;">`botescola_app.py`</mark> ni cap finestra: el Presentador és qui decideix què fer amb el canvi.
 
-**Persistència**
+**Serialització de l'estat**
 
-* <mark style="color:orange;">`to_dict()`</mark> retorna dades simples (un `str`) i <mark style="color:orange;">`from_dict()`</mark> les converteix de nou en component. El diccionari es pot convertir a JSON o passar a una base de dades sense arrossegar cap objecte de Qt.
+* <mark style="color:orange;">`to_dict()`</mark> retorna dades simples (en aquest exemple, un `str`) i <mark style="color:orange;">`from_dict()`</mark> les converteix de nou en component. El diccionari es pot convertir a JSON o passar a una base de dades sense arrossegar cap objecte de Qt. La serialització no és persistència fins que les dades s'escriuen en un suport i es poden recuperar posteriorment.
 
 **Proves**
 
@@ -1112,14 +1129,15 @@ Si una prova falla, el component no es considera lliurable fins que es corregeix
 * **Component:** unitat reutilitzable que encapsula estructura visual, estat i comportament, amb una interfície pública.
 * **Distribució:** paquet Python empaquetat i versionat que es pot instal·lar amb `pip`, com un fitxer `.whl`.
 * **Docstring:** cadena de text col·locada al principi d'una classe, funció o mòdul que en documenta l'ús.
-* **Esdeveniment (`QEvent`):** notificació de baix nivell generada pel sistema o per l'entrada de l'usuari, que Qt lliura a un widget.
+* **Esdeveniment (`QEvent`):** notificació de baix nivell que pot provenir del sistema operatiu, de l'entrada de l'usuari o de Qt. El bucle d'esdeveniments els recupera i els distribueix als objectes corresponents; un widget o aplicació també pot generar o enviar determinats esdeveniments.
 * **`findChild`:** mètode de Qt que localitza un objecte fill pel seu tipus i `objectName`.
 * **Fixture:** recurs que `pytest` prepara i injecta a una prova, com `qtbot`.
 * **Interfície pública:** conjunt d'elements d'un component (constructor, propietats, mètodes i senyals) que l'exterior pot utilitzar.
 * **Late binding:** comportament de les funcions `lambda` que capturen una variable i no el seu valor en el moment de crear-les.
 * **Mòdul:** fitxer Python (`.py`).
 * **Paquet:** carpeta de mòduls Python identificada per un fitxer `__init__.py`.
-* **Persistència (de l'estat):** capacitat de desar les dades que defineixen l'estat d'un component i restaurar-lo posteriorment.
+* **Persistència (de l'estat):** capacitat de conservar dades en un suport (fitxer, preferències o base de dades) i recuperar-les en un altre moment.
+* **Serialització:** conversió de l'estat a un format transportable o emmagatzemable, com un diccionari o JSON. `to_dict()` no desa dades per si mateix; cal escriure el resultat en un suport per obtenir persistència.
 * **Prova unitària:** prova automàtica que verifica una peça petita de codi de manera aïllada.
 * **`pytest` / `pytest-qt`:** framework de proves de Python i el seu connector per a aplicacions Qt.
 * **`qtbot`:** fixture de `pytest-qt` per simular ratolí i teclat i esperar senyals.

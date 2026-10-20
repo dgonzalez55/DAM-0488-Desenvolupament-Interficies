@@ -7,8 +7,10 @@
 * **Tema:** 1. Fonaments de UI i Experiència d'Usuari
 * **Durada presencial:** 16 hores
 * **RA treballats:** RA1 i RA4
-* **Prerequisits:** Programació estructurada sobre Python; ús bàsic de la terminal i d'entorns virtuals; ús bàsic de Git i GitHub per al lliurament. No es pressuposa un domini de POO, el Tema 1 introdueix només la terminologia imprescindible i s'acompanya del material de reforç que cobreix els conceptes previs.
+* **Prerequisits:** Programació estructurada sobre Python; ús bàsic de la terminal i d'entorns virtuals; ús bàsic de Git i GitHub per al lliurament. No es pressuposa un domini de POO, el Tema 1 n'introdueix la terminologia imprescindible i usa aquests conceptes en els exemples, però això s'acompanya del material de reforç que cobreix els conceptes previs.
 * **Projecte transversal:** <mark style="color:violet;">**BotEscola Desktop**</mark>, una aplicació d'escriptori per consultar i gestionar notificacions del centre. S'implementarà el primer entregable funcional, concretament es construirà la finestra principal, separant el disseny de la lògica, s'afegirà una interacció bàsica, una estructura d'ordres (menús, barra d'eines i menú contextual) i un aspecte visual amb contrast verificat (paleta, tipografia i icones), i s'establiran els criteris inicials d'usabilitat i accessibilitat.
+
+> > **Nota:** L'ordre dels RA en aquest curs és 1 i 4 → 3 → 2 perquè els fonaments de GUI i els criteris de disseny (RA1 i RA4) són la base per construir components (RA3) i, finalment, interfícies naturals (RA2).
 
 ### Criteris d'avaluació treballats
 
@@ -469,8 +471,8 @@ L'aspecte d'una interfície no és decoració, sinó que determina si l'usuari p
 El **contrast** entre el text i el fons es mesura amb la **ràtio de contrast**, un valor entre `1:1` (mateix color) i `21:1` (negre sobre blanc). Es calcula a partir de la lluminància relativa de cada color:
 
 ```python
-L = 0,2126·R + 0,7152·G + 0,0722·B      (amb cada canal sRGB linealitzat)
-ràtio = (L_clar + 0,05) / (L_fosc + 0,05)
+L = 0.2126·R + 0.7152·G + 0.0722·B      (amb cada canal sRGB linealitzat)
+ràtio = (L_clar + 0.05) / (L_fosc + 0.05)
 ```
 
 No cal fer aquest càlcul a mà: al projecte inclourem el _helper_ <mark style="color:violet;">`contrast.py`</mark> (vegeu l'apartat [6.3](./#id-6.3.-fulls-destil-i-verificador-de-contrast)), que rep dos colors en format `#RRGGBB`.
@@ -1042,9 +1044,11 @@ Verificar el contrast és una tasca que es documenta. Executa <mark style="color
 | Indicador de focus (sobre el fons de la finestra)  | `#000000` | `#FFFFFF` | 21,00:1 |       3:1 | Compleix                          |
 | Indicador de focus (sobre el botó)                 | `#000000` | `#2563EB` |  4,06:1 |       3:1 | Compleix                          |
 | Indicador de focus (sobre el botó, cursor a sobre) | `#000000` | `#1D4ED8` |  3,13:1 |       3:1 | Compleix                          |
-| Ordre inhabilitada                                 | `#6B7785` | `#FFFFFF` |  4,56:1 | No exigit | Distingible de l'ordre habilitada |
+| Ordre inhabilitada*                                | `#6B7785` | `#FFFFFF` |  4,56:1 | No exigit | Distingible de l'ordre habilitada |
 
 Aquesta taula, juntament amb el fitxer `.qss`, és l'evidència del compliment amb els criteris de contrast treballats.
+
+> **Nota:** El QSS del Pas 9, defineix per a QPushButton:disabled un fons #E4E7EB, no #FFFFFF. La ràtio real sobre #E4E7EB és aproximadament 4,13:1, no 4,56:1. Tot i que el text inhabilitat està exempt de complir 4,5:1 segons WCAG. La ràtio de 4,56:1 correspon al text inhabilitat sobre fons blanc (menú), no sobre el fons del botó inhabilitat.
 
 ## 8. Anàlisi tècnica
 

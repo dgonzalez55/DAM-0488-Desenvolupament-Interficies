@@ -8,7 +8,7 @@
 * **Durada presencial:** 10 hores
 * **RA treballats:** RA2
 * **Prerequisits:** Domini del bucle d'esdeveniments, senyals, slots i accions (`QAction`) a PySide6 (Tema 1), creació de classes i senyals propis (`Signal`), proves unitàries amb `pytest-qt` i components de `BotEscola Desktop` (Tema 2).
-* **Projecte transversal:** <mark style="color:violet;">**BotEscola Desktop**</mark>. En aquest tema s'incorpora el control mitjançant interfícies naturals (veu i gestos) a la finestra principal de l'aplicatiu per navegar per les notificacions, canviar-ne la prioritat, marcar-les com a llegides o activar les ordres d'aprovar i descartar sense necessitat d'utilitzar el ratolí ni el teclat, executant la captura en segon pla sense bloquejar el bucle d'esdeveniments de la GUI.
+* **Projecte transversal:** <mark style="color:violet;">**BotEscola Desktop**</mark>. En aquest tema s'incorpora principalment el **control per veu** a la finestra principal per navegar per les notificacions, canviar-ne la prioritat, marcar-les com a llegides o activar les ordres d'aprovar i descartar. La detecció de gestos amb càmera és una ampliació opcional. La captura es fa en segon pla per no bloquejar el bucle d'esdeveniments de la GUI, i la interfície continua admetent ratolí i teclat com a vies alternatives.
 
 ### Criteris d'avaluació treballats
 
@@ -34,7 +34,7 @@
 
 Fins ara hem interactuat amb <mark style="color:violet;">**BotEscola Desktop**</mark> mitjançant els perifèrics clàssics d'una interfície gràfica d'usuari (GUI): el ratolí i el teclat. Tanmateix, hi ha contextos d'ús —com ara accessibilitat motriu, entorns industrials amb les mans ocupades, dispositius mòbils o quioscos interactius— on parlar a l'aplicació o fer un gest davant la càmera resulta molt més directe i inclusiu. Aquest paradigma s'anomena **Interfície Natural d'Usuari (NUI, _Natural User Interface_)**.
 
-En aquest tema explorarem com els models d'**aprenentatge automàtic (_Machine Learning_)** permeten traduir dades físiques complexes (ones sonores o fotogrames de vídeo) en intencions clares per a la nostra aplicació. Treballarem amb llibreries de l'ecosistema Python com <mark style="color:violet;">**`SpeechRecognition`**</mark> per al reconeixement de la parla i <mark style="color:violet;">**`OpenCV`**</mark> juntament amb <mark style="color:violet;">**`MediaPipe`**</mark> per a la detecció de moviment i gestos, sense deixar d'analitzar el paper de la **realitat augmentada (AR)**.
+En aquest tema explorarem com els models d'**aprenentatge automàtic (_Machine Learning_)** permeten traduir dades físiques complexes en informació útil per a una aplicació. La pràctica obligatòria se centra en el reconeixement de la parla amb <mark style="color:violet;">**`SpeechRecognition`**</mark>. També estudiarem <mark style="color:violet;">**`OpenCV`**</mark>, <mark style="color:violet;">**`MediaPipe`**</mark> i la **realitat augmentada (AR)**; la implementació de la càmera i dels gestos es proposa com a ampliació opcional.
 
 A nivell arquitectònic, integrar un micròfon o una càmera planteja un repte fonamental que ja vam anticipar al Tema 1 (apartat 5.3): **capturar àudio o processar vídeo és una operació bloquejant**. Si escoltem el micròfon dins del fil principal de Qt, la finestra es congelarà. Per resoldre-ho, aprendrem a aïllar l'escolta en un fil de treball (<mark style="color:red;">**`QThread`**</mark>) que es comunicarà amb el Presentador exclusivament a través de **senyals propis** (<mark style="color:red;">**`Signal`**</mark>), reutilitzant les mateixes accions (<mark style="color:red;">**`QAction`**</mark>) i components que ja tenim construïts.
 
@@ -47,8 +47,8 @@ En acabar el tema, l'alumne serà capaç de:
 1. Comparar els paradigmes CLI, GUI i NUI i identificar les eines d'aprenentatge automàtic que fan possible la interacció per veu, moviment i realitat augmentada.
 2. Analitzar i seleccionar llibreries de reconeixement de la parla (en núvol i locals) segons els requisits de latència, privadesa i connexió.
 3. Analitzar les eines de visió per computador i detecció d'estructures corporals (`OpenCV`, `MediaPipe`) i les tecnologies de realitat augmentada.
-4. Dissenyar un catàleg d'ordres de veu i gestos seguint criteris d'usabilitat, prevenció de falsos positius, retroalimentació visual i respecte a la privadesa (heurístiques de Nielsen).
-5. Implementar l'escolta de veu o captura de càmera en un fil secundari (<mark style="color:red;">`QThread`</mark>) per no bloquejar el bucle d'esdeveniments principal (<mark style="color:orange;">`app.exec()`</mark>).
+4. Dissenyar un catàleg d'ordres de veu i conèixer els riscos de les ordres gestuals, aplicant criteris d'usabilitat, prevenció de falsos positius, retroalimentació visual i privadesa (heurístiques de Nielsen).
+5. Implementar l'escolta de veu en un fil secundari (<mark style="color:red;">`QThread`</mark>) per no bloquejar el bucle d'esdeveniments principal (<mark style="color:orange;">`app.exec()`</mark>) i entendre com s'aplicaria el mateix patró a la captura de càmera opcional.
 6. Dissenyar un component intèrpret d'ordres que normalitzi el text reconegut i el tradueixi en senyals de Qt deslligats del maquinari físic.
 7. Connectar els senyals de la interfície natural amb les accions (<mark style="color:red;">`QAction`</mark>) i components (<mark style="color:red;">`SelectorPrioritat`</mark>, <mark style="color:red;">`TargetaNotificacio`</mark>) de <mark style="color:violet;">**BotEscola Desktop**</mark>.
 8. Verificar el comportament de la lògica NUI amb proves unitàries automàtiques (`pytest-qt`) mitjançant injecció o simulació (_mocking_), sense dependre d'un micròfon o càmera físics durant el test.
@@ -70,7 +70,8 @@ flowchart TD
     ARQ --> INT
     UX --> INT
 
-    INT --> PAC["PAC 3<br/>BotEscola Desktop controlat per veu i gestos"]
+    INT --> PAC["PAC 3<br/>BotEscola Desktop: control per veu"]
+    PAC -.-> OPT["Ampliació opcional<br/>Gestos i HUD / AR"]
 
     classDef central fill:#2563EB,color:#FFFFFF,stroke:#000000,stroke-width:2px
     classDef final fill:#DDE3EA,color:#1F2933,stroke:#52606D
@@ -90,7 +91,7 @@ L'evolució de les interfícies d'usuari es pot resumir en tres grans etapes:
 | :--- | :--- | :--- | :--- |
 | **CLI** | _Command Line Interface_ | Ordres textuals escrites amb sintaxi estricta | Alta (cal memoritzar ordres) |
 | **GUI** | _Graphical User Interface_ | Metàfores visuals (finestres, icones, menús, punter) | Baixa (reconeixement visual) |
-| **NUI** | _Natural User Interface_ | Accions quotidianes humanes: veu, gestos, tacte, mirada | Mínima si el disseny és descobrible i dona retroalimentació |
+| **NUI** | _Natural User Interface_ | Accions humanes com la veu, els gestos, el tacte o la mirada | Pot ser baixa, però depèn que les accions siguin descobribles i rebin retroalimentació clara |
 
 Per què les interfícies naturals depenen de l'**aprenentatge automàtic (_Machine Learning_)**? Amb programació tradicional (`if/else`) és inviable escriure regles fixes per reconèixer una paraula pronunciada per persones amb accents i timbres diferents o per localitzar una mà amb condicions de llum variables. En una NUI moderna utilitzem **models preentrenats** d'aprenentatge profund (_Deep Learning_) que transformen dades no estructurades (àudio o imatge) en dades estructurades (cadenes de text o coordenades 3D de punts clau):
 
@@ -108,12 +109,12 @@ El reconeixement de la parla converteix l'àudio capturat pel micròfon en text 
 
 | Motor / Eina | Execució | Avantatges | Limitacions |
 | :--- | :--- | :--- | :--- |
-| **Google Web Speech API** (via `recognize_google`) | En núvol (online) | Bona precisió en català i castellà; no cal descarregar models | Requereix Internet; l'àudio surt de l'equip; la clau que porta la llibreria per defecte només és per a proves i ús personal, i té quota limitada |
-| **Vosk** | Local (offline) | Privadesa; funciona sense Internet; existeixen models petits i lleugers (consulta al catàleg de Vosk si n'hi ha per a l'idioma) | Cal descarregar el model; menys precisió que els motors grans |
+| **Google Speech Recognition** (via `SpeechRecognition.recognize_google()`) | En núvol (online) | No cal descarregar models; pot donar resultats útils per a ordres curtes | Requereix Internet; l'àudio s'envia a un servei extern; la clau genèrica és per a proves/ús personal i pot ser revocada; la precisió depèn de l'idioma i de l'entorn |
+| **Vosk** | Local (offline) | Privadesa; funciona sense Internet; hi ha un model petit per al català (`vosk-model-small-ca-0.4`) | Cal descarregar i provar el model; el rendiment varia segons l'idioma, l'acústica i el vocabulari |
 | **Whisper (local)** | Local (offline) | Alta precisió i multilingüe; privadesa | Els models grans consumeixen molta CPU/RAM; sense GPU la latència pot ser alta per a ordres en temps real |
 | **Wit.ai / Azure / AWS Transcribe** | En núvol (online) | Integració empresarial i models personalitzables | Clau d'API, cost per ús i l'àudio surt de l'equip |
 
-> **Privadesa.** La veu és una dada personal. En un centre educatiu (amb alumnat, de vegades menor d'edat) cal informar l'usuari de **quin motor s'utilitza i on es processa l'àudio**, no desar mai gravacions sense necessitat i, en un ús real, preferir un motor local. En aquest tema utilitzem Google Web Speech API només perquè és el més senzill per aprendre; no és una decisió de producció.
+> **Privadesa.** La veu és una dada personal. En un centre educatiu (amb alumnat, de vegades menor d'edat) cal informar l'usuari de **quin motor s'utilitza i on es processa l'àudio**, limitar-ne la captació i no desar gravacions si no és necessari. Per a un ús real cal valorar un motor local, les obligacions de protecció de dades i el context concret. En aquest tema utilitzem `recognize_google()` com a via didàctica senzilla; la clau genèrica no és una solució de producció i el servei en núvol implica enviar-hi l'àudio.
 
 En una aplicació d'escriptori com <mark style="color:violet;">**BotEscola Desktop**</mark>, no n'hi ha prou amb obtenir el text transcrit: cal un **intèrpret d'ordres** que normalitzi la cadena (passar a minúscules, eliminar espais sobrants, accents i signes de puntuació) i la compari amb un **vocabulari tancat de sinònims** (per exemple, tant `"aprova"` com `"aprovar"` o `"aprovar notificacio"` han d'activar la mateixa ordre).
 
@@ -124,7 +125,7 @@ La coincidència **exacta** amb un vocabulari tancat és una decisió de disseny
 Per controlar una interfície amb el moviment de les mans sense tocar cap perifèric, es combinen dues eines principals en Python:
 
 * <mark style="color:violet;">**`OpenCV`**</mark> (`cv2`): gestiona l'accés a la càmera web (`VideoCapture`), la lectura fotograma a fotograma i les transformacions bàsiques d'imatge (inversió en mode mirall amb `cv2.flip`, conversió de BGR a RGB amb `cv2.cvtColor`).
-* <mark style="color:violet;">**`MediaPipe`**</mark>: conjunt de models d'ML lleugers que executen inferència en temps real sobre CPU. Amb l'API actual (_MediaPipe Tasks_), la tasca <mark style="color:red;">`HandLandmarker`</mark> localitza els **21 punts clau (_landmarks_)** de la mà, i la tasca <mark style="color:red;">`GestureRecognizer`</mark> retorna directament etiquetes de gest predefinides (per exemple, `Thumb_Up` o `Closed_Fist`). Totes dues necessiten un **fitxer de model** (`.task`) que s'ha de descarregar a part i indicar per ruta.
+* <mark style="color:violet;">**`MediaPipe`**</mark>: conjunt d'eines de visió amb models d'aprenentatge automàtic. Amb l'API actual (_MediaPipe Tasks_), <mark style="color:red;">`HandLandmarker`</mark> localitza els **21 punts clau (_landmarks_)** de la mà; <mark style="color:red;">`GestureRecognizer`</mark> pot classificar gestos com `Thumb_Up` o `Closed_Fist`. Cal configurar la tasca adequada i descarregar el fitxer de model (`.task`) corresponent. La velocitat i el rendiment depenen de l'equip i de la configuració; no s'ha de donar per garantit que qualsevol model funcioni en temps real sobre CPU.
 
 > **Compte amb tutorials antics.** Molts exemples d'internet usen `mp.solutions.hands` («MediaPipe Hands», API _legacy_). Aquesta API està deprecada i a les versions recents de `mediapipe` ja no hi és (`AttributeError: module 'mediapipe' has no attribute 'solutions'`). En aquest tema s'utilitza sempre l'API de _Tasks_.
 
@@ -133,17 +134,25 @@ Cada _landmark_ té coordenades `x` i `y` **normalitzades** entre `0.0` i `1.0` 
 A partir d'aquests punts, l'aplicació pot deduir gestos simples sense entrenar cap xarxa neuronal nova. Per exemple, un dit està aixecat si la seva punta té una `y` **menor** que la de l'articulació intermèdia (en una mà vertical davant la càmera):
 
 ```python
-PUNTES = (8, 12, 16, 20)         # índex, cor, anul·lar, menovell (punta)
-ARTICULACIONS = (6, 10, 14, 18)  # articulació intermèdia de cada dit
+NOMS_DITS = ("index", "cor", "anular", "menovell")
+PUNTES = (8, 12, 16, 20)         # puntes dels quatre dits (sense el polze)
+ARTICULACIONS = (6, 10, 14, 18)  # articulacions PIP dels quatre dits
+
+
+def estat_dits(punts):
+    """Retorna si cadascun dels quatre dits (sense el polze) sembla aixecat."""
+    return {
+        nom: punts[punta].y < punts[art].y
+        for nom, punta, art in zip(NOMS_DITS, PUNTES, ARTICULACIONS)
+    }
 
 
 def dits_aixecats(punts):
-    """Compta els dits aixecats (sense el polze) d'una llista de 21 landmarks."""
-    return sum(1 for punta, art in zip(PUNTES, ARTICULACIONS)
-               if punts[punta].y < punts[art].y)
+    """Compta els dits aixecats (sense el polze) a partir de 21 landmarks."""
+    return sum(estat_dits(punts).values())
 ```
 
-Com que aquesta funció només rep coordenades, es pot **provar sense càmera** amb punts inventats. Un desplaçament horitzontal de la mà (_swipe_) es pot detectar comparant la `x` del canell entre fotogrames.
+La funció `estat_dits()` conserva la identitat de cada dit, de manera que es pot distingir «només l'índex» d'«un dit qualsevol». La comparació de coordenades és una **heurística didàctica**, no un classificador robust: depèn de l'orientació de la mà i no tracta el polze. Prova aquestes funcions amb punts inventats, sense càmera. Un desplaçament horitzontal (_swipe_) es pot detectar comparant la `x` del canell entre fotogrames.
 
 ### 5.4. Realitat Augmentada (AR) aplicada a les interfícies
 
@@ -151,13 +160,13 @@ Mentre que la **Realitat Virtual (VR)** substitueix completament l'entorn físic
 
 | Enfocament d'AR | Com funciona | Tecnologies destacades | Cas d'ús en interfícies |
 | :--- | :--- | :--- | :--- |
-| **Basada en marcadors (fiducials o QR)** | Detecta un patró geomètric conegut (com un marcador ArUco o QR) i hi ancora un panell informatiu | `OpenCV` (`cv2.aruco`), Vuforia | Escanejar el codi d'una aula o equipament escolar i superposar-hi les incidències obertes sobre el vídeo |
+| **Basada en marcadors** | Detecta un patró visual conegut i hi ancora un panell informatiu. Els marcadors ArUco i els codis QR són formats diferents. | `OpenCV` (`cv2.aruco.ArucoDetector` per a ArUco; `cv2.QRCodeDetector` per a QR), Vuforia | Escanejar l'etiqueta d'una aula o equipament escolar i superposar-hi les incidències obertes sobre el vídeo |
 | **Sense marcadors (_Markerless_ / SLAM)** | Detecta superfícies planes (taules, parets) i calcula la profunditat de l'escena | ARCore (Android), ARKit (iOS), WebXR | Col·locar panells flotants o previsualitzar objectes 3D en l'espai físic |
 | **Superposició sobre punts detectats (_HUD_)** | Ancora indicadors visuals sobre punts anatòmics detectats amb ML | `MediaPipe` + `OpenCV` / Qt | Mostrar un indicador d'estat o un menú flotant que segueix la posició de la mà de l'usuari |
 
-En una aplicació d'escriptori amb PySide6 i <mark style="color:violet;">`OpenCV`</mark>, podem implementar un visor de càmera o un HUD (_Heads-Up Display_) dibuixant gràfics i etiquetes d'estat directament sobre els fotogrames, convertint la matriu d'imatge (BGR a RGB) a <mark style="color:red;">`QImage`</mark> i mostrant-la en un <mark style="color:red;">`QLabel`</mark> de la finestra. Si la `QImage` es crea a partir del buffer d'una matriu, cal fer-ne una còpia (`.copy()`) abans d'enviar-la per un senyal: la matriu original es reutilitza i es pot destruir.
+En una aplicació d'escriptori amb PySide6 i <mark style="color:violet;">`OpenCV`</mark>, l'ampliació opcional pot implementar un visor de càmera o un HUD (_Heads-Up Display_) dibuixant gràfics i etiquetes d'estat sobre els fotogrames, convertint la matriu d'imatge (BGR a RGB) a <mark style="color:red;">`QImage`</mark> i mostrant-la en un <mark style="color:red;">`QLabel`</mark>. Si la `QImage` es crea a partir del buffer d'una matriu, cal fer-ne una còpia (`.copy()`) abans d'enviar-la per un senyal: la matriu original es reutilitza i es pot destruir.
 
-> L'API de `cv2.aruco` ha canviat entre versions d'OpenCV (a partir de la 4.7 es treballa amb la classe `ArucoDetector`). Consulta la documentació de la versió que tinguis instal·lada.
+> Les APIs i els constructors del mòdul `cv2.aruco` poden variar segons la versió d'OpenCV; les versions recents utilitzen `ArucoDetector`. Per als codis QR, l'eina corresponent és `QRCodeDetector`. Consulta la documentació de la versió instal·lada.
 
 ### 5.5. Disseny i usabilitat en interfícies naturals
 
@@ -177,17 +186,17 @@ Al Tema 1 (apartat 5.3) vam veure que el bucle d'esdeveniments (<mark style="col
 
 A més, a Qt hi ha una regla estricta de seguretat: **cap fil secundari pot modificar directament un widget de la interfície gràfica**. Tota modificació visual s'ha de fer des del fil principal.
 
-La solució arquitectònica consisteix a crear una subclasse de <mark style="color:red;">**`QThread`**</mark> que executi la captura pesada dins del mètode <mark style="color:orange;">**`run()`**</mark> i emeti **senyals propis** (<mark style="color:red;">**`Signal`**</mark>) cap al Presentador. (Qt també admet el patró alternatiu d'un objecte _worker_ mogut a un fil amb `moveToThread()`; aquí usem la subclasse perquè és el més senzill de seguir.)
+La solució arquitectònica d'aquest exemple consisteix a crear una subclasse de <mark style="color:red;">**`QThread`**</mark> que executi l'escolta dins del mètode <mark style="color:orange;">**`run()`**</mark> i emeti **senyals propis** (<mark style="color:red;">**`Signal`**</mark>) cap al Presentador. (Qt també admet el patró alternatiu d'un objecte _worker_ mogut a un fil amb `moveToThread()`; aquí usem la subclasse perquè és més fàcil de seguir.) La càmera només s'implementa a l'ampliació opcional.
 
 ```mermaid
 sequenceDiagram
-    participant U as Usuari (Veu / Gest)
+    participant U as Usuari (veu; gest opcional)
     participant W as Fil secundari (QThread)
     participant I as Intèrpret NUI
     participant P as Presentador (Fil principal GUI)
     participant A as QAction / Widgets
 
-    U->>W: Pronuncia "aprovar" o fa un gest
+    U->>W: Pronuncia "aprovar" (veu; gest només a l'ampliació)
     Note over W: Captura i reconeix en segon pla<br/>sense bloquejar app.exec()
     W->>I: Emet text_reconegut("aprovar")
     I->>P: Emet ordre_detectada("aprovar")
@@ -197,7 +206,7 @@ sequenceDiagram
 Quan un senyal s'emet des d'un fil i el receptor és un objecte que viu al fil principal, Qt el **posa en cua** (_queued connection_) i el slot s'executa de manera segura dins del fil principal. Per això:
 
 * Connecta sempre els senyals del fil a **mètodes d'un `QObject`** (el Presentador o l'intèrpret) i no a `lambda`: així és evident en quin fil s'executa el codi, i un `lambda` que toqués un widget podria incomplir la regla anterior.
-* Per demanar que un fil acabi, no s'utilitza `terminate()` (talla el fil en sec i pot deixar recursos oberts): s'usa <mark style="color:orange;">`requestInterruption()`</mark> i el bucle de `run()` consulta <mark style="color:orange;">`isInterruptionRequested()`</mark>.
+* Per demanar que un fil acabi, no s'utilitza `terminate()` (pot deixar recursos oberts): s'usa <mark style="color:orange;">`requestInterruption()`</mark> i el bucle de `run()` consulta <mark style="color:orange;">`isInterruptionRequested()`</mark>. **La petició és consultiva**: no interromp per si sola una crida bloquejant a un dispositiu o a la xarxa. Per això cal posar límits de temps a les operacions i no destruir l'objecte `QThread` fins que hagi acabat.
 
 ## 6. Entorn de treball
 
@@ -221,7 +230,7 @@ botescola/
 │   └── comptador.py
 ├── nui/                      <-- Tema 3 (RA2): interfícies naturals
 │   ├── __init__.py
-│   ├── interpret.py          <-- traducció de text/gestos a ordres i senyals
+│   ├── interpret.py          <-- traducció de text (i gestos, si s'amplia) a ordres i senyals
 │   ├── escoltador_veu.py     <-- QThread de reconeixement de veu
 │   ├── detector_gestos.py    <-- QThread de càmera i gestos (exercici D, opcional)
 │   └── models/               <-- fitxers .task de MediaPipe (exercici D, opcional)
@@ -244,31 +253,46 @@ botescola/
 
 Separar `nui/interpret.py` (lògica pura de reconeixement d'ordres i emissió de senyals) de `nui/escoltador_veu.py` (accés al micròfon físic) ens permetrà **provar tota la lògica amb `pytest-qt`** i fins i tot simular ordres a l'aula en ordinadors que no tinguin micròfon ni càmera.
 
-Com que `nui/` és un paquet nou, cal incloure'l a <mark style="color:violet;">`pyproject.toml`</mark> (el Tema 2 només hi tenia `components*`):
+Com que al Tema 2 la distribució contenia només els components, cal actualitzar el `pyproject.toml` si ara també s'hi inclou el paquet NUI. **Substitueix els camps corresponents de la taula `[project]` existent; no afegeixis una segona taula `[project]`.** El nom i la versió s'actualitzen per reflectir el canvi, i les eines de càmera continuen sent opcionals:
 
 ```toml
+[project]
+name = "botescola-modules"
+version = "0.2.0"
+description = "Paquets Python reutilitzables de BotEscola Desktop"
+requires-python = ">=3.10"
+dependencies = ["PySide6", "SpeechRecognition[audio]"]
+
+[project.optional-dependencies]
+gestos = ["opencv-python", "mediapipe"]
+
 [tool.setuptools.packages.find]
 include = ["components*", "nui*"]
 ```
 
-Les proves ja el troben gràcies a `pythonpath = .` de <mark style="color:violet;">`pytest.ini`</mark> (Tema 2).
+Aquesta configuració empaqueta els paquets `components` i `nui`; no converteix per si sola l'aplicació completa en un instal·lador. Les proves continuen localitzant els mòduls gràcies a `pythonpath = .` de <mark style="color:violet;">`pytest.ini`</mark> (Tema 2). Si al final del tema s'ha fet l'ampliació de gestos, instal·la també les dependències opcionals corresponents.
 
 ### 6.2. Dependències
 
-Amb l'entorn virtual activat, instal·la les llibreries per a reconeixement de veu i visió per computador:
+Amb l'entorn virtual activat, instal·la la dependència obligatòria per al reconeixement de veu:
 
 ```bash
-python -m pip install "SpeechRecognition[audio]" opencv-python mediapipe
+python -m pip install "SpeechRecognition[audio]"
 ```
 
-L'extra `[audio]` instal·la `PyAudio`, que és el que permet accedir al micròfon. A Linux cal instal·lar abans la llibreria del sistema (`sudo apt install portaudio19-dev`) i a macOS, `brew install portaudio`.
+L'extra `[audio]` instal·la `PyAudio`, que permet accedir al micròfon. A Linux pot caldre instal·lar abans la llibreria del sistema (`sudo apt install portaudio19-dev`) i a macOS, `brew install portaudio`. **Només per a l'ampliació opcional de càmera i gestos**, instal·la també:
+
+```bash
+python -m pip install opencv-python mediapipe
+```
 
 > **Nota sobre `PyAudio` i el maquinari d'aula:** si en algun equip no hi ha micròfon físic, o `PyAudio` no es pot instal·lar per a la teva versió de Python, **no pots quedar-te bloquejat**: `import speech_recognition` funciona igualment (només `sr.Microphone()` falla), les proves automàtiques no necessiten micròfon i el **simulador d'ordres** (exercici E) permet demostrar tot el flux NUI sense maquinari.
 
-Comprova les versions instal·lades per documentar-les al <mark style="color:violet;">`README.md`</mark>:
+Comprova les versions instal·lades i documenta-les al <mark style="color:violet;">`README.md`</mark>. La primera ordre és suficient per a la PAC obligatòria; executa la segona només si has instal·lat les dependències opcionals de gestos:
 
 ```bash
-python -c "import speech_recognition as sr, cv2, mediapipe as mp; print('SpeechRecognition', sr.__version__, '| OpenCV', cv2.__version__, '| MediaPipe', mp.__version__)"
+python -c "import speech_recognition as sr; print('SpeechRecognition', sr.__version__)"
+python -c "import cv2, mediapipe as mp; print('OpenCV', cv2.__version__, '| MediaPipe', mp.__version__)"
 ```
 
 ## 7. Exemple guiat: Intèrpret i Escoltador d'ordres de veu per a BotEscola
@@ -425,6 +449,8 @@ class EscoltadorVeu(QThread):
             return
 
         reconeixedor = sr.Recognizer()
+        # Evita que una petició al servei remot pugui esperar indefinidament.
+        reconeixedor.operation_timeout = 5
         try:
             with sr.Microphone() as font:
                 reconeixedor.adjust_for_ambient_noise(font, duration=0.5)
@@ -446,6 +472,8 @@ class EscoltadorVeu(QThread):
                         self.error_veu.emit("No s'ha pogut entendre l'ordre de veu.")
                     except sr.RequestError:
                         self.error_veu.emit("Servei de reconeixement de veu no disponible.")
+                    except sr.TimeoutError:
+                        self.error_veu.emit("Temps d'espera del servei de veu excedit.")
         except (OSError, AttributeError):
             # OSError: no hi ha micròfon. AttributeError: PyAudio no està instal·lat.
             self.error_veu.emit("No s'ha pogut accedir al micròfon (comprova que n'hi ha un i que PyAudio està instal·lat).")
@@ -481,11 +509,12 @@ ESTATS_VEU = {
 # Dins de __init__ de la finestra principal (Presentador):
 self.interpret = InterpretOrdres(self)
 self.escoltador = EscoltadorVeu(self)
+self._tancament_pendent = False
 
 self.escoltador.text_reconegut.connect(self.interpret.processar_text)
+self.escoltador.finished.connect(self.escolta_finalitzada)
 self.escoltador.estat_escolta.connect(self.actualitzar_estat_nui)
 self.escoltador.error_veu.connect(self.mostrar_missatge_veu)
-self.escoltador.finished.connect(self.escolta_finalitzada)
 
 self.interpret.ordre_detectada.connect(self.executar_ordre_nui)
 self.interpret.prioritat_detectada.connect(self.canviar_prioritat_nui)
@@ -505,6 +534,7 @@ def alternar_escolta(self, activa):
             self.escoltador.start()
     elif self.escoltador.isRunning():
         self.ui.act_escoltar_veu.setEnabled(False)   # fins que el fil acabi
+        self.mostrar_missatge_veu("Aturant escolta de veu…")
         self.escoltador.aturar()
 
 def escolta_finalitzada(self):
@@ -575,15 +605,26 @@ def canviar_prioritat_nui(self, nivell):
     self.ui.sel_prioritat.prioritat = nivell   # emet prioritat_canviada si el valor canvia
 ```
 
-I en tancar la finestra, el fil s'atura abans que l'aplicació es destrueixi:
+Connecta també `self.escoltador.finished` a `self.escolta_finalitzada` durant la inicialització, i inicialitza `self._tancament_pendent = False`. En tancar la finestra, no esperis bloquejant el fil gràfic ni destrueixis un `QThread` que encara corre: ajorna el tancament fins que el senyal `finished` confirmi que ha acabat.
 
 ```python
 def closeEvent(self, event):
     if self.escoltador.isRunning():
-        self.escoltador.aturar()
-        self.escoltador.wait(6000)    # ms: màxim d'espera
+        event.ignore()
+        if not self._tancament_pendent:
+            self._tancament_pendent = True
+            self.mostrar_missatge_veu("Aturant escolta de veu abans de tancar…")
+            self.escoltador.aturar()
+            self.escoltador.finished.connect(self._tancar_quan_acabi)
+        return
     super().closeEvent(event)
+
+def _tancar_quan_acabi(self):
+    self._tancament_pendent = False
+    self.close()
 ```
+
+`requestInterruption()` no pot tallar una lectura de micròfon o una petició de xarxa que estigui bloquejada; el temps màxim de petició i els temps de `listen()` ajuden a fer que el fil pugui comprovar la interrupció i acabar. Si el controlador de maquinari no respon, l'aplicació encara ha de tractar aquesta situació explícitament.
 
 Observa com, quan l'usuari diu `"descartar"`, es crida `self.ui.act_descartar.`<mark style="color:orange;">`trigger()`</mark>, de manera que apareix el mateix diàleg de confirmació que vam programar al Tema 1. No es duplica cap lògica.
 
@@ -693,7 +734,7 @@ Fixa't que en aquesta prova cridem `run()` directament: dins d'un test **sí** �
 ## 8. Anàlisi tècnica
 
 * <mark style="color:red;">`QThread`</mark> encapsula un fil del sistema operatiu. El codi que s'escriu dins de <mark style="color:orange;">`run()`</mark> és l'únic que s'executa en el fil secundari, i s'inicia sempre cridant <mark style="color:orange;">`start()`</mark> (mai cridant `run()` directament a l'aplicació, perquè llavors s'executaria en el fil principal i bloquejaria la finestra).
-* <mark style="color:orange;">`aturar()`</mark> es crida des del fil principal i només fa <mark style="color:orange;">`requestInterruption()`</mark>; el bucle de `run()` consulta <mark style="color:orange;">`isInterruptionRequested()`</mark> i acaba netament. Com que `listen()` és bloquejant, l'aturada pot trigar fins a uns 5 segons (1 s d'espera de veu més 4 s de frase com a màxim): per això `closeEvent` espera el fil amb un temps màxim i l'acció `act_escoltar_veu` s'inhabilita mentre s'atura.
+* <mark style="color:orange;">`aturar()`</mark> es crida des del fil principal i només fa <mark style="color:orange;">`requestInterruption()`</mark>; el bucle de `run()` consulta <mark style="color:orange;">`isInterruptionRequested()`</mark> i acaba netament. Com que `listen()` és bloquejant, l'aturada normalment esperarà que acabi el temps de captura actual; la petició al servei remot queda limitada per `operation_timeout`. El `closeEvent` no bloqueja el fil gràfic ni destrueix l'objecte en execució: ajorna el tancament fins al senyal `finished`. Un problema del controlador d'àudio encara pot requerir gestió específica.
 * Els senyals del fil arriben al Presentador **posats en cua** (_queued_) i s'executen al fil principal, sempre que el receptor sigui un mètode d'un `QObject` que hi viu. Per això evitem els `lambda` com a slots de senyals de fil.
 * `unicodedata.normalize("NFD", ...)` separa les lletres base dels seus accents diacrítics (categoria `"Mn"`), de manera que `"Següent"` i `"seguent"` produeixen exactament la mateixa clau interna. Els sinònims del diccionari s'han d'escriure **ja normalitzats**: una alternativa més robusta seria normalitzar-los en construir l'índex.
 * Separar `InterpretOrdres` d'`EscoltadorVeu` aplica el principi de **separació de responsabilitats**: el fil s'ocupa del maquinari i l'intèrpret s'ocupa de les regles de la interfície. Això és el que fa possible la injecció i la simulació a les proves.
@@ -751,16 +792,16 @@ self.ui.act_escoltar_veu.toggled.connect(self.alternar_escolta)
 # alternar_escolta només crida start() o aturar(); ningú no sap que el fil ha acabat
 ```
 
-### Exercici D — Repte: Detector de gestos i superposició AR (`nui/detector_gestos.py`)
+### Exercici D — Ampliació opcional: detector de gestos i superposició AR (`nui/detector_gestos.py`)
 
-Crea un segon fil <mark style="color:red;">`DetectorGestos`</mark>`(`<mark style="color:red;">`QThread`</mark>`)` que utilitzi <mark style="color:violet;">`OpenCV`</mark> i <mark style="color:violet;">`MediaPipe`</mark> (API _Tasks_, amb `HandLandmarker` i el fitxer de model descarregat a `nui/models/`) per detectar gestos simples amb la càmera i superposar informació d'estat sobre el fotograma (HUD de realitat augmentada). Alternativament, pots detectar marcadors ArUco amb `OpenCV`.
+Si vols fer aquesta ampliació, crea un segon fil <mark style="color:red;">`DetectorGestos`</mark> (subclasse de <mark style="color:red;">`QThread`</mark>) que utilitzi <mark style="color:violet;">`OpenCV`</mark> i <mark style="color:violet;">`MediaPipe`</mark> (API _Tasks_, amb `HandLandmarker` i el fitxer de model descarregat a `nui/models/`) per detectar gestos i superposar informació d'estat sobre el fotograma (HUD de realitat augmentada). Alternativament, pots detectar marcadors ArUco amb `OpenCV`.
 
-* Escriu una funció pura `traduir_gest(punts)` que, a partir dels 21 _landmarks_, retorni el nom del gest (per exemple: `"ma_oberta"` si hi ha 4 dits aixecats, `"puny_tancat"` si no n'hi ha cap, `"dit_index"` si només és aixecat l'índex) o `None`. Pots partir de `dits_aixecats()` de l'apartat 5.3.
+* Escriu una funció pura `traduir_gest(punts)` que, a partir dels 21 _landmarks_, retorni el nom del gest (per exemple: `"ma_oberta"` si hi ha 4 dits aixecats, `"puny_tancat"` si no n'hi ha cap, `"dit_index"` si només és aixecat l'índex) o `None`. Utilitza `estat_dits()` de l'apartat 5.3 per comprovar **quins** dits estan aixecats; `dits_aixecats()` només en retorna el nombre.
 * Emet el senyal <mark style="color:blue;">`gest_detectat(str)`</mark> amb el nom del gest. Per evitar l'efecte _Midas Touch_, un gest només es dona per vàlid si es manté estable almenys 0,5 s, i després s'aplica un temps de refredament (_cooldown_) d'almenys 1,5 s perquè un mateix gest mantingut no dispari l'ordre desenes de vegades per segon.
 * Dibuixa sobre el fotograma un rètol visual amb el gest detectat i emet <mark style="color:blue;">`fotograma_llest(QImage)`</mark> per poder previsualitzar la càmera en un <mark style="color:red;">`QLabel`</mark> opcional.
 * Connecta `gest_detectat` a `InterpretOrdres.processar_gest` i desa `act_camera_gestos` com a acció marcable, igual que `act_escoltar_veu`.
 
-_Pistes:_ `cv2.VideoCapture(0)`, `cv2.flip(fotograma, 1)` (mode mirall), `cv2.cvtColor(..., cv2.COLOR_BGR2RGB)`, `mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb)` i `landmarker.detect(imatge)`; el resultat té `hand_landmarks`. No oblidis alliberar la càmera (`cap.release()`) en acabar `run()` i fer `.copy()` de la `QImage`.
+_Pistes:_ `cv2.VideoCapture(0)`, `cv2.flip(fotograma, 1)` (mode mirall), `cv2.cvtColor(..., cv2.COLOR_BGR2RGB)` i `mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb)`. Per a una càmera en bucle de vídeo, configura `HandLandmarker` amb `running_mode=VisionRunningMode.VIDEO` i crida `landmarker.detect_for_video(imatge, timestamp_ms)` amb marques de temps creixents; `landmarker.detect(imatge)` correspon al mode `IMAGE`. El resultat conté `hand_landmarks`. Allibera la càmera (`cap.release()`) en acabar `run()` i fes `.copy()` de la `QImage` abans d'enviar-la per senyal.
 
 **Lliurament:** <mark style="color:violet;">`nui/detector_gestos.py`</mark>, prova unitària de `traduir_gest()` amb punts inventats (sense càmera) i captura de pantalla.
 
@@ -772,13 +813,13 @@ Per garantir que la interfície natural es pot provar i avaluar en qualsevol ord
 * una etiqueta d'estat NUI (`lbl_estat_nui`) que mostri sempre amb text (i no només amb color) si la veu està inactiva (`Veu: inactiva`), escoltant (`Veu: escoltant...`) o processant (`Veu: processant...`);
 * un camp de text ràpid (`txt_simular_veu`) i un botó (`btn_simular_veu`, text `Simular ordre`) que enviïn el text escrit directament a `self.interpret.processar_text(...)`, emulant exactament la recepció d'una ordre del fil de veu.
 
-Aquest exercici és la base de la PAC 3: el que facis aquí ho podràs reutilitzar.
+Aquest exercici és una ampliació opcional i no és necessari per completar la PAC 3, que se centra en el control per veu. Si el fas, podràs reutilitzar-ne el codi en futures pràctiques.
 
 **Lliurament:** `ui/botescola.ui` i codi del Presentador actualitzats, i una captura de la finestra amb una ordre simulada.
 
 ### Exercici F — Anàlisi de tecnologies
 
-La direcció d'una escola vol instal·lar un quiosc informatiu a l'entrada del centre perquè les famílies puguin consultar avisos generals sense tocar la pantalla, utilitzant la veu o gestos de la mà. Redacta una anàlisi de 8 a 12 línies comparant si utilitzaries un motor de reconeixement de veu en núvol (com Google Web Speech API) o un motor local offline (com Vosk o Whisper), i valora quins problemes ambientals (soroll de passadís, il·luminació de la càmera) i de **privadesa** (qui parla, qui s'enregistra, on van les dades) cal tenir en compte en el disseny.
+La direcció d'una escola vol instal·lar un quiosc informatiu a l'entrada del centre perquè les famílies puguin consultar avisos generals mitjançant ordres de veu. Redacta una anàlisi de 8 a 12 línies comparant un motor de reconeixement de veu en núvol (com `recognize_google()`) amb un motor local offline (com Vosk o Whisper). Valora el soroll del passadís, la necessitat de connexió, la latència i la **privadesa** (qui parla, quines dades es capten i on es processen). Pots afegir una nota sobre els reptes de la càmera com a ampliació.
 
 **Lliurament:** document breu en Markdown amb la recomanació justificada.
 
@@ -786,10 +827,10 @@ La direcció d'una escola vol instal·lar un quiosc informatiu a l'entrada del c
 
 | Símptoma | Causa probable | Solució | Prevenció |
 | :--- | :--- | :--- | :--- |
-| La finestra es congela en activar el micròfon o la càmera | S'ha executat el bucle de captura al fil principal o s'ha cridat `run()` en lloc de `start()` | Inicia el `QThread` amb `start()` i mantén tota la captura bloquejant dins de `run()` | Mai cridis `listen()` ni `VideoCapture.read()` en un slot de la finestra |
+| La finestra es congela en activar el micròfon o la càmera opcional | S'ha executat el bucle de captura al fil principal o s'ha cridat `run()` en lloc de `start()` | Inicia el `QThread` amb `start()` i mantén tota la captura bloquejant dins de `run()`; configura `operation_timeout` per a les peticions de xarxa | Mai cridis `listen()` ni `VideoCapture.read()` en un slot de la finestra |
 | L'aplicació falla o es tanca inesperadament en actualitzar un `QLabel` des del fil de veu | S'ha modificat un widget directament des de `QThread.run()` | Emet un `Signal` des del `QThread` i connecta'l a un mètode de la finestra principal | Els fils secundaris només emeten senyals; mai toquen widgets |
-| `QThread: Destroyed while thread is still running` en tancar la finestra | La finestra es tanca mentre el bucle de `run()` encara està actiu | Sobreescriu `closeEvent` a la finestra per cridar `aturar()` i `wait()` sobre el fil | Atura sempre els fils actius abans de tancar l'aplicació |
-| `closeEvent` triga uns segons a tancar la finestra | `listen()` és bloquejant i el fil només comprova la interrupció entre cicles | Usa `timeout` i `phrase_time_limit` curts i `wait(ms)` amb un màxim | Dissenya l'aturada per cicles curts; mai usis `terminate()` |
+| `QThread: Destroyed while thread is still running` en tancar la finestra | La finestra es tanca mentre el bucle de `run()` encara està actiu | Demana la interrupció i ajorna el tancament fins que `finished` confirmi que el fil ha acabat | No confiïs només en `requestInterruption()`: no talla una operació bloquejant |
+| El tancament queda pendent mentre s'atura el fil | `listen()` o una operació de xarxa encara està bloquejada i el fil només comprova la interrupció entre cicles | Usa `timeout` i `phrase_time_limit` curts, configura `operation_timeout` i reprèn el tancament quan s'emet `finished` | No destrueixis el `QThread` mentre continua en execució; mai usis `terminate()` |
 | Un sol gest davant la càmera executa l'acció 30 vegades seguides | Es processa cada fotograma (30 fps) sense control de repetició (_debounce_ / _cooldown_) | Emet només quan el gest canvia o quan ha passat un interval mínim (p. ex. 1,5 s) | Dissenyar una màquina d'estats amb temps d'espera entre ordres |
 | Les proves de `pytest` es queden bloquejades esperant àudio o fallen en un servidor sense micròfon | Els tests instancien `sr.Microphone()` directament en lloc de provar `InterpretOrdres` o simular el senyal | Prova `InterpretOrdres` passant-li cadenes de text, emet `escoltador.text_reconegut.emit(...)` o substitueix `sr` amb `monkeypatch` | Separa sempre la captura de maquinari de la lògica d'interpretació |
 | Una ordre de veu executa `Aprovar` encara que no hi hagi cap notificació seleccionada | El handler de veu crida el mètode intern sense comprovar si l'acció està activa | Comprova `self.ui.act_aprovar.isEnabled()` i dispara `act_aprovar.trigger()` | Reutilitza les `QAction` com a única porta d'entrada de les ordres |
@@ -803,7 +844,7 @@ La direcció d'una escola vol instal·lar un quiosc informatiu a l'entrada del c
 
 * **Aïlla la captura de maquinari en un <mark style="color:red;">`QThread`</mark>.** Tant el micròfon com la càmera s'han d'executar fora del fil principal i comunicar-se únicament amb <mark style="color:red;">`Signal`</mark>.
 * **Connecta els senyals dels fils a mètodes de la finestra, no a `lambda`.** Així el codi del Presentador s'executa sempre al fil principal.
-* **Atura els fils amb <mark style="color:orange;">`requestInterruption()`</mark>, mai amb `terminate()`.** I fes-ho també en tancar la finestra (<mark style="color:orange;">`closeEvent`</mark> amb `aturar()` i `wait()`).
+* **Atura els fils amb <mark style="color:orange;">`requestInterruption()`</mark>, mai amb `terminate()`.** En tancar la finestra (<mark style="color:orange;">`closeEvent`</mark>), ajorna el tancament fins al senyal `finished`, sense bloquejar el fil gràfic ni destruir un fil que continua actiu.
 * **Separa la captura física de la interpretació lògica.** `EscoltadorVeu` obté text; `InterpretOrdres` decideix quina ordre representa. Això fa que el codi sigui provable amb <mark style="color:violet;">`pytest-qt`</mark> sense micròfon.
 * **Reutilitza les <mark style="color:red;">`QAction`</mark> del Tema 1 i els components del Tema 2.** Una ordre de veu o un gest és només un accelerant més, com una drecera de teclat: ha d'activar la mateixa `QAction` i respectar-ne l'estat (`isEnabled()`).
 * **Informa sempre de l'estat de l'escolta.** L'usuari ha de veure clarament (amb text i no només amb color) quan el micròfon o la càmera estan actius i quina última ordre s'ha reconegut.
@@ -811,11 +852,11 @@ La direcció d'una escola vol instal·lar un quiosc informatiu a l'entrada del c
 * **Respecta la privadesa.** Informa de quin motor es fa servir i on es processa l'àudio, no desis gravacions ni fotogrames, i prefereix motors locals en un ús real.
 * **Respecta la nomenclatura del projecte.** Mantén els prefixos d'<mark style="color:blue;">`objectName`</mark> (`act_`, `lbl_`, `txt_`, `btn_`, `sel_`) sense accents ni espais, i conserva les regles de contrast de <mark style="color:violet;">`styles/botescola.qss`</mark>.
 
-## 12. PAC 3: Control per veu i gestos a BotEscola Desktop
+## 12. PAC 3: Control per veu a BotEscola Desktop
 
 ### Context
 
-La direcció del centre vol que <mark style="color:violet;">**BotEscola Desktop**</mark> es pugui utilitzar en sessions de revisió ràpida i per part d'usuaris amb mobilitat reduïda mitjançant **ordres de veu** (i, opcionalment, gestos per càmera), sense perdre cap de les garanties d'usabilitat, accessibilitat i arquitectura assolides als Temes 1 i 2.
+La direcció del centre vol que <mark style="color:violet;">**BotEscola Desktop**</mark> es pugui utilitzar en sessions de revisió ràpida i per part d'usuaris amb mobilitat reduïda mitjançant **ordres de veu**, sense perdre les garanties d'usabilitat, accessibilitat i arquitectura assolides als Temes 1 i 2. La PAC obligatòria se centra en la veu i en un simulador de text per poder provar el flux sense micròfon; el control gestual amb càmera és una ampliació opcional.
 
 ### Requisits funcionals
 
@@ -839,14 +880,14 @@ La direcció del centre vol que <mark style="color:violet;">**BotEscola Desktop*
 7. Quan es detecti una ordre vàlida:
    * `"seguent"` i `"anterior"` mouran la selecció de `lst_notificacions` dins dels límits vàlids de la llista, i la barra d'estat informarà de la posició o que no hi ha més notificacions;
    * `"llegida"` marcarà com a llegida la <mark style="color:red;">`TargetaNotificacio`</mark> seleccionada, actualitzant el <mark style="color:red;">`ComptadorPendents`</mark> (`lbl_pendents`) i la barra d'estat amb el prefix `Llegida:`;
-   * `"prioritat baixa"`, `"prioritat normal"` i `"prioritat alta"` actualitzaran el <mark style="color:red;">`SelectorPrioritat`</mark> (`sel_prioritat`), les dades i el missatge d'estat amb el prefix `Prioritat:`;
+   * `"prioritat baixa"`, `"prioritat normal"` i `"prioritat alta"` actualitzaran el <mark style="color:red;">`SelectorPrioritat`</mark> (`sel_prioritat`), les dades i el missatge d'estat amb el prefix `Prioritat:`; Si la prioritat ja era la mateixa, no es farà res i la barra d'estat ho indicarà;
    * `"aprovar"` i `"descartar"` dispararan `act_aprovar.trigger()` i `act_descartar.trigger()` només si estan habilitades (el descart mantindrà el diàleg de confirmació);
    * sense cap notificació seleccionada, les ordres que n'actuen no faran res i la barra d'estat ho indicarà.
 8. Els missatges propis de la NUI a la barra d'estat (canvis d'escolta, navegació per veu o ordres desconegudes) començaran amb el prefix `Veu:`.
 9. L'ordre de tabulació s'actualitzarà per incloure els controls nous: llista, detall, selector de prioritat, aprovar, descartar, `txt_simular_veu` i `btn_simular_veu`.
-10. En tancar la finestra (<mark style="color:orange;">`closeEvent`</mark>), si el fil d'escolta està en execució, s'aturarà de manera segura amb <mark style="color:orange;">`aturar()`</mark> i <mark style="color:orange;">`wait()`</mark>.
+10. En tancar la finestra (<mark style="color:orange;">`closeEvent`</mark>), si el fil d'escolta està en execució, es demanarà l'aturada amb <mark style="color:orange;">`aturar()`</mark> i s'ajornarà el tancament fins que el senyal `finished` confirmi que el fil ha acabat. No es destruirà un `QThread` que encara estigui en execució.
 
-**Ampliació (opcional)**
+**Ampliació opcional: gestos i càmera**
 
 11. Incorpora <mark style="color:red;">`DetectorGestos`</mark> (<mark style="color:violet;">`nui/detector_gestos.py`</mark>) amb <mark style="color:violet;">`OpenCV`</mark> / <mark style="color:violet;">`MediaPipe`</mark> (o marcadors ArUco) connectat al mateix <mark style="color:red;">`InterpretOrdres`</mark> mitjançant `processar_gest`, amb una acció marcable `act_camera_gestos` per activar/desactivar la càmera i una etiqueta amb superposició d'informació d'estat sobre el vídeo (HUD).
 
@@ -882,23 +923,23 @@ La direcció del centre vol que <mark style="color:violet;">**BotEscola Desktop*
 * [ ] <mark style="color:red;">`EscoltadorVeu`</mark> s'executa en un <mark style="color:red;">`QThread`</mark> sense congelar la finestra i es tanca netament en sortir.
 * [ ] L'ordre `act_escoltar_veu` és accessible des del menú, la barra d'eines i la drecera `Ctrl+M`, i es desmarca si el fil acaba per error.
 * [ ] `lbl_estat_nui` mostra amb text clar l'estat d'escolta en tot moment.
-* [ ] Tant per veu com des del simulador (`txt_simular_veu`), es pot navegar entre notificacions, canviar la prioritat, marcar com a llegida, aprovar i descartar (amb confirmació).
+* [ ] Tant des del micròfon com des del simulador (`txt_simular_veu`), es pot navegar entre notificacions, canviar la prioritat, marcar com a llegida, aprovar i descartar (amb confirmació); el micròfon físic no és necessari per a les proves automàtiques.
 * [ ] Sense cap notificació seleccionada, les ordres d'acció (`"aprovar"`, `"descartar"`, `"llegida"` i prioritat) no executen cap acció i s'informa amb el prefix `Veu:`.
 * [ ] L'ordre de tabulació inclou els controls nous i el focus és visible.
 * [ ] El catàleg d'ordres, l'arquitectura NUI i la nota de privadesa estan documentats a <mark style="color:violet;">`docs/nui.md`</mark>.
 
 ### Evidències de lliurament
 
-* Repositori Git (o `.zip`) amb: `nui/`, `components/`, `tests/`, <mark style="color:violet;">`docs/nui.md`</mark>, <mark style="color:violet;">`ui/botescola.ui`</mark>, <mark style="color:violet;">`generated/ui_botescola.py`</mark>, <mark style="color:violet;">`dades.py`</mark>, <mark style="color:violet;">`botescola_app.py`</mark>, <mark style="color:violet;">`styles/botescola.qss`</mark>, <mark style="color:violet;">`pyproject.toml`</mark>, <mark style="color:violet;">`pytest.ini`</mark> i <mark style="color:violet;">`README.md`</mark> (amb les versions de Python, PySide6, `SpeechRecognition`, `OpenCV` i `MediaPipe`).
+* Repositori Git (o `.zip`) amb: `nui/`, `components/`, `tests/`, <mark style="color:violet;">`docs/nui.md`</mark>, <mark style="color:violet;">`ui/botescola.ui`</mark>, <mark style="color:violet;">`generated/ui_botescola.py`</mark>, <mark style="color:violet;">`dades.py`</mark>, <mark style="color:violet;">`botescola_app.py`</mark>, <mark style="color:violet;">`styles/botescola.qss`</mark>, <mark style="color:violet;">`pyproject.toml`</mark>, <mark style="color:violet;">`pytest.ini`</mark> i <mark style="color:violet;">`README.md`</mark> (amb versions de Python, PySide6 i `SpeechRecognition`; documenta també `OpenCV` i `MediaPipe` si has fet l'ampliació de gestos).
 * Captura de la sortida de `python -m pytest -v` amb tots els tests de `tests/` en `PASSED`.
 * Document <mark style="color:violet;">`docs/nui.md`</mark> amb el catàleg d'ordres, la nota de privadesa i la taula de proves completada (apartat 13.3).
-* Captures de pantalla (o vídeo breu / demostració a l'aula) mostrant l'execució d'ordres de navegació, canvi de prioritat i aprovació/descart mitjançant NUI.
+* Captures de pantalla (o vídeo breu / demostració a l'aula) mostrant el simulador d'ordres i l'execució de navegació, canvi de prioritat i aprovació/descart per veu simulada. Les captures de la càmera només són necessàries si es presenta l'ampliació opcional.
 
 ### Rúbrica de la PAC
 
 | Criteri observable | Insuficient | Suficient | Bo |
 | :--- | :--- | :--- | :--- |
-| Arquitectura asíncrona (`QThread`) | Captura àudio/vídeo al fil principal bloquejant la finestra, o modifica widgets des del fil secundari | `EscoltadorVeu` hereta de `QThread`, es comunica només per `Signal` i no bloqueja la GUI | A més, gestiona les excepcions de maquinari, desmarca l'acció si el fil acaba i l'atura de manera segura amb `requestInterruption()` i a `closeEvent` |
+| Arquitectura asíncrona (`QThread`) | Captura àudio al fil principal bloquejant la finestra, o modifica widgets des del fil secundari | `EscoltadorVeu` hereta de `QThread`, es comunica per `Signal` i no bloqueja la GUI | A més, limita el temps de les peticions, gestiona errors de maquinari/xarxa, desmarca l'acció en acabar i ajorna el tancament fins a `finished`; els gestos són opcionals |
 | Intèrpret d'ordres (`InterpretOrdres`) | Compara cadenes sense normalitzar o barreja la lògica amb el micròfon | Normalitza el text (majúscules, espais, accents) i emet `ordre_detectada`, `prioritat_detectada` i `ordre_desconeguda` | A més, tracta la puntuació, valida tipus (`TypeError`), té sinònims ben estructurats i està totalment desacoblat del maquinari |
 | Integració amb BotEscola Desktop | Duplica la lògica dels botons o permet aprovar/descartar sense selecció ni confirmació | Navega per la llista, canvia la prioritat, marca com a llegida i activa `act_aprovar` i `act_descartar` respectant `isEnabled()`; inclou `act_escoltar_veu` i el simulador d'ordres | A més, reutilitza els camins del Tema 1 i 2 (`QAction`, botó de la targeta, propietat del selector), informa amb `Veu:` als límits de la llista i actualitza l'ordre de tabulació |
 | Usabilitat i feedback NUI | No s'indica si el micròfon està escoltant o només s'indica amb color | `lbl_estat_nui` informa textualment de l'estat (`inactiu`, `escoltant`, `processant`) i la barra d'estat mostra l'ordre | A més, manté les ràtios de contrast del Tema 1 i l'accés complet amb teclat (`Ctrl+M` i tabulació) |
@@ -949,7 +990,7 @@ L'**informe de resultats** es lliura en el mateix document i conté:
 
 | Element | Contingut |
 | :--- | :--- |
-| Entorn | Sistema operatiu, versions de Python, PySide6, `SpeechRecognition`, `OpenCV`, `MediaPipe`, `pytest` i `pytest-qt`; si s'ha provat amb micròfon real o només amb el simulador |
+| Entorn | Sistema operatiu, versions de Python, PySide6, `SpeechRecognition`, `pytest` i `pytest-qt`; afegeix versions d'`OpenCV` i `MediaPipe` només si s'ha provat l'ampliació de gestos |
 | Comanda | `python -m pytest -v` |
 | Sortida | Resum amb nombre de proves i resultat (captura o text) |
 | Proves manuals | Taula 13.2 amb el **resultat obtingut** de cada cas |
@@ -966,12 +1007,12 @@ Si una prova falla, la funcionalitat no es considera lliurable fins que es corre
    a) `fil.run()` · b) `fil.exec()` · c) `fil.start()` · d) `fil.connect()`
 4. Per què no és segur fer `self.finestra.ui.lbl_resultat.setText(text)` des de dins del mètode `run()` d'un `QThread`? Com s'ha de fer?
 5. Quins avantatges té separar la classe `InterpretOrdres` de la classe `EscoltadorVeu`? Cita'n almenys dos.
-6. Compara un motor de reconeixement de la parla en núvol (com Google Web Speech API) amb un motor local offline (com Vosk o Whisper) pel que fa a privadesa i requisits de xarxa.
+6. Compara el reconeixement de veu en núvol mitjançant `recognize_google()` amb un motor local offline (com Vosk o Whisper) pel que fa a privadesa i requisits de xarxa.
 7. Quina és la funció de `MediaPipe` respecte d'`OpenCV` en un sistema de detecció gestual de la mà?
 8. En què es diferencia la Realitat Augmentada (AR) de la Realitat Virtual (VR)? Posa un exemple d'ús de marcadors ArUco en una interfície.
 9. Per què una ordre de veu com `"descartar"` no ha d'esborrar directament una notificació sense passar pel diàleg de confirmació? Amb quina heurística de Nielsen es relaciona?
 10. Per què cal afegir un temps de refredament (_cooldown_) o detecció de canvi d'estat quan es llegeixen gestos de la càmera a 30 fotogrames per segon?
-11. Per què, en tancar la finestra, cal aturar el fil d'escolta i esperar-lo (`aturar()` i `wait()`), i per què es prefereix `requestInterruption()` a `terminate()`?
+11. Per què, en tancar la finestra, cal demanar l'aturada del fil i confirmar que ha acabat abans de destruir-lo? Què fa (i què no fa) `requestInterruption()` i per què es prefereix a `terminate()`?
 12. Com pots provar el codi d'`EscoltadorVeu` en un ordinador sense micròfon? Descriu una tècnica.
 
 ### Solucions orientatives
@@ -986,33 +1027,33 @@ Si una prova falla, la funcionalitat no es considera lliurable fins que es corre
 8. La VR reemplaça completament el món real per un entorn virtual; l'AR superposa elements digitals sobre la imatge real. Amb marcadors ArUco podem apuntar amb la càmera a l'etiqueta d'un equip informàtic i veure superposades en pantalla les seves dades i incidències.
 9. Perquè el reconeixement de veu pot patir falsos positius (soroll ambient o paraules semblants) i descartar és una acció destructiva. Es relaciona amb la prevenció d'errors (heurística 5 de Nielsen) i amb el control i llibertat de l'usuari (heurística 3).
 10. Perquè si un gest es manté 1 segon davant d'una càmera a 30 fps, sense _cooldown_ es detectaria 30 vegades seguides i l'ordre s'executaria de manera repetida i incontrolada.
-11. Si la finestra es destrueix mentre el fil continua en marxa, Qt avisa (`QThread: Destroyed while thread is still running`) i l'aplicació pot fallar. `terminate()` talla el fil en sec i pot deixar recursos (com el micròfon) oberts; amb `requestInterruption()` el fil acaba el seu cicle i s'allibera de manera ordenada.
+11. Si la finestra es destrueix mentre el fil continua en marxa, Qt avisa (`QThread: Destroyed while thread is still running`) i l'aplicació pot fallar. `requestInterruption()` és una petició consultiva, no una interrupció forçada; cal limitar les operacions bloquejants i confirmar el final amb `finished` abans de destruir el fil. `terminate()` talla el fil en sec i pot deixar recursos (com el micròfon) oberts.
 12. Substituint la part de maquinari: emetent manualment el senyal `text_reconegut` com si el micròfon hagués sentit una frase, o substituint `sr` amb `monkeypatch` per una versió falsa (_mock_) que simula un micròfon absent o una frase reconeguda.
 
 ## 15. Repàs final
 
 **Què hem après**
 
-* Les interfícies naturals d'usuari (NUI) incorporen veu, moviment i realitat augmentada recolzant-se en models d'aprenentatge automàtic que transformen àudio i vídeo en dades estructurades, amb una part d'incertesa que el disseny ha de preveure.
+* Les interfícies naturals d'usuari (NUI) poden incorporar veu, moviment i realitat augmentada recolzant-se en models d'aprenentatge automàtic que transformen àudio i vídeo en dades estructurades, amb una part d'incertesa que el disseny ha de preveure.
 * Capturar el micròfon o la càmera és una operació bloquejant: a Qt s'executa dins d'un <mark style="color:red;">`QThread`</mark> (iniciat amb <mark style="color:orange;">`start()`</mark> i aturat amb <mark style="color:orange;">`requestInterruption()`</mark>) i es comunica amb la finestra exclusivament mitjançant senyals (<mark style="color:red;">`Signal`</mark>) connectats a mètodes del Presentador.
 * Desacoblar l'intèrpret d'ordres (<mark style="color:red;">`InterpretOrdres`</mark>) del fil de captura física (<mark style="color:red;">`EscoltadorVeu`</mark>) permet verificar tot el catàleg d'ordres amb proves unitàries automàtiques a <mark style="color:violet;">`pytest-qt`</mark>, simulant el maquinari.
-* En una aplicació ben estructurada, la veu i els gestos no dupliquen la lògica: disparen les mateixes <mark style="color:red;">`QAction`</mark> del Tema 1 i actualitzen els mateixos components del Tema 2, oferint sempre feedback textual de l'estat d'escolta i respectant la privadesa de l'usuari.
+* En una aplicació ben estructurada, les ordres de veu —i els gestos, si s'implementen com a ampliació— no dupliquen la lògica: activen les mateixes <mark style="color:red;">`QAction`</mark> del Tema 1 i actualitzen els mateixos components del Tema 2, oferint feedback textual i respectant la privadesa.
 
 **Què hauríem de saber fer**
 
-* Seleccionar i justificar eines de reconeixement de la parla, visió per computador i realitat augmentada segons l'escenari d'ús, tenint en compte la privadesa.
+* Seleccionar i justificar eines de reconeixement de la parla i conèixer les opcions de visió per computador i realitat augmentada, tenint en compte la privadesa.
 * Programar un fil de captura amb <mark style="color:red;">`QThread`</mark> i aturar-lo de manera segura en desactivar l'escolta i en tancar l'aplicació.
 * Dissenyar un intèrpret d'ordres que normalitzi el text i emeti senyals propis.
 * Integrar el control per veu i el simulador NUI a <mark style="color:violet;">**BotEscola Desktop**</mark> i provar-lo amb <mark style="color:violet;">`pytest-qt`</mark> sense micròfon ni càmera.
 
 ## 16. Checklist de competències
 
-* [ ] Identifico el paper dels models de _Machine Learning_ en el reconeixement de veu, gestos i realitat augmentada.
+* [ ] Identifico el paper dels models de _Machine Learning_ en el reconeixement de veu i conec les opcions aplicables als gestos i a la realitat augmentada.
 * [ ] Comparo motors de reconeixement de la parla locals i en núvol segons privadesa, connexió i latència.
-* [ ] Explico com es combinen `OpenCV` i `MediaPipe` (API _Tasks_) per detectar punts clau de la mà i superposar informació (AR).
+* [ ] Explico, a nivell conceptual, com es combinen `OpenCV` i `MediaPipe` (API _Tasks_) per detectar punts clau de la mà i superposar informació (AR); la implementació pràctica és una ampliació opcional.
 * [ ] Executo tasques bloquejants d'àudio o vídeo dins d'un `QThread` utilitzant `start()` i sense congelar la finestra.
 * [ ] Comunico els fils secundaris amb el Presentador únicament a través de `Signal`, connectats a mètodes i sense tocar widgets des de `run()`.
-* [ ] Aturo de manera ordenada els fils en execució (`requestInterruption()`, `wait()`) quan l'usuari desactiva l'escolta o tanca la finestra (`closeEvent`).
+* [ ] Demano l'aturada amb `requestInterruption()` i no destrueixo el fil fins que ha acabat; en tancar la finestra, ajorno el tancament fins a `finished`.
 * [ ] Normalitzo les entrades de text (majúscules, espais, accents, puntuació) en un component intèrpret desacoblat del maquinari.
 * [ ] Connecto les ordres NUI amb les `QAction` i els components de l'aplicació respectant `isEnabled()` i els diàlegs de confirmació.
 * [ ] Mostro sempre amb text clar l'estat de l'escolta (`inactiu`, `escoltant`, `processant`).
@@ -1031,8 +1072,10 @@ Si una prova falla, la funcionalitat no es considera lliurable fins que es corre
   [https://alphacephei.com/vosk/](https://alphacephei.com/vosk/)
 * OpenCV-Python — Documentació oficial i mòdul de marcadors ArUco.\
   [https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html](https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html)
-* Google AI Edge / MediaPipe — Hand Landmarker per a Python (API _Tasks_).\
+* Google AI Edge / MediaPipe — Hand Landmarker per a Python (API _Tasks_ i modes IMAGE, VIDEO i LIVE_STREAM).\
   [https://ai.google.dev/edge/mediapipe/solutions/vision/hand_landmarker/python](https://ai.google.dev/edge/mediapipe/solutions/vision/hand_landmarker/python)
+* Vosk — catàleg oficial de models, inclòs `vosk-model-small-ca-0.4`.\
+  [https://alphacephei.com/vosk/models](https://alphacephei.com/vosk/models)
 
 ## 18. Glossari
 
