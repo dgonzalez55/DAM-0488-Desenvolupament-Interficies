@@ -4,3 +4,4 @@
 * [Tema 2. Arquitectura de Components](tema-2.md)
 * [Tema 3. Interfícies Naturals d'Usuari (NUI)](tema-3.md)
 * [Tema 4. Integració de Dades i Informes](tema-4.md)
+* [Tema 5. Qualitat, Documentació i Desplegament](tema-5.md)
