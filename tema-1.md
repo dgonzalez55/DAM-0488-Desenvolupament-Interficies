@@ -10,7 +10,7 @@
 * **Prerequisits:** Programació estructurada sobre Python; ús bàsic de la terminal i d'entorns virtuals; ús bàsic de Git i GitHub per al lliurament. No es pressuposa un domini de POO, el Tema 1 n'introdueix la terminologia imprescindible i usa aquests conceptes en els exemples, però això s'acompanya del material de reforç que cobreix els conceptes previs.
 * **Projecte transversal:** <mark style="color:violet;">**BotEscola Desktop**</mark>, una aplicació d'escriptori per consultar i gestionar notificacions del centre. S'implementarà el primer entregable funcional, concretament es construirà la finestra principal, separant el disseny de la lògica, s'afegirà una interacció bàsica, una estructura d'ordres (menús, barra d'eines i menú contextual) i un aspecte visual amb contrast verificat (paleta, tipografia i icones), i s'establiran els criteris inicials d'usabilitat i accessibilitat.
 
-> > **Nota:** L'ordre dels RA en aquest curs és 1 i 4 → 3 → 2 perquè els fonaments de GUI i els criteris de disseny (RA1 i RA4) són la base per construir components (RA3) i, finalment, interfícies naturals (RA2).
+> **Nota:** L'ordre dels RA en aquest curs és 1 i 4 → 3 → 2 perquè els fonaments de GUI i els criteris de disseny (RA1 i RA4) són la base per construir components (RA3) i, finalment, interfícies naturals (RA2).
 
 ### Criteris d'avaluació treballats
 
@@ -1048,7 +1048,7 @@ Verificar el contrast és una tasca que es documenta. Executa <mark style="color
 
 Aquesta taula, juntament amb el fitxer `.qss`, és l'evidència del compliment amb els criteris de contrast treballats.
 
-> **Nota:** El QSS del Pas 9, defineix per a QPushButton:disabled un fons #E4E7EB, no #FFFFFF. La ràtio real sobre #E4E7EB és aproximadament 4,13:1, no 4,56:1. Tot i que el text inhabilitat està exempt de complir 4,5:1 segons WCAG. La ràtio de 4,56:1 correspon al text inhabilitat sobre fons blanc (menú), no sobre el fons del botó inhabilitat.
+> **Nota:** El QSS del Pas 9 defineix per a `QPushButton:disabled` un fons `#E4E7EB`, no `#FFFFFF`. La ràtio real sobre #`E4E7EB` és aproximadament 4,13:1, no 4,56:1, tot i que el text inhabilitat està exempt de complir 4,5:1 segons WCAG. La ràtio de 4,56:1 correspon al text inhabilitat sobre fons blanc (menú), no sobre el fons del botó inhabilitat.
 
 ## 8. Anàlisi tècnica
 

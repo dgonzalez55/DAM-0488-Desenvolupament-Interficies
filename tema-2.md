@@ -139,7 +139,7 @@ Segons com es construeix, es distingeixen tres tipus de component:
 
 En aquest tema treballarem sobretot amb **widgets compostos** i **widgets especialitzats**.
 
-> **Nota:** Les regles QSS àmplies com `QWidget { background-color }` afecten també els widgets dins de <mark style="color:red;">`QListWidget`</mark> i poden tapar el ressaltat de la selecció. Per això, quan es creen components compostos, cal tenir en compte que el seu aspecte pot canviar segons el context on s'utilitzi. La solució passar per emprar un selector específic, com `QListWidget::item:selected` o `QListView::item:selected`, o bé establir un color de fons neutre al component `background-color: transparent;`.
+> **Nota:** Les regles QSS àmplies com `QWidget { background-color }` afecten també els widgets dins de <mark style="color:red;">`QListWidget`</mark> i poden tapar el ressaltat de la selecció. Per això, quan es creen components compostos, cal tenir en compte que el seu aspecte pot canviar segons el context on s'utilitzi. La solució passa per emprar un selector específic, com `QListWidget::item:selected` o `QListView::item:selected`, o bé establir un color de fons neutre al component `background-color: transparent;`.
 
 ### 5.2. Interfície pública: propietats, mètodes i valors per defecte
 
@@ -219,7 +219,7 @@ Per reutilitzar un component no n'hi ha prou amb tenir-lo en un fitxer. Cal dist
 | --------------- | --------------------------------------------------------------------------------- | --------------------------------------------- |
 | **Mòdul**       | Un fitxer `.py`                                                                   | <mark style="color:violet;">`components/selector.py`</mark> |
 | **Paquet**      | Una carpeta de mòduls, amb un fitxer <mark style="color:violet;">`__init__.py`</mark> que la identifica com a paquet | `components/`                                 |
-| **Distribució** | El paquet empaquetat i versionat perquè es pugui instal·lar amb `pip`             | <mark style="color:violet;">`botescola_components-0.1.0-py3-none-any.whl`</mark> |
+| **Distribució** | El paquet empaquetat i versionat perquè es pugui instal·lar amb `pip`             | <mark style="color:violet;">`botescola_modules-0.1.0-py3-none-any.whl`</mark> |
 
 Amb el paquet ja es pot fer `from components.selector import SelectorPrioritat`. La distribució permet instal·lar-lo en un altre projecte o entorn virtual. Per generar-la s'utilitza un fitxer <mark style="color:violet;">`pyproject.toml`</mark>, que descriu el nom, la versió, les dependències i els paquets que s'inclouen:
 
@@ -241,7 +241,7 @@ include = ["components*"]
 
 La línia `include` és necessària perquè a l'arrel del projecte també hi ha carpetes que **no** formen part del component (`ui/`, `generated/`, `tests/`); sense indicar què s'empaqueta, `setuptools` pot no saber-ho decidir i fallar.
 
-> **Nota:** en una llibreria real triaríem un nom de paquet més específic (per exemple `botescola_components`) per evitar col·lisions amb altres paquets. Aquí mantenim `components` per simplicitat; és una limitació coneguda.
+> **Nota:** en una llibreria real triaríem un nom de paquet més específic (per exemple `botescola_modules`) per evitar col·lisions amb altres paquets. Aquí mantenim `components` per simplicitat; és una limitació coneguda.
 
 L'empaquetat d'aquest tema és el d'una **llibreria de components**. El d'una aplicació completa amb instal·lador (PyInstaller, Inno Setup) correspon al RA7 i es treballarà al Tema 5.
 
@@ -389,7 +389,7 @@ Per comprovar que la distribució funciona, instal·la el `.whl` en un **entorn 
 ```bash
 python -m venv .venv-prova
 .venv-prova\Scripts\Activate.ps1
-python -m pip install dist/botescola_components-0.1.0-py3-none-any.whl
+python -m pip install dist/botescola_modules-0.1.0-py3-none-any.whl
 python -c "from components import SelectorPrioritat; print('OK')"
 ```
 
@@ -1069,7 +1069,7 @@ Si una prova falla, el component no es considera lliurable fins que es corregeix
 3. b) A nivell de classe. Declarat dins de `__init__` no es comporta com un senyal.
 4. Perquè el codi generat per `pyside6-uic` crea el component passant-hi el pare com a primer argument posicional. Si el primer paràmetre és un altre, el component rep el pare com a dada equivocada.
 5. Perquè només comprova l'estat (`prioritat`), que canvia encara que no s'emeti cap senyal. Cal envoltar el clic amb `qtbot.waitSignal(selector.prioritat_canviada)` i comprovar `blocker.args`.
-6. Mòdul: `components/selector.py`. Paquet: la carpeta `components/` amb `__init__.py`. Distribució: `botescola_components-0.1.0-py3-none-any.whl`.
+6. Mòdul: `components/selector.py`. Paquet: la carpeta `components/` amb `__init__.py`. Distribució: `botescola_modules-0.1.0-py3-none-any.whl`.
 7. Es trenca la independència del component (coneix la finestra). Cal que emeti un senyal (`llegida_clicada`) i que el Presentador el connecti a l'acció.
 8. Perquè una prova que no falla mai no verifica res; la sensibilitat comprova que la prova detecta errors reals.
 9. (Per exemple) falta `pythonpath = .` a `pytest.ini` o no s'executa des de l'arrel del projecte; o `components/` no té `__init__.py` en aquell entorn.

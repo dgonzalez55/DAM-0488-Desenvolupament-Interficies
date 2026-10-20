@@ -472,7 +472,7 @@ class EscoltadorVeu(QThread):
                         self.error_veu.emit("No s'ha pogut entendre l'ordre de veu.")
                     except sr.RequestError:
                         self.error_veu.emit("Servei de reconeixement de veu no disponible.")
-                    except sr.TimeoutError:
+                    except TimeoutError:
                         self.error_veu.emit("Temps d'espera del servei de veu excedit.")
         except (OSError, AttributeError):
             # OSError: no hi ha micròfon. AttributeError: PyAudio no està instal·lat.
@@ -805,6 +805,8 @@ _Pistes:_ `cv2.VideoCapture(0)`, `cv2.flip(fotograma, 1)` (mode mirall), `cv2.cv
 
 **Lliurament:** <mark style="color:violet;">`nui/detector_gestos.py`</mark>, prova unitària de `traduir_gest()` amb punts inventats (sense càmera) i captura de pantalla.
 
+> **Nota:** Aquest exercici és una ampliació opcional i no és necessari per completar la PAC 3, que se centra en el control per veu.
+
 ### Exercici E — Aplicació al projecte: Simulador d'ordres NUI
 
 Per garantir que la interfície natural es pot provar i avaluar en qualsevol ordinador encara que no tingui micròfon, afegeix a la finestra de <mark style="color:violet;">**BotEscola Desktop**</mark> una zona de control NUI que inclogui:
@@ -813,9 +815,9 @@ Per garantir que la interfície natural es pot provar i avaluar en qualsevol ord
 * una etiqueta d'estat NUI (`lbl_estat_nui`) que mostri sempre amb text (i no només amb color) si la veu està inactiva (`Veu: inactiva`), escoltant (`Veu: escoltant...`) o processant (`Veu: processant...`);
 * un camp de text ràpid (`txt_simular_veu`) i un botó (`btn_simular_veu`, text `Simular ordre`) que enviïn el text escrit directament a `self.interpret.processar_text(...)`, emulant exactament la recepció d'una ordre del fil de veu.
 
-Aquest exercici és una ampliació opcional i no és necessari per completar la PAC 3, que se centra en el control per veu. Si el fas, podràs reutilitzar-ne el codi en futures pràctiques.
-
 **Lliurament:** `ui/botescola.ui` i codi del Presentador actualitzats, i una captura de la finestra amb una ordre simulada.
+
+> **Nota:** Aquest exercici és obligatori i necessari per completar la PAC 3 **si no es disposa de micròfon**.
 
 ### Exercici F — Anàlisi de tecnologies
 
@@ -880,7 +882,7 @@ La direcció del centre vol que <mark style="color:violet;">**BotEscola Desktop*
 7. Quan es detecti una ordre vàlida:
    * `"seguent"` i `"anterior"` mouran la selecció de `lst_notificacions` dins dels límits vàlids de la llista, i la barra d'estat informarà de la posició o que no hi ha més notificacions;
    * `"llegida"` marcarà com a llegida la <mark style="color:red;">`TargetaNotificacio`</mark> seleccionada, actualitzant el <mark style="color:red;">`ComptadorPendents`</mark> (`lbl_pendents`) i la barra d'estat amb el prefix `Llegida:`;
-   * `"prioritat baixa"`, `"prioritat normal"` i `"prioritat alta"` actualitzaran el <mark style="color:red;">`SelectorPrioritat`</mark> (`sel_prioritat`), les dades i el missatge d'estat amb el prefix `Prioritat:`; Si la prioritat ja era la mateixa, no es farà res i la barra d'estat ho indicarà;
+   * `"prioritat baixa"`, `"prioritat normal"` i `"prioritat alta"` actualitzaran el <mark style="color:red;">`SelectorPrioritat`</mark> (`sel_prioritat`), les dades i el missatge d'estat amb el prefix `Prioritat:`; si la prioritat ja era la mateixa, no es farà res i la barra d'estat ho indicarà;
    * `"aprovar"` i `"descartar"` dispararan `act_aprovar.trigger()` i `act_descartar.trigger()` només si estan habilitades (el descart mantindrà el diàleg de confirmació);
    * sense cap notificació seleccionada, les ordres que n'actuen no faran res i la barra d'estat ho indicarà.
 8. Els missatges propis de la NUI a la barra d'estat (canvis d'escolta, navegació per veu o ordres desconegudes) començaran amb el prefix `Veu:`.
@@ -1074,8 +1076,6 @@ Si una prova falla, la funcionalitat no es considera lliurable fins que es corre
   [https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html](https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html)
 * Google AI Edge / MediaPipe — Hand Landmarker per a Python (API _Tasks_ i modes IMAGE, VIDEO i LIVE_STREAM).\
   [https://ai.google.dev/edge/mediapipe/solutions/vision/hand_landmarker/python](https://ai.google.dev/edge/mediapipe/solutions/vision/hand_landmarker/python)
-* Vosk — catàleg oficial de models, inclòs `vosk-model-small-ca-0.4`.\
-  [https://alphacephei.com/vosk/models](https://alphacephei.com/vosk/models)
 
 ## 18. Glossari
 
