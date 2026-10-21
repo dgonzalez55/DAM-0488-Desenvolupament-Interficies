@@ -1268,7 +1268,7 @@ El prototip ha de ser també una aplicació d'escriptori reconeixible: les ordre
 3. El panell esquerre contindrà un <mark style="color:red;">`QListWidget`</mark> amb l'etiqueta visible `Notificacions per revisar`.
 4. El panell dret contindrà l'etiqueta visible `Detall` i un <mark style="color:red;">`QTextEdit`</mark> de només lectura per al detall.
 5. Sota el detall hi haurà els botons `&Aprovar notificació` i `&Descartar…`.
-6. En iniciar-se, s'hi afegiran tres notificacions de prova. Cada notificació serà un diccionari amb els camps `id`, `remitent`, `assumpte`, `data` i `detall` (vegeu «Restriccions»).
+6. En iniciar-se, s'hi afegiran tres notificacions de prova. Cada notificació serà un diccionari amb els camps `id`, `remitent`, `assumpte`, `data` i `detall` (vegeu «Restriccions»). Aquesta lllista s'anomenarà `NOTIFICACIONS_PROVA`.
 7. En seleccionar una notificació, se'n mostrarà el detall corresponent.
 8. `Aprovar` i `Descartar` actualitzaran un missatge d'estat visible i actuaran sobre la selecció actual. Encara no cal persistir els canvis ni eliminar la notificació de la llista: en aquest tema només es comunica el resultat de l'acció.
 9. La finestra tindrà una **barra de menús** amb aquests menús i ordres:

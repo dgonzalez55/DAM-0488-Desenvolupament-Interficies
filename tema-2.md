@@ -913,7 +913,7 @@ Aquests elements es construeixen com a components reutilitzables i s'integren a 
 
 11. La llista mostra cada notificació amb una <mark style="color:red;">`TargetaNotificacio`</mark> (creant un <mark style="color:red;">`QListWidgetItem`</mark> sense text i utilitzant <mark style="color:orange;">`setSizeHint`</mark> i <mark style="color:orange;">`setItemWidget`</mark>). En seleccionar-ne una, continua apareixent el detall.
 12. En marcar una targeta com a llegida, el Presentador actualitza les seves dades, posa al dia el comptador de pendents i mostra un missatge d'estat que comença amb el prefix `Llegida:` i inclou la notificació afectada (per exemple, el remitent o l'assumpte).
-13. **Dades de prova:** l'estructura de dades de la PAC 1 (<mark style="color:violet;">`dades.py`</mark>) s'amplia amb `llegida` (inicialment `False`) i `prioritat` (per defecte `"Normal"`) per a cada notificació, mantenint els camps `id`, `remitent`, `assumpte`, `data` i `detall`.
+13. **Dades de prova:** l'estructura de dades de la PAC 1 La llista continua anomenant-se `NOTIFICACIONS_PROVA` (<mark style="color:violet;">`dades.py`</mark>) s'amplia amb `llegida` (inicialment `False`) i `prioritat` (per defecte `"Normal"`) per a cada notificació, mantenint els camps `id`, `remitent`, `assumpte`, `data` i `detall`.
 
 ### Requisits no funcionals
 

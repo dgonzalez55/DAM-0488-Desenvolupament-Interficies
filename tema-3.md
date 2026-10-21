@@ -253,7 +253,7 @@ botescola/
 
 Separar `nui/interpret.py` (lògica pura de reconeixement d'ordres i emissió de senyals) de `nui/escoltador_veu.py` (accés al micròfon físic) ens permetrà **provar tota la lògica amb `pytest-qt`** i fins i tot simular ordres a l'aula en ordinadors que no tinguin micròfon ni càmera.
 
-Com que al Tema 2 la distribució contenia només els components, cal actualitzar el `pyproject.toml` si ara també s'hi inclou el paquet NUI. **Substitueix els camps corresponents de la taula `[project]` existent; no afegeixis una segona taula `[project]`.** El nom i la versió s'actualitzen per reflectir el canvi, i les eines de càmera continuen sent opcionals:
+Com que al Tema 2 la distribució contenia només els components, cal actualitzar el `pyproject.toml` si ara també s'hi inclou el paquet NUI. **Substitueix els camps corresponents de la taula `[project]` existent; no afegeixis una segona taula `[project]`.** El nom i la versió s'actualitzen per reflectir el canvi, i el micròfon (`PyAudio`) i les eines de càmera continuen sent opcionals:
 
 ```toml
 [project]
@@ -261,9 +261,10 @@ name = "botescola-modules"
 version = "0.2.0"
 description = "Paquets Python reutilitzables de BotEscola Desktop"
 requires-python = ">=3.10"
-dependencies = ["PySide6", "SpeechRecognition[audio]"]
+dependencies = ["PySide6", "SpeechRecognition"]
 
 [project.optional-dependencies]
+micro = ["PyAudio"]
 gestos = ["opencv-python", "mediapipe"]
 
 [tool.setuptools.packages.find]
@@ -277,10 +278,16 @@ Aquesta configuració empaqueta els paquets `components` i `nui`; no converteix 
 Amb l'entorn virtual activat, instal·la la dependència obligatòria per al reconeixement de veu:
 
 ```bash
-python -m pip install "SpeechRecognition[audio]"
+python -m pip install SpeechRecognition
 ```
 
-L'extra `[audio]` instal·la `PyAudio`, que permet accedir al micròfon. A Linux pot caldre instal·lar abans la llibreria del sistema (`sudo apt install portaudio19-dev`) i a macOS, `brew install portaudio`. **Només per a l'ampliació opcional de càmera i gestos**, instal·la també:
+Per accedir al micròfon cal, a més, `PyAudio` (és l'extra `micro` del `pyproject.toml`):
+
+```bash
+python -m pip install PyAudio
+```
+
+A Linux pot caldre instal·lar abans la llibreria del sistema (`sudo apt install portaudio19-dev`) i a macOS, `brew install portaudio`. **Només per a l'ampliació opcional de càmera i gestos**, instal·la també:
 
 ```bash
 python -m pip install opencv-python mediapipe
@@ -605,7 +612,16 @@ def canviar_prioritat_nui(self, nivell):
     self.ui.sel_prioritat.prioritat = nivell   # emet prioritat_canviada si el valor canvia
 ```
 
-Connecta també `self.escoltador.finished` a `self.escolta_finalitzada` durant la inicialització, i inicialitza `self._tancament_pendent = False`. En tancar la finestra, no esperis bloquejant el fil gràfic ni destrueixis un `QThread` que encara corre: ajorna el tancament fins que el senyal `finished` confirmi que ha acabat.
+Connecta el senyal `finished` del fil **una sola vegada**, a `__init__` i abans que pugui començar l'escolta, i inicialitza l'indicador de tancament. L'ordre importa: primer es desmarca l'acció (`escolta_finalitzada`) i després es reprèn el tancament (`_tancar_quan_acabi`):
+
+```python
+# A __init__, juntament amb les altres connexions:
+self._tancament_pendent = False
+self.escoltador.finished.connect(self.escolta_finalitzada)
+self.escoltador.finished.connect(self._tancar_quan_acabi)
+```
+
+En tancar la finestra, no esperis bloquejant el fil gràfic ni destrueixis un `QThread` que encara corre: ajorna el tancament fins que el senyal `finished` confirmi que ha acabat.
 
 ```python
 def closeEvent(self, event):
@@ -613,16 +629,18 @@ def closeEvent(self, event):
         event.ignore()
         if not self._tancament_pendent:
             self._tancament_pendent = True
-            self.mostrar_missatge_veu("Aturant escolta de veu abans de tancar…")
             self.escoltador.aturar()
-            self.escoltador.finished.connect(self._tancar_quan_acabi)
         return
     super().closeEvent(event)
 
 def _tancar_quan_acabi(self):
-    self._tancament_pendent = False
-    self.close()
+    if self._tancament_pendent:           # només quan hi ha un tancament esperant
+        self.escoltador.wait()            # el fil ja ha acabat: assegura que no queda execució
+        self._tancament_pendent = False
+        self.close()
 ```
+
+La guarda `if self._tancament_pendent` és imprescindible: com que el slot queda connectat, sense ella la finestra es tancaria cada vegada que el fil acabés (per exemple, en desactivar l'escolta).
 
 `requestInterruption()` no pot tallar una lectura de micròfon o una petició de xarxa que estigui bloquejada; el temps màxim de petició i els temps de `listen()` ajuden a fer que el fil pugui comprovar la interrupció i acabar. Si el controlador de maquinari no respon, l'aplicació encara ha de tractar aquesta situació explícitament.
 
@@ -836,7 +854,7 @@ La direcció d'una escola vol instal·lar un quiosc informatiu a l'entrada del c
 | Un sol gest davant la càmera executa l'acció 30 vegades seguides | Es processa cada fotograma (30 fps) sense control de repetició (_debounce_ / _cooldown_) | Emet només quan el gest canvia o quan ha passat un interval mínim (p. ex. 1,5 s) | Dissenyar una màquina d'estats amb temps d'espera entre ordres |
 | Les proves de `pytest` es queden bloquejades esperant àudio o fallen en un servidor sense micròfon | Els tests instancien `sr.Microphone()` directament en lloc de provar `InterpretOrdres` o simular el senyal | Prova `InterpretOrdres` passant-li cadenes de text, emet `escoltador.text_reconegut.emit(...)` o substitueix `sr` amb `monkeypatch` | Separa sempre la captura de maquinari de la lògica d'interpretació |
 | Una ordre de veu executa `Aprovar` encara que no hi hagi cap notificació seleccionada | El handler de veu crida el mètode intern sense comprovar si l'acció està activa | Comprova `self.ui.act_aprovar.isEnabled()` i dispara `act_aprovar.trigger()` | Reutilitza les `QAction` com a única porta d'entrada de les ordres |
-| `AttributeError: Could not find PyAudio; check installation` | `PyAudio` (o la llibreria `portaudio` del sistema) no està instal·lat | Instal·la `SpeechRecognition[audio]` (i `portaudio` a Linux/macOS) o usa el simulador | Captura `(OSError, AttributeError)` a `run()` i emet `error_veu` |
+| `AttributeError: Could not find PyAudio; check installation` | `PyAudio` (o la llibreria `portaudio` del sistema) no està instal·lat | Instal·la `PyAudio` (i `portaudio` a Linux/macOS) o usa el simulador | Captura `(OSError, AttributeError)` a `run()` i emet `error_veu` |
 | Una ordre que has afegit (per exemple, `"següent"` amb dièresi) mai no es reconeix | El sinònim s'ha escrit amb accents però `normalitzar()` els elimina de l'entrada | Escriu els sinònims ja normalitzats (sense accents) o normalitza'ls en construir l'índex | Prova cada sinònim nou amb `@pytest.mark.parametrize` |
 | `ModuleNotFoundError: No module named 'nui'` en executar `pytest` o `python -m build` | Falta `__init__.py` a `nui/`, `nui*` a `pyproject.toml` o `pythonpath = .` a `pytest.ini` | Afegeix el que falti i executa des de l'arrel del projecte | Revisa l'estructura de l'apartat 6.1 |
 | `AttributeError: module 'mediapipe' has no attribute 'solutions'` | S'ha copiat codi antic que usa l'API _legacy_ (`mp.solutions.hands`) | Migra a l'API _Tasks_ (`HandLandmarker`) amb el fitxer `.task` | Usa només documentació recent de MediaPipe |
