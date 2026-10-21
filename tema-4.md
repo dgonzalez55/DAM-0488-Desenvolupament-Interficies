@@ -248,6 +248,10 @@ Actualitza <mark style="color:violet;">`pyproject.toml`</mark>: inclou el paquet
 
 ```toml
 [project]
+name = "botescola-modules"
+version = "0.3.0"
+description = "Paquets Python reutilitzables de BotEscola Desktop"
+requires-python = ">=3.10"
 dependencies = ["PySide6", "SpeechRecognition", "matplotlib", "reportlab"]   # la resta de camps, tal com els tens
 
 [project.optional-dependencies]
@@ -956,8 +960,9 @@ def closeEvent(self, event):
             self._tancament_pendent = True
             self.escoltador.aturar()
         return
-
-    self.repositori.tancar()       # <-- nou al Tema 4
+    if not self._repositori_tancat:         # <-- nou al Tema 4
+        self.repositori.tancar()
+        self._repositori_tancat = True
     super().closeEvent(event)
 ```
 
