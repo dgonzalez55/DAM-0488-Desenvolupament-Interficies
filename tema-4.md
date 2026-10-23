@@ -5,7 +5,7 @@
 * **Mòdul:** 0488. Desenvolupament d'interfícies
 * **Curs:** 1r CFGS de Desenvolupament d'Aplicacions Multiplataforma (DAM)
 * **Tema:** 4. Integració de Dades i Informes
-* **Durada presencial:** 14 hores
+* **Durada presencial:** 13 hores (2h Teoria + 6h Pràctica Guiada + 5h PAC)
 * **RA treballats:** RA5
 * **Prerequisits:** Fonaments de SQL i bases de dades relacionals, arquitectura MVP amb PySide6 i fulls d'estil QSS (Tema 1), creació de components i proves unitàries amb `pytest-qt` (Tema 2), control per veu i fils (`QThread`, Tema 3) i integració amb `BotEscola Desktop` (Temes 1 a 3).
 * **Projecte transversal:** <mark style="color:violet;">**BotEscola Desktop**</mark>. En aquest tema substituïm les dades de prova en memòria per una capa de persistència SQL (<mark style="color:violet;">`sqlite3`</mark>), incorporem filtres dinàmics d'informació, construïm un quadre de comandament amb gràfics estadístics incrustats (<mark style="color:violet;">`Matplotlib`</mark>) i generem informes analítics en format PDF (<mark style="color:violet;">`ReportLab`</mark>) amb camps calculats, agrupacions, capçaleres i peus de pàgina.

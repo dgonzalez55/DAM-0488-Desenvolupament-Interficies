@@ -5,7 +5,7 @@
 * **Mòdul:** 0488. Desenvolupament d'interfícies
 * **Curs:** 1r CFGS de Desenvolupament d'Aplicacions Multiplataforma (DAM)
 * **Tema:** 5. Qualitat, Documentació i Desplegament
-* **Durada presencial:** 14 hores
+* **Durada presencial:** 14 hores (3h Teoria + 6h Pràctica Guiada + 5h PAC)
 * **RA treballats:** RA6, RA7 i RA8 (completant les proves unitàries iniciades al Tema 2)
 * **Prerequisits:** Domini de l'arquitectura MVP i d'`actions` (`QAction`) amb PySide6 (Tema 1), empaquetat de paquets Python i proves unitàries amb `pytest-qt` (Tema 2), integració de fils NUI (Tema 3) i persistència SQL i informes PDF (Tema 4).
 * **Projecte transversal:** <mark style="color:violet;">**BotEscola Desktop**</mark>. En aquest últim tema tanquem el cicle de vida del producte: executem l'estratègia completa de proves sobre l'aplicació integrada (integració, regressió, volum, estrès, ús de recursos i seguretat), construïm el manual d'usuari i el sistema d'ajuda contextual amb <mark style="color:violet;">**`MkDocs`**</mark> i generem l'executable autònom i l'instal·lador final llest per distribuir al client amb <mark style="color:violet;">**`PyInstaller`**</mark> i <mark style="color:violet;">**`Inno Setup`**</mark>.

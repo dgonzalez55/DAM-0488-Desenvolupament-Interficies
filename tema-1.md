@@ -5,7 +5,7 @@
 * **Mòdul:** 0488. Desenvolupament d'interfícies
 * **Curs:** 1r CFGS de Desenvolupament d'Aplicacions Multiplataforma (DAM)
 * **Tema:** 1. Fonaments de UI i Experiència d'Usuari
-* **Durada presencial:** 16 hores
+* **Durada presencial:** 17 hores (5h Teoria + 8h Pràctica Guiada + 4h PAC)
 * **RA treballats:** RA1 i RA4
 * **Prerequisits:** Programació estructurada sobre Python; ús bàsic de la terminal i d'entorns virtuals; ús bàsic de Git i GitHub per al lliurament. No es pressuposa un domini de POO, el Tema 1 n'introdueix la terminologia imprescindible i usa aquests conceptes en els exemples, però això s'acompanya del material de reforç que cobreix els conceptes previs.
 * **Projecte transversal:** <mark style="color:violet;">**BotEscola Desktop**</mark>, una aplicació d'escriptori per consultar i gestionar notificacions del centre. S'implementarà el primer entregable funcional, concretament es construirà la finestra principal, separant el disseny de la lògica, s'afegirà una interacció bàsica, una estructura d'ordres (menús, barra d'eines i menú contextual) i un aspecte visual amb contrast verificat (paleta, tipografia i icones), i s'establiran els criteris inicials d'usabilitat i accessibilitat.

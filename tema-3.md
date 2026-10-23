@@ -5,7 +5,7 @@
 * **Mòdul:** 0488. Desenvolupament d'interfícies
 * **Curs:** 1r CFGS de Desenvolupament d'Aplicacions Multiplataforma (DAM)
 * **Tema:** 3. Interfícies Naturals d'Usuari (NUI)
-* **Durada presencial:** 10 hores
+* **Durada presencial:** 10 hores (2h Teoria + 5h Pràctica Guiada + 3h PAC)
 * **RA treballats:** RA2
 * **Prerequisits:** Domini del bucle d'esdeveniments, senyals, slots i accions (`QAction`) a PySide6 (Tema 1), creació de classes i senyals propis (`Signal`), proves unitàries amb `pytest-qt` i components de `BotEscola Desktop` (Tema 2).
 * **Projecte transversal:** <mark style="color:violet;">**BotEscola Desktop**</mark>. En aquest tema s'incorpora principalment el **control per veu** a la finestra principal per navegar per les notificacions, canviar-ne la prioritat, marcar-les com a llegides o activar les ordres d'aprovar i descartar. La detecció de gestos amb càmera és una ampliació opcional. La captura es fa en segon pla per no bloquejar el bucle d'esdeveniments de la GUI, i la interfície continua admetent ratolí i teclat com a vies alternatives.

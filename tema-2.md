@@ -5,7 +5,7 @@
 * **Mòdul:** 0488. Desenvolupament d'interfícies
 * **Curs:** 1r CFGS de Desenvolupament d'Aplicacions Multiplataforma (DAM)
 * **Tema:** 2. Arquitectura de Components
-* **Durada presencial:** 12 hores
+* **Durada presencial:** 12 hores (3h Teoria + 6h Pràctica Guiada + 3h PAC)
 * **RA treballats:** RA3
 * **Prerequisits:** Ús bàsic de Qt Widgets Designer i comprensió del bucle d'esdeveniments (Tema 1), **POO bàsica a Python** (incloent-hi propietats, atributs i mètodes de classe, excepcions i funcions `lambda`) i ús bàsic de Git. Si aquesta base no és sòlida, caldrà treballar els materials de reforç; no es pressuposa experiència prèvia creant components de Qt.
 * **Projecte transversal:** <mark style="color:violet;">**BotEscola Desktop**</mark>. En aquest tema construïm components propis i reutilitzables: un <mark style="color:red;">`SelectorPrioritat`</mark> (exemple guiat), un <mark style="color:red;">`ComptadorPendents`</mark> (exercici d'aplicació) i una <mark style="color:red;">`TargetaNotificacio`</mark> (PAC 2) que mostrarà el remitent, assumpte, data i estat de cada notificació. Els components es proven amb proves unitàries automàtiques, es documenten, s'empaqueten i s'integren a la finestra principal de l'aplicatiu <mark style="color:violet;">**BotEscola Desktop**</mark>.
